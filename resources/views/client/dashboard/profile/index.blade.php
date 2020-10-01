@@ -21,6 +21,7 @@
                     </div>
                     <div class="col-9 bg-white shadow-sm p-3">
                         <form class="card h-100 border-0" action="{{ url('/profile') }}" method="POST">
+                            @csrf
                             <div class="card-body">
                                 <div class="row mb-3">
                                     <div class="col-6">
