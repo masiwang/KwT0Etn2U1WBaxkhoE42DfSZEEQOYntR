@@ -3,14 +3,15 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController as Auth;
 use App\Http\Controllers\ErrorController;
+use App\Http\Controllers\GettingStartedController;
 
 Route::get( 'login', [Auth::class, 'login'])->name('login'); //done
 Route::post('login', [Auth::class, 'login_do']);
 
 Route::get( '/register', [Auth::class, 'register']);
 Route::post('/register', [Auth::class, 'register_do']);
-Route::get( '/getting-started', [Auth::class, 'getting_started']);
-Route::get('/register/success', [Auth::class, 'register_success']);
+Route::get( '/getting-started', [GettingStartedController::class, 'getting_started']);
+Route::post('/getting-started', [GettingStartedController::class, 'getting_started_save']);
 
 Route::get('/404', [ErrorController::class, 'not_found']);
 
@@ -93,3 +94,5 @@ Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     // Route::get( '/profile/checkout/{id}/pay', [ClientCheckout::class, 'pay']);
     // Route::post('/profile/checkout/{id}/pay', [ClientCheckout::class, 'pay_do']);
 });
+
+Route::get('/logout', [Auth::class, 'logout'])->middleware('auth');

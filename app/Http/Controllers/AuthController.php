@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Carbon\Carbon;
 use Hash;
+use Session;
 use Str;
+use Mail;
 
 class AuthController extends Controller
 {
@@ -37,7 +39,7 @@ class AuthController extends Controller
             return back()->withErrors(['password' => 'Periksa kembali password Anda.']);
         }
         // write data
-        $email_token = Str::random(64);
+        $email_token = rand (1000,9999);
         $user = new User;
         $user->email = $request->email;
         $user->email_token = $email_token;
@@ -46,36 +48,16 @@ class AuthController extends Controller
         $user->created_at = Carbon::now();
         $user->save();
         // TODO: kirim verifikasi email
-        // Mail::send('template.email-verification', ['token' => $user->email_verification_token], function ($m) use ($user) {
-        //     $m->from('no-reply@makarya.in', 'Makarya - PT. Inspira Karya Teknologin Nusantara');
-        //     $m->to($user->email)->subject('Email verification @makarya.in');
-        // });
+        Mail::send('template.email.verification', ['token' => $user->email_token], function ($m) use ($user) {
+            $m->from('no-reply@makarya.in', 'Makarya - PT. Inspira Karya Teknologi Nusantara');
+            $m->to($user->email)->subject('Email verification @makarya.in');
+        });
 
         // Login
         $credential = $request->only('email', 'password');
 
         if( Auth::attempt($credential) ){
             return redirect('/getting-started');
-        }
-    }
-
-    public function getting_started(){
-        $getting_started_level = Auth::user()->getting_started_level;
-        if( $getting_started_level == 0 ){
-            $user = Auth::user();
-            return view('client.getting_started.index', ['user' => $user]);
-        }
-        if( $getting_started_level == 1 ){
-            $user = Auth::user();
-            return view('client.getting_started.address', ['user' => $user]);
-        }
-        if( $getting_started_level == 2 ){
-            $user = Auth::user();
-            return view('client.getting_started.document', ['user' => $user]);
-        }
-        if( $getting_started_level == 3 ){
-            $user = Auth::user();
-            return view('client.getting_started.agreement', ['user' => $user]);
         }
     }
 

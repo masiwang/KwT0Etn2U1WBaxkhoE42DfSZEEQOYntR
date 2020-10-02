@@ -4,7 +4,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js"></script>
 <div class="container mb-5 px-xl-5">
     <div class="row mt-4" id="menu">
-        <form class="card col-12 p-4 border-0 shadow-sm" action="{{ url('/getting-started') }}">
+        <form class="card col-12 p-4 border-0 shadow-sm" action="{{ url('/getting-started') }}" method="POST" enctype="multipart/form-data">
+            @csrf
             <div class="card-body">
                 <div class="row">
                     <div class="col-3">
@@ -700,7 +701,7 @@
                             </div>
                             <div class="mb-3">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <input class="form-check-input" type="checkbox" value="" id="agree">
                                     <label class="form-check-label" for="flexCheckDefault">
                                       Saya telah membaca dan menyetujui Syarat dan Ketentuan Makarya.
                                     </label>
@@ -708,13 +709,23 @@
                             </div>
                             <div class="mb-3">
                                 <label for="ttd" class="form-label">Unggah Tanda Tangan</label>
-                                <input type="file" class="form-control" id="ttd">
+                                <input type="file" class="form-control" id="ttd" name="ttd">
                             </div>
                         </div>
                         <hr>
                         <div class="text-right">
-                            <button class="btn btn-success" type="submit">Simpan</button>
+                            <button class="btn btn-success" type="submit" disabled>Simpan</button>
                         </div>
+                        <script>
+                            var agree = $('#agree');
+                            agree.on('change', function(){
+                                if( agree.prop('checked') ){
+                                    $('button[type="submit"]').removeAttr('disabled');
+                                }else{
+                                    $('button[type="submit"]').attr('disabled', '');
+                                }
+                            });
+                        </script>
                     </div>
                 </div>
             </div>

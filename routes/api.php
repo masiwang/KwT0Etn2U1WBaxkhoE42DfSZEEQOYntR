@@ -16,7 +16,12 @@ use Illuminate\Support\Facades\Route;
 /**
  * Client area
  */
-use App\Http\Controllers\Client\Market\ProductController as ClientMarketProduct;
+use App\Http\Controllers\Api\KodeposController as Kodepos;
+ 
 Route::group(['middleware' => ['api']], function () {
-    Route::post('/market/wishlist/new', [ClientMarketProduct::class, '_like']);
+    Route::get('/provinsi', [Kodepos::class, 'get_provinsis']);
+    Route::get('/kabupaten', [Kodepos::class, 'get_kabupatens']);
+    Route::get('/kecamatan', [Kodepos::class, 'get_kecamatans']);
+    Route::get('/kelurahan', [Kodepos::class, 'get_kelurahans']);
+    Route::get('/kodepos', [Kodepos::class, 'get_kodepos']);
 });

@@ -94,7 +94,6 @@
                     </div>
                 </div>
             </div>
-            
         </div>
     </div>
     @include('client._components.footer')
