@@ -68,6 +68,15 @@
         .ma-link.active{
           color: #28a745
         }
+        .getting-started-disable{
+          pointer-events: none;
+        }
+        .getting-started-disable span{
+          background: #6c757d!important;
+        }
+        .getting-started-disable p{
+          color:  #6c757d!important;
+        }
       </style>
       <title>Makarya</title>
       <script src="https://kit.fontawesome.com/453f770242.js" crossorigin="anonymous"></script>

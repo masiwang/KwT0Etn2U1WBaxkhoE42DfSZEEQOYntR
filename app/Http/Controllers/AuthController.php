@@ -19,6 +19,10 @@ class AuthController extends Controller
         $credential = $request->only('email', 'password');
 
         if( Auth::attempt($credential) ){
+            $user = Auth::user();
+            if( $user->profile_is_complete ){
+                return redirect('/getting-started');
+            }
             return redirect('/');
         }
     }
@@ -51,7 +55,27 @@ class AuthController extends Controller
         $credential = $request->only('email', 'password');
 
         if( Auth::attempt($credential) ){
-            return redirect('/register/success');
+            return redirect('/getting-started');
+        }
+    }
+
+    public function getting_started(){
+        $getting_started_level = Auth::user()->getting_started_level;
+        if( $getting_started_level == 0 ){
+            $user = Auth::user();
+            return view('client.getting_started.index', ['user' => $user]);
+        }
+        if( $getting_started_level == 1 ){
+            $user = Auth::user();
+            return view('client.getting_started.address', ['user' => $user]);
+        }
+        if( $getting_started_level == 2 ){
+            $user = Auth::user();
+            return view('client.getting_started.document', ['user' => $user]);
+        }
+        if( $getting_started_level == 3 ){
+            $user = Auth::user();
+            return view('client.getting_started.agreement', ['user' => $user]);
         }
     }
 

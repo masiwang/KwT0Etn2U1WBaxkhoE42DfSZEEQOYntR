@@ -9,6 +9,7 @@ Route::post('login', [Auth::class, 'login_do']);
 
 Route::get( '/register', [Auth::class, 'register']);
 Route::post('/register', [Auth::class, 'register_do']);
+Route::get( '/getting-started', [Auth::class, 'getting_started']);
 Route::get('/register/success', [Auth::class, 'register_success']);
 
 Route::get('/404', [ErrorController::class, 'not_found']);
@@ -58,7 +59,7 @@ use App\Http\Controllers\Client\Profile\SecurityController as ClientProfileSecur
 use App\Http\Controllers\Client\Profile\FundController as ClientProfileFund;
 use App\Http\COntrollers\Client\Profile\MarketController as ClientProfileMarket;
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     Route::get( '/', [ClientHome::class, 'index']);
 
     Route::get( '/fund', [ClientFundProduct::class, 'index']);
