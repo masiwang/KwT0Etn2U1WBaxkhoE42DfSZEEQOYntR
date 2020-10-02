@@ -3,7 +3,8 @@
 @include('client._components.top_nav')
 <div class="container mb-5 px-xl-5">
     <div class="row mt-4" id="menu">
-        <form class="card col-12 p-4 border-0 shadow-sm" action="{{ url('/getting-started') }}">
+        <form class="card col-12 p-4 border-0 shadow-sm" action="{{ url('/getting-started') }}" method="POST">
+            @csrf
             <div class="card-body">
                 <div class="row">
                     <div class="col-3">

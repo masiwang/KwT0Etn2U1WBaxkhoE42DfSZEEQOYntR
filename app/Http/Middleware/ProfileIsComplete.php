@@ -17,7 +17,7 @@ class ProfileIsComplete
      */
     public function handle(Request $request, Closure $next)
     {
-        if( (Auth::user()->getting_started_level < 4) ){
+        if( (Auth::user()->getting_started_level < 5) ){
             return redirect('/getting-started');
         }
         return $next($request);
