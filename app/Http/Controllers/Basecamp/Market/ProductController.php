@@ -69,6 +69,7 @@ class ProductController extends Controller
         $product = MarketProduct::where('slug', $request->product)->first();
         $product->name = $request->name;
         $product->description = $request->description;
+        $product->price = $request->price;
         $product->stock = $request->stock;
         $product->size = $request->size;
         $product->category_id = $request->category_id;
@@ -84,7 +85,7 @@ class ProductController extends Controller
         $product->image = '/image/market/'.$image_name;
         $product->updated_at = Carbon::now();
         $product->save();
-        return redirect('/basecamp/product/'.$request->slug);
+        return back();
     }
 
     public function delete_save(Request $request){

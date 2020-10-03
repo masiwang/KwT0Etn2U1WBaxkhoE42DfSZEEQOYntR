@@ -84,16 +84,16 @@
         .card-product hr{
           margin: 5px 0;
         }
-        .carousel-index img{
-          height: 360px;
+        .card-img-top{
+          height: 180px;
         }
         @media only screen and (max-width: 768px) {
           .card-product__image-container{
             height: 140px;
           }
           .carousel-index img{
-          height: 180px;
-        }
+            height: 180px;
+          }
         }
         
       </style>

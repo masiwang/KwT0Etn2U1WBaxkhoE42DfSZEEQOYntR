@@ -62,9 +62,10 @@ class ProductController extends Controller
         return redirect('basecamp/fund/product');
     }
 
-    public function edit($id){
-        $product = FundProduct::find($id);
-        return view('/invest/product/'.$request->slug.'/edit');
+    public function edit($slug){
+        $product = FundProduct::where('slug', $slug)->first();
+        $user = Auth::user();
+        return view('basecamp.fund.product.edit', ['user' => $user, 'product' => $product]);
     }
 
     public function edit_save(Request $request){

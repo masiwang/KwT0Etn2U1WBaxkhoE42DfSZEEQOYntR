@@ -76,7 +76,7 @@
                                             <button class="btn btn-white dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                              <li><a class="dropdown-item" href="#">Detail</a></li>
+                                              <li><a class="dropdown-item" href="{{ url('/basecamp/market/product/'.$product->slug) }}">Detail</a></li>
                                               <li><a class="dropdown-item" href="{{ url('/basecamp/market/product/'.$product->slug.'/edit') }}">Edit</a></li>
                                               <li><a class="dropdown-item" href="#">Hapus</a></li>
                                             </ul>

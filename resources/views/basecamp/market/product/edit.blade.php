@@ -21,6 +21,11 @@
                     @csrf
                     <input type="hidden" name="product" value="{{ $product->slug }}">
                     <div class="form-group mb-4">
+                        <label class="mr-2">Foto produk</label><br/>
+                        <img src="{{ asset($product->image) }}" alt="" height="180px" data-toggle="modal" data-target="#editImage"/>
+                        <a href="" data-toggle="modal" data-target="#editImage">upload</a>
+                    </div>
+                    <div class="form-group mb-4">
                         <label>Nama produk</label>
                         <input type="text" class="form-control" name="name" value="{{ $product->name }}">
                     </div>
@@ -56,11 +61,6 @@
                             <label>Satuan</label>
                             <input type="text" class="form-control" name="size" value="{{ $product->size }}">
                         </div>
-                    </div>
-                    <div class="form-group mb-4">
-                        <label class="mr-2">Foto produk</label><br/>
-                        <img src="{{ asset($product->image) }}" alt="" height="180px"><br/>
-                        <a class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editImage">Ubah foto produk</a>
                     </div>
                     <hr class="mt-5 mb-5">
                     <button type="submit" class="btn btn-block btn-primary">
