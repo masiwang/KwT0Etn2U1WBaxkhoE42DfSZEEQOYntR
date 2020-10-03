@@ -73,7 +73,7 @@
             </div>
         </div>
     </div>
-    <div class="row mt-4" id="menu">
+    {{-- <div class="row mt-4" id="menu">
         <div class="col-12 p-2">
             <div class="card-body shadow-sm bg-white px-2 py-0">
                 <div class="row">
@@ -139,7 +139,7 @@
             </div>
 
         </div>
-    </div>
+    </div> --}}
     <div class="row mt-3">
         <div class="col-12 p-2">
             <header class="section-heading heading-line">

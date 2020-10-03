@@ -22,11 +22,15 @@ class AuthController extends Controller
 
         if( Auth::attempt($credential) ){
             $user = Auth::user();
+            if( $user->role == 'admin' ){
+                return redirect('/basecamp');
+            }
             if( $user->profile_is_complete ){
                 return redirect('/getting-started');
             }
             return redirect('/');
         }
+        return back()->withError('Email atau password salah.')->withInput();
     }
 
     public function register(){
