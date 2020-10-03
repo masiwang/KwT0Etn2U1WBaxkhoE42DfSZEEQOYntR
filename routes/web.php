@@ -41,6 +41,10 @@ Route::group(['prefix' => 'basecamp', 'middleware' => ['auth', 'admin']], functi
     Route::get( '/market/product', [MarketProduct::class, 'index']);
     Route::get( '/market/product/new', [MarketProduct::class, 'new']);
     Route::post('/market/product/new', [MarketProduct::class, 'new_save']);
+    Route::get( '/market/product/{slug}/edit', [MarketProduct::class, 'edit']);
+    Route::post('/market/product/{slug}/edit', [MarketProduct::class, 'edit_save']);
+    Route::post('/market/product/{slug}/edit_image', [MarketProduct::class, 'edit_image_save']);
+    Route::get( '/market/product/{slug}', [MarketProduct::class, 'detail']);
     Route::get( '/market/payment', [MarketPayment::class, 'index']);
     Route::get( '/market/payment/{invoice}', [MarketPayment::class, 'detail']);
     Route::post('/market/payment/{invoice}', [MarketPayment::class, 'confirm']);

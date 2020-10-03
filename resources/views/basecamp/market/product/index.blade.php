@@ -1,7 +1,7 @@
 @extends('basecamp._components.master')
 @section('content')
 @include('basecamp._components.side_nav')
-<div class="main-content p-3 bg-light" style="margin-left: 250px">
+<div class="main-content p-3 bg-light" style="margin-left: 250px; min-height: 100vh">
     @include('basecamp.market._components.header')    
     <div class="container-fluid">
         <div class="row d-flex align-items-stretch">
@@ -21,7 +21,7 @@
                       </div>
                     <div class="table-responsive mb-0"
                         data-list="{&quot;valueNames&quot;: [&quot;products-product&quot;, &quot;products-stock&quot;, &quot;products-price&quot;, &quot;products-sales&quot;]}"
-                        id="productsList" style="overflow-y: auto; height: 400px">
+                        id="productsList" style="overflow-x: hidden; min-heigh: 400px">
                         <table class="table table-sm table-nowrap table-hover card-table">
                             <thead>
                                 <tr>
@@ -62,13 +62,13 @@
                                         </div>
                                     </td>
                                     <td class="products-stock">
-                                        <span class="badge badge-soft-success">{{ $product->stock }} {{ $product->size }}</span>
+                                        {{ $product->stock }} {{ $product->size }}
                                     </td>
                                     <td class="products-price">
                                         Rp.{{ $product->price }}
                                     </td>
                                     <td class="products-sales">
-                                        $3,145.23
+                                        -
                                     </td>
                                     <td class="text-right">
                                         <!-- Dropdown -->
@@ -76,9 +76,9 @@
                                             <button class="btn btn-white dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                              <li><a class="dropdown-item" href="#">Action</a></li>
-                                              <li><a class="dropdown-item" href="#">Another action</a></li>
-                                              <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                              <li><a class="dropdown-item" href="#">Detail</a></li>
+                                              <li><a class="dropdown-item" href="{{ url('/basecamp/market/product/'.$product->slug.'/edit') }}">Edit</a></li>
+                                              <li><a class="dropdown-item" href="#">Hapus</a></li>
                                             </ul>
                                           </div>
                                     </td>
@@ -86,6 +86,11 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-center">
+                                {{ $products->links() }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

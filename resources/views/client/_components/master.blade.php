@@ -78,6 +78,24 @@
         .getting-started-disable p{
           color:  #6c757d!important;
         }
+        .card-product{
+          border: 0px;
+        }
+        .card-product hr{
+          margin: 5px 0;
+        }
+        .carousel-index img{
+          height: 360px;
+        }
+        @media only screen and (max-width: 768px) {
+          .card-product__image-container{
+            height: 140px;
+          }
+          .carousel-index img{
+          height: 180px;
+        }
+        }
+        
       </style>
       <title>Makarya</title>
       {{-- <script src="https://kit.fontawesome.com/453f770242.js" crossorigin="anonymous"></script> --}}

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Basecamp\Market;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\MarketProduct;
+use App\Models\MarketProductCategory;
 use Auth;
 use Carbon\Carbon;
 use Str;
@@ -42,7 +43,7 @@ class ProductController extends Controller
         if( $request->name ){
             $products = $products->where('name', 'like', '%'.$request->name.'%');
         }
-        $products = $products->paginate(10);
+        $products = $products->paginate(5);
         $user = Auth::user();
         return view('basecamp.market.product.index', ['products' => $products, 'user' => $user]);
     }
@@ -57,19 +58,43 @@ class ProductController extends Controller
         return redirect('basecamp/market/product');
     }
 
-    public function edit($id){
+    public function edit($slug){
         $user = Auth::user();
-        $product = FundProduct::find($id);
-        return view('basecamp.market.product.edit', ['user' => $user, 'product' => $product]);
+        $product = MarketProduct::where('slug', $slug)->first();
+        $categories = MarketProductCategory::all();
+        return view('basecamp.market.product.edit', ['user' => $user, 'product' => $product, 'categories' => $categories]);
     }
 
     public function edit_save(Request $request){
-        $this->store('update', $request);
+        $product = MarketProduct::where('slug', $request->product)->first();
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->stock = $request->stock;
+        $product->size = $request->size;
+        $product->category_id = $request->category_id;
+        $product->updated_at = Carbon::now();
+        $product->save();
         return redirect('/basecamp/market/product/'.$request->slug);
+    }
+
+    public function edit_image_save(Request $request){
+        $image_name = 'product-'.Str::random(32).'.jpg';
+        $request->file('image')->move('image/market/', $image_name);
+        $product = MarketProduct::where('slug', $request->product)->first();
+        $product->image = '/image/market/'.$image_name;
+        $product->updated_at = Carbon::now();
+        $product->save();
+        return redirect('/basecamp/product/'.$request->slug);
     }
 
     public function delete_save(Request $request){
         $product = FundProduct::find($id)->delete();
         return redirect('/basecamp/market/product');
+    }
+
+    public function detail($slug){
+        $user = Auth::user();
+        $product = MarketProduct::where('slug', $slug)->first();
+        return view('basecamp.market.product.detail', ['user' => $user, 'product' => $product]);
     }
 }

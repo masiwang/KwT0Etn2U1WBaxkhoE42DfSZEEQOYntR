@@ -1,13 +1,13 @@
 @extends('client._components.master')
 @section('content')
 @include('client._components.top_nav')
-<div class="container-fluid mb-5">
+<div class="container mb-5">
     <div class="row mt-4" id="slide">
         <div class="col-12">
-            <div class="card-body shadow-sm bg-white p-0">
+            <div class="card-body p-0">
                 <div class="row">
                     <aside class="col-xl-3">
-                        <nav class="nav-home-aside p-4">
+                        <nav class="nav-home-aside p-4 d-none d-md-block shadow-sm bg-white ">
                             <h6 class="font-weight-bold">Menu kategori <i class="d-md-none icon fa fa-chevron-down"></i>
                             </h6>
                             <ul class="list-group list-group-flush">
@@ -36,7 +36,7 @@
                         </nav>
                     </aside> <!-- col.// -->
                     <div class="col-xl-9 px-0">
-                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <div id="carouselExampleIndicators" class="carousel carousel-index slide" data-ride="carousel">
                             <ol class="carousel-indicators">
                                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                                 <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -44,28 +44,15 @@
                             </ol>
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img src="/image/fund-product/3ejGHsZzjTJktFodIsoXQnNsRrBJb7YZ.jpg" height="370px"
-                                        class="d-block w-100" alt="...">
+                                    <img src="https://images.unsplash.com/photo-1511576661531-b34d7da5d0bb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" height="370px" class="d-block w-100" alt="...">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="/image/fund-product/3ejGHsZzjTJktFodIsoXQnNsRrBJb7YZ.jpg" height="370px"
-                                        class="d-block w-100" alt="...">
+                                    <img src="https://images.unsplash.com/photo-1500964757637-c85e8a162699?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=778&q=80" height="370px" class="d-block w-100" alt="...">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="/image/fund-product/3ejGHsZzjTJktFodIsoXQnNsRrBJb7YZ.jpg" height="370px"
-                                        class="d-block w-100" alt="...">
+                                    <img src="https://images.unsplash.com/photo-1532274402911-5a369e4c4bb5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" height="370px" class="d-block w-100" alt="...">
                                 </div>
                             </div>
-                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
-                                data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
-                                data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
                         </div>
                     </div> <!-- col.// -->
                 </div> <!-- row.// -->
@@ -150,7 +137,7 @@
     <div class="row mt-3" id="fundProduct" style="min-height: 80px;">
         <div class="" style="min-width: 100%; overflow-x: auto; white-space: nowrap">
             @foreach ($fund_products as $product)
-                <div class="card shadow-sm" style="display: inline-block; width: 240px">
+                <div class="card card-product shadow-sm mr-2" style="display: inline-block; width: 240px">
                     @if ($product->image)
                     <div style="height: 180px; overflow: hidden">
                         <img src="{{ $product->image }}" alt="Avatar" class="card-img-top" style="width: 100%; transform: translateY(-20%)">
@@ -160,8 +147,8 @@
                         <img src="/image/assets/product-default.png" alt="Avatar" class="card-img-top" style="width: 100%;">
                     </div>
                     @endif
-                    <div class="card-body d-flex align-items-start flex-column">
-                        <p class="card-title mb-auto" style="max-height: 44px; overflow: hidden; font-size: .9rem;">
+                    <div class="card-body d-flex flex-column">
+                        <p class="card-title align-self-stretch" style="max-height: 44px; overflow: hidden; font-size: .9rem;">
                             <a href="{{ url('fund/'.$product->category.'/'.$product->slug) }}"
                                 class="text-decoration-none text-dark">
                                 {{ $product->name }}
@@ -224,10 +211,10 @@
                 <div class="d-flex align-items-stretch">
                     <div class="row p-2">
                         @foreach ($market_products as $product)
-                        <div class="col-2 p-2">
-                            <div class="card h-100 shadow-sm">
+                        <div class="col-6 col-md-2 p-2">
+                            <div class="card card-product h-100 shadow-sm">
                                 @if ($product->image)
-                                <div style="height: 160px; overflow: hidden">
+                                <div class="card-product__image-container" style="overflow: hidden">
                                     <img src="{{ $product->image }}" alt="Avatar" class="card-img-top" style="height: 100%;">
                                 </div>
                                 @else
@@ -235,9 +222,9 @@
                                     <img src="/image/assets/product-default.png" alt="Avatar" class="card-img-top" style="height: 100%;">
                                 </div>
                                 @endif
-                                <div class="card-body">
-                                    <p class="product-title mb-auto" style="max-height: 44px; overflow: hidden; font-size: .9rem;">
-                                        <a href="{{ url('fund/'.$product->category.'/'.$product->slug) }}" class="text-decoration-none">
+                                <div class="card-body p-2 d-flex flex-column">
+                                    <p class="product-title align-self-stretch" style="max-height: 44px; overflow: hidden; font-size: .9rem;">
+                                        <a href="{{ url('fund/'.$product->category->slug.'/'.$product->slug) }}" class="text-decoration-none">
                                             {{ $product->name }}
                                         </a>
                                     </p>
@@ -245,10 +232,19 @@
                                     <hr>
                                     <div class="row">
                                         <div class="col-6">
-                                            <button data-product="{{ $product->slug }}"  class="btn btn-white text-danger w-100 btn-sm action-like"><i class="far fa-heart"></i></button>
+                                            <button data-product="{{ $product->slug }}"  class="btn btn-white text-danger w-100 btn-sm action-like">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-suit-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M8 6.236l.894-1.789c.222-.443.607-1.08 1.152-1.595C10.582 2.345 11.224 2 12 2c1.676 0 3 1.326 3 2.92 0 1.211-.554 2.066-1.868 3.37-.337.334-.721.695-1.146 1.093C10.878 10.423 9.5 11.717 8 13.447c-1.5-1.73-2.878-3.024-3.986-4.064-.425-.398-.81-.76-1.146-1.093C1.554 6.986 1 6.131 1 4.92 1 3.326 2.324 2 4 2c.776 0 1.418.345 1.954.852.545.515.93 1.152 1.152 1.595L8 6.236zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.55 7.55 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z"/>
+                                                  </svg>
+                                            </button>
                                         </div>
                                         <div class="col-6">
-                                            <a href="{{ url('/market/'.$product->category->slug.'/'.$product->slug) }}" class="btn btn-white text-success w-100 btn-sm"><i class="fas fa-cart-plus"></i></a>
+                                            <a href="{{ url('/market/'.$product->category->slug.'/'.$product->slug) }}" class="btn btn-white text-success w-100 btn-sm">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                                                    <path fill-rule="evenodd" d="M8.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 .5-.5z"/>
+                                                </svg>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -271,7 +267,7 @@
             <div class="d-flex align-items-stretch bg-white p-0">
                 <div class="row">
                     <div class="col-md-8">
-                        <div class="h-100" style="background-image: url('/image/assets/banner9.jpg'); background-size: cover">
+                        <div class="h-100" style="background-image: url('https://images.unsplash.com/photo-1599372477648-bc918851435b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'); background-size: cover; background-position: center;">
                             <div class="p-3">
                                 <h3 class="font-weight-bold text-white">Cara mudah untuk mempertemukan Anda dengan supplier</h3>
                                 <p class="text-light" style="max-width: 400px">Sisipkan pesan Anda untuk kami. Temukan produk yang Anda inginkan.</p>

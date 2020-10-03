@@ -31,7 +31,7 @@
                         <li><a href="#" class="text-decoration-none">Syarat & Ketentuan</a></li>
                     </ul>
                 </div>
-                <div class="col-md-4">
+                <div class="d-none d-md-block col-md-4">
                     <h4 class="my-4 text-light">Download App</h4>
                     <img class="mb-1" style="border-radius:.5em" src="/image/assets/mitech-button-google-play-light.jpg" alt=""/>
                     <img  style="border-radius:.5em" src="/image/assets/mitech-button-app-store-light.jpg" alt=""/>
