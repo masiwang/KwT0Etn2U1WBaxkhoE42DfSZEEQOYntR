@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
  * Client area
  */
 use App\Http\Controllers\Api\KodeposController as Kodepos;
+use App\Http\Controllers\Api\MarketProductController as MarketProduct;
  
 Route::group(['middleware' => ['api']], function () {
     Route::get('/provinsi', [Kodepos::class, 'get_provinsis']);
@@ -24,4 +25,6 @@ Route::group(['middleware' => ['api']], function () {
     Route::get('/kecamatan', [Kodepos::class, 'get_kecamatans']);
     Route::get('/kelurahan', [Kodepos::class, 'get_kelurahans']);
     Route::get('/kodepos', [Kodepos::class, 'get_kodepos']);
+
+    Route::get('/market/product/{page}', [MarketProduct::class, 'get']);
 });

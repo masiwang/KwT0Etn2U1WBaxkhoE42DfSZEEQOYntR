@@ -15,9 +15,8 @@ use Carbon\Carbon;
 class ProductController extends Controller
 {
     public function index(){
-        $products = MarketProduct::paginate(10);
         $user = Auth::user();
-        return view('client.market.index', ['user' => $user, 'products' => $products, 'category_name' => '']);
+        return view('client.market.index', ['user' => $user, 'category_name' => '']);
     }
 
     public function category($category){

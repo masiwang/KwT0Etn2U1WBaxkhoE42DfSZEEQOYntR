@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class MarketWishlist extends Model
 {
     use HasFactory;
+    protected $table = 'market_wishlists';
     public function product()
     {
         return $this->belongsToMany('App\Models\MarketProduct', 'product_id', 'product_id');

@@ -111,32 +111,12 @@
                     <li class="nav-item" role="presentation">
                         <a class="ma-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Deskripsi</a>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="ma-link" id="simulasi-tab" data-toggle="tab" href="#simulasi" role="tab" aria-controls="simulasi" aria-selected="false">Simulasi</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="ma-link" id="risk-analysis-tab" data-toggle="tab" href="#risk-analysis" role="tab" aria-controls="risk-analysis" aria-selected="false">Risk Analysis</a>
-                    </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
                         <div class="row">
                             <div class="col-12 p-4">
                                 <p>{{ $product->description }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="simulasi" role="tabpanel" aria-labelledby="simulasi-tab">
-                        <div class="row">
-                            <div class="col-12 p-4">
-                                <p>{{ $product->simulation }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="risk-analysis" role="tabpanel" aria-labelledby="risk-analysis-tab">
-                        <div class="row">
-                            <div class="col-12 p-4">
-                                <p>{{ $product->risk_analysis }}</p>
                             </div>
                         </div>
                     </div>

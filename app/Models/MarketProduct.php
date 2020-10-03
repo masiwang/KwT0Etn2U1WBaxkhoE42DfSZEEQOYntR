@@ -12,4 +12,8 @@ class MarketProduct extends Model
     {
         return $this->belongsTo('App\Models\MarketProductCategory', 'category_id', 'id');
     }
+    public function wishlist()
+    {
+        return $this->hasMany('App\Models\MarketWishlist', 'product_id');
+    }
 }

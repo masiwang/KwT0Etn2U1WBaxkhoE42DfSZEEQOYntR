@@ -76,6 +76,7 @@ Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     Route::post('/fund/{category}/{product}/buy', [ClientFundProduct::class, 'buy']);
 
     Route::get( '/market', [ClientMarketProduct::class, 'index']);
+    Route::get( '/market/{category}', [ClientMarketProduct::class, 'category']);
     Route::get( '/market/{category}/{product}', [ClientMarketProduct::class, 'detail']);
     Route::post('/market/{category}/{product}/buy', [ClientMarketProduct::class, 'buy']);
     Route::get( '/market/{category}/{product}/like', [ClientMarketProduct::class, 'like']);
