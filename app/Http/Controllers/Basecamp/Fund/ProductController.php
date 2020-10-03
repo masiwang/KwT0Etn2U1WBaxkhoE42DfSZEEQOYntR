@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Basecamp\Fund;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\FundProduct;
-use App\Models\FundProductImage;
+use App\Models\FundProductCategory;
 use Carbon\Carbon;
 use Auth;
 use Str;
@@ -65,12 +65,38 @@ class ProductController extends Controller
     public function edit($slug){
         $product = FundProduct::where('slug', $slug)->first();
         $user = Auth::user();
-        return view('basecamp.fund.product.edit', ['user' => $user, 'product' => $product]);
+        $categories = FundProductCategory::all();
+        return view('basecamp.fund.product.edit', ['user' => $user, 'product' => $product, 'categories' => $categories]);
     }
 
     public function edit_save(Request $request){
-        $this->store('update', $request);
-        return redirect('/invest/product/'.$request->slug);
+        $product = FundProduct::where('slug', $request->product)->first();
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->simulation = $request->simulation;
+        $product->risk_analysis = $request->risk_analysis;
+        $product->category_id = $request->category_id;
+        $product->price = $request->price;
+        $product->stock = $request->stock;
+        $product->max_buy = $request->max_buy;
+        $product->return_per_periode = $request->return;
+        $product->opened_at = $request->opened_at;
+        $product->closed_at = $request->closed_at;
+        $product->started_at = $request->started_at;
+        $product->ended_at = $request->ended_at;
+        $product->updated_at = Carbon::now();
+        $product->save();
+        return redirect('/basecamp/fund/product/'.$request->product);
+    }
+
+    public function edit_image_save(Request $request){
+        $image_name = 'product-'.Str::random(32).'.jpg';
+        $request->file('image')->move('image/fund/', $image_name);
+        $product = FundProduct::where('slug', $request->product)->first();
+        $product->image = '/image/fund/'.$image_name;
+        $product->updated_at = Carbon::now();
+        $product->save();
+        return back();
     }
 
     public function delete_save(Request $request){
@@ -78,16 +104,9 @@ class ProductController extends Controller
         return redirect('/invest/product');
     }
 
-    public function image_save(Request $request){
-        $last_product = FundProduct::orderBy('id', 'desc')->limit(1)->first();
-        $image = $request->file('document[]');
-        $image_name = $this->upload_image('invest-product', $image);
-            $product_image = new FundProductImage;
-            $product_image->product_id = ($last_product) ? (int)$last_product->id + 1 : 1;
-            $product_image->url = 'assets/image/fund/product/'.$image_name;
-            $product_image->created_at = Carbon::now();
-            $product_image->save();
-        return response()->json($images);
+    public function detail($slug){
+        $product = FundProduct::where('slug', $slug)->first();
+        $user = Auth::user();
+        return view('basecamp.fund.product.detail', ['user' => $user, 'product' => $product]);
     }
-    
 }

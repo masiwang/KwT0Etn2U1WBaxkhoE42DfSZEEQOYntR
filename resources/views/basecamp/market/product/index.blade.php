@@ -65,7 +65,7 @@
                                         {{ $product->stock }} {{ $product->size }}
                                     </td>
                                     <td class="products-price">
-                                        Rp.{{ $product->price }}
+                                        Rp.{{ number_format($product->price, 0, ',', '.') }}
                                     </td>
                                     <td class="products-sales">
                                         -

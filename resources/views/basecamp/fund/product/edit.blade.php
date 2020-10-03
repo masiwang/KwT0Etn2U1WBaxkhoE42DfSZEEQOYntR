@@ -9,7 +9,7 @@
                     <div class="row d-flex align-items-end">
                         <div class="col">
                             <h6 class="mb-0 subtitle">FUND PRODUCT</h6>
-                            <h1>Buat Produk Funding Baru</h1>
+                            <h1>Ubah Produk {{ $product->name }}</h1>
                         </div>
                     </div>
                 </div>
@@ -17,11 +17,13 @@
         </div>
         <div class="row justify-content-center mt-3">
             <div class="col-12 col-lg-10 col-xl-8">
-                <form class="mb-4" action="{{ url('/basecamp/fund/product/new') }}" method="POST" enctype="multipart/form-data">
+                <form class="mb-4" action="{{ url('/basecamp/fund/product/'.$product->slug.'/edit') }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    <input type="hidden" name="product" value="{{ $product->slug }}">
                     <div class="form-group mb-4">
-                        <label class="mr-2">Foto produk</label>
-                        <img src="{{ $product->image }}" alt="">
+                        <label class="mr-2">Foto produk</label><br/>
+                        <img src="{{ $product->image }}" alt="" style="height: 180px">
+                        <a class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editImage">Ganti foto</a>
                     </div>
                     <div class="form-group mb-4">
                         <label>Nama produk</label>
@@ -61,17 +63,21 @@
                         </select>
                     </div>
                     <div class="row mb-4">
-                        <div class="col-4">
+                        <div class="col-12 col-md-3">
                             <label>Harga per slot</label>
                             <input type="number" class="form-control" name="price" placeholder="Rp." value="{{ $product->price }}">
                         </div>
-                        <div class="col-4">
+                        <div class="col-12 col-md-3">
                             <label>Stock slot</label>
                             <input type="number" class="form-control" name="stock" placeholder="unit" value="{{ $product->stock }}">
                         </div>
-                        <div class="col-4">
+                        <div class="col-12 col-md-3">
                             <label>Return</label>
                             <input type="number" class="form-control" name="return" placeholder="%" value="{{ $product->return_per_periode }}">
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <label>Max. pembelian</label>
+                            <input type="number" class="form-control" name="max_buy" placeholder="%" value="{{ $product->max_buy }}">
                         </div>
                     </div>
                     <div class="row mb-4">
@@ -118,4 +124,23 @@
         </div> <!-- / .row -->
     </div>
 </div>
+<div class="modal fade" id="editImage" tabindex="-1" aria-labelledby="editImageLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <form class="modal-content" action="{{ url('/basecamp/fund/product/'.$product->slug.'/edit_image') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ganti Foto Produk</h5>
+                <button type="button" class="btn btn-close" data-dismiss="modal" aria-label="Close">&times;</button>
+            </div>    
+            <div class="modal-body">
+                <input type="hidden" name="product" value="{{ $product->slug }}">
+                <input type="file" class="form-control" id="image" name="image">
+            </div>
+            <div class="modal-footer">
+                <a type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Batal</a>
+                <button type="submit" class="btn btn-success btn-sm">Simpan</button>
+            </div>
+      </form>
+    </div>
+  </div>
 @endsection

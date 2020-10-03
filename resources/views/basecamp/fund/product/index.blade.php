@@ -57,7 +57,7 @@
                                             </div>
                                             <div class="ml-3">
                                                 <h4 class="font-weight-normal mb-1">{{ $product->name }}</h4>
-                                                <small class="text-muted">{{ \Str::substr($product->description, 0, 20) }}</small>
+                                                <small class="text-muted">{!! \Str::substr($product->description, 0, 20) !!}</small>
                                             </div>
                                         </div>
                                     </td>
@@ -65,7 +65,7 @@
                                         <span class="badge badge-soft-success">{{ $product->stock }}</span>
                                     </td>
                                     <td class="products-price">
-                                        Rp.{{ $product->price }}
+                                        Rp.{{ number_format($product->price, 0, ',', '.') }}
                                     </td>
                                     <td class="products-sales">
                                         $3,145.23
@@ -76,9 +76,9 @@
                                             <button class="btn btn-white dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                              <li><a class="dropdown-item" href="#">Action</a></li>
-                                              <li><a class="dropdown-item" href="#">Another action</a></li>
-                                              <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                              <li><a class="dropdown-item" href="{{ url('/basecamp/fund/product/'.$product->slug) }}">Detail</a></li>
+                                              <li><a class="dropdown-item" href="{{ url('/basecamp/fund/product/'.$product->slug.'/edit') }}">Edit</a></li>
+                                              <li><a class="dropdown-item" href="#">Hapus</a></li>
                                             </ul>
                                           </div>
                                     </td>

@@ -139,12 +139,12 @@
             @foreach ($fund_products as $product)
                 <div class="card card-product shadow-sm mr-2" style="display: inline-block; width: 240px">
                     @if ($product->image)
-                    <div style="height: 180px; overflow: hidden">
-                        <img src="{{ $product->image }}" alt="Avatar" class="card-img-top" style="width: 100%; transform: translateY(-20%)">
+                    <div style="overflow: hidden">
+                        <img src="{{ $product->image }}" alt="Avatar" class="card-img" style="width: 100%">
                     </div>
                     @else
                     <div style="height: 180px; overflow: hidden">
-                        <img src="/image/assets/product-default.png" alt="Avatar" class="card-img-top" style="width: 100%;">
+                        <img src="/image/assets/product-default.png" alt="Avatar" class="card-img" style="width: 100%;">
                     </div>
                     @endif
                     <div class="card-body d-flex flex-column">
@@ -259,8 +259,8 @@
         </div>
     </div>
     <div class="row mb-4" id="fundProduct">
-        <div class="col-12 shadow-sm">
-            <div class="d-flex align-items-stretch bg-white p-0">
+        <div class="col-12">
+            <div class="d-flex align-items-stretch bg-white p-0 shadow-sm">
                 <div class="row">
                     <div class="col-md-8">
                         <div class="h-100" style="background-image: url('https://images.unsplash.com/photo-1599372477648-bc918851435b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'); background-size: cover; background-position: center;">

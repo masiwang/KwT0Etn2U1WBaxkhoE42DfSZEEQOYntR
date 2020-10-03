@@ -33,6 +33,9 @@ Route::group(['prefix' => 'basecamp', 'middleware' => ['auth', 'admin']], functi
     Route::get( '/fund/product/new', [FundProduct::class, 'new']);
     Route::post('/fund/product/new', [FundProduct::class, 'new_save']);
     Route::get( '/fund/product/{slug}/edit', [FundProduct::class, 'edit']);
+    Route::post('/fund/product/{slug}/edit', [FundProduct::class, 'edit_save']);
+    Route::post('/fund/product/{slug}/edit_image', [FundProduct::class, 'edit_image_save']);
+    Route::get( '/fund/product/{slug}', [FundProduct::class, 'detail']);
     Route::get( '/fund/payment', [FundPayment::class, 'index']);
     Route::get( '/fund/payment/{invoice}', [FundPayment::class, 'detail']);
     Route::post('/fund/payment/{invoice}', [FundPayment::class, 'confirm']);
