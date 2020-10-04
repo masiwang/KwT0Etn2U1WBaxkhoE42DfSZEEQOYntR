@@ -20,19 +20,8 @@
             </form>
             <ul class="navbar-nav mb-2 mb-lg-0">
                 
-                <li class="nav-item dropdown">
-                    <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span>Market</span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{{ url('market') }}">Semua Produk</a></li>
-                        <li><a class="dropdown-item" href="{{ url('market/sayur') }}">Sayur</a></li>
-                        <li><a class="dropdown-item" href="{{ url('market/buah') }}">Buah</a></li>
-                        <li><a class="dropdown-item" href="{{ url('market/daging') }}">Daging</a></li>
-                        <li><a class="dropdown-item" href="{{ url('market/ikan') }}">Ikan</a></li>
-                        <li><a class="dropdown-item" href="{{ url('market/lainnya') }}">Lainnya</a></li>
-                    </ul>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{ url('/market') }}">Market</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
