@@ -90,9 +90,9 @@ body, html{
 }
 
 @media only screen and (max-width: 768px) {
-    .card-product__image-container {
+    /* .card-product__image-container {
         height: 140px;
-    }
+    } */
 
     .carousel-index img {
         height: 180px;
