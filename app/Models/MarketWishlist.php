@@ -11,6 +11,9 @@ class MarketWishlist extends Model
     protected $table = 'market_wishlists';
     public function product()
     {
-        return $this->belongsToMany('App\Models\MarketProduct', 'product_id', 'product_id');
+        return $this->belongsToMany('App\Models\MarketProduct', 'product_id');
+    }
+    public function user(){
+        return $this->belongsToMany('App\Models\User', 'user_id');
     }
 }

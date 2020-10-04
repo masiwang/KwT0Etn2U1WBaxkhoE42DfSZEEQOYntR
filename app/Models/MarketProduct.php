@@ -16,4 +16,9 @@ class MarketProduct extends Model
     {
         return $this->hasMany('App\Models\MarketWishlist', 'product_id');
     }
+
+    public function user()
+    {
+        return $this->hasManyThrough('App\Models\MarketWishlist', 'App\Models\User', 'product_id', 'user_id');
+    }
 }

@@ -5,20 +5,24 @@
     <div class="container mb-5">
         <div class="row mt-3">
             <div class="col-12 p-2">
-                <header class="d-flex justify-content-between">
-                    <h4 class="text-uppercase">Produk Market <span id="category-container"></span></h4>
-                    <nav class="nav">
-                        <a class="nav-link active action-category" aria-current="page" href="#" data-category="">Semua</a>
-                        <a class="nav-link action-category" aria-current="page" href="#" data-category="sayur">Sayur</a>
-                        <a class="nav-link action-category" href="#" data-category="buah">Buah</a>
-                        <a class="nav-link action-category" href="#" data-category="daging">Daging</a>
-                        <a class="nav-link action-category" href="#" data-category="ikan">Ikan</a>
-                        <a class="nav-link action-category" href="#" data-category="lainnya">Lainnya</a>
-                    </nav>
+                <header class="row border-bottom">
+                    <div class="col-12 col-md-6">
+                        <h4 class="text-uppercase">Produk Market <span id="category-container"></span></h4>
+                    </div>
+                    <div class="col-12 col md-6">
+                        <nav class="nav">
+                            <a class="nav-link active action-category" aria-current="page" href="#" data-category="" data-name="">Semua</a>
+                            <a class="nav-link action-category" aria-current="page" href="#" data-category="1" data-name="sayur">Sayur</a>
+                            <a class="nav-link action-category" href="#" data-category="2" data-name="buah">Buah</a>
+                            <a class="nav-link action-category" href="#" data-category="3" data-name="daging">Daging</a>
+                            <a class="nav-link action-category" href="#" data-category="4" data-name="ikan">Ikan</a>
+                            <a class="nav-link action-category" href="#" data-category="5" data-name="lainnya">Lainnya</a>
+                        </nav>
+                    </div>
                 </header>
             </div>
         </div>
-        <div class="row mt-3" id="marketProduct">
+        <div class="mt-3" id="marketProduct">
             <div class="row" id="market-product-container">
                 <input type="hidden" name="page" value="1">
                 <input type="hidden" name="category" value="semua">

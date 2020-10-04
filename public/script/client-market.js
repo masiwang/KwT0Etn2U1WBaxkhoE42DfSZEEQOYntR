@@ -50,7 +50,7 @@ function started(category) {
         success: function (response) {
             var html = '';
             page.val(parseInt(page.val()) + 1);
-            response.map(e => (html +=
+            response.data.map(e => (html +=
                 `<div class="col-6 col-md-2 p-2">
                         <div class="card card-product h-100 shadow-sm">
                             <div class="card-product__image-container" style="overflow: hidden">
@@ -96,7 +96,7 @@ function append(category) {
             var html = container.html();
             console.log(page);
             page.val(parseInt(page.val()) + 1);
-            response.map(e => (html +=
+            response.data.map(e => (html +=
                 `<div class="col-6 col-md-2 p-2">
                         <div class="card card-product h-100 shadow-sm">
                             <div class="card-product__image-container" style="overflow: hidden">
@@ -131,7 +131,7 @@ function append(category) {
     });
 }
 $().ready(function () {
-    started(category.val());
+    started(0);
 });
 btnMore.on('click', function () {
     btnMore.html('loading...');
@@ -139,7 +139,8 @@ btnMore.on('click', function () {
 });
 btnCat.click(function () {
     var category_val = $(this).attr('data-category');
+    var category_name = $(this).attr('data-name');
     category.val(category_val);
-    category_container.html(category_val);
+    category_container.html(category_name);
     started(category_val);
 });
