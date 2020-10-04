@@ -24,12 +24,12 @@
         </div>
         <div class="mt-3" id="marketProduct">
             <div class="row" id="market-product-container">
-                <input type="hidden" name="page" value="1">
+                <input type="hidden" name="market_page" value="1">
                 <input type="hidden" name="category" value="semua">
             </div>
             <div class="row mt-3">
                 <div class="col-12 text-center">
-                    <button class="btn btn-success btn-sm" id="more">Muat lebih banyak</button>
+                    <button class="btn btn-success btn-sm" id="market_more">Muat lebih banyak</button>
                 </div>
             </div>
         </div>

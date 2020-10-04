@@ -20,7 +20,7 @@ class MarketProduct extends JsonResource
             'slug' => $this->slug,
             'name' => $this->name,
             'price' => $this->price,
-            'category' => $this->category->name,
+            'category' => $this->category->slug,
             'is_wishlist' => $this->product_id
         ];
     }
