@@ -19,7 +19,6 @@
                 </div>
             </form>
             <ul class="navbar-nav mb-2 mb-lg-0">
-                
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="{{ url('/market') }}">Market</a>
                 </li>
@@ -46,6 +45,7 @@
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                 </li>
+                @if ($user)
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
                         <i class="far fa-user"></i>
@@ -65,6 +65,12 @@
                         <li><a class="dropdown-item" href="{{ url('logout') }}">Keluar</a></li>
                     </ul>
                 </li>
+                @else
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{ url('/login') }}">Login</a>
+                </li>
+                @endif
+                
             </ul>
         </div>
     </div>

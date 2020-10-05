@@ -50,7 +50,7 @@ function started(category) {
         success: function (response) {
             var html = '';
             page.val(parseInt(page.val()) + 1);
-            response.data.map(e => (html +=
+            response.map(e => (html +=
                 `<div class="col-6 col-md-2 p-2">
                         <div class="card card-product h-100 shadow-sm">
                             <div class="card-product__image-container" style="overflow: hidden">
@@ -96,7 +96,7 @@ function append(category) {
             var html = container.html();
             console.log(page);
             page.val(parseInt(page.val()) + 1);
-            response.data.map(e => (html +=
+            response.map(e => (html +=
                 `<div class="col-6 col-md-2 p-2">
                         <div class="card card-product h-100 shadow-sm">
                             <div class="card-product__image-container" style="overflow: hidden">

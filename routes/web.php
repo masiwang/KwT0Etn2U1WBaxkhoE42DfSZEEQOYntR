@@ -65,11 +65,11 @@ use App\Http\Controllers\Client\Profile\IndexController as ClientProfileIndex;
 use App\Http\Controllers\Client\Profile\AddressController as ClientProfileAddress;
 use App\Http\Controllers\Client\Profile\SecurityController as ClientProfileSecurity;
 use App\Http\Controllers\Client\Profile\FundController as ClientProfileFund;
-use App\Http\COntrollers\Client\Profile\MarketController as ClientProfileMarket;
+use App\Http\Controllers\Client\Profile\MarketController as ClientProfileMarket;
+use App\Http\Controllers\Client\Profile\WishlistController as ClientProfileWishlist;
 
+Route::get( '/', [ClientHome::class, 'index']);
 Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
-    Route::get( '/', [ClientHome::class, 'index']);
-
     Route::get( '/fund', [ClientFundProduct::class, 'index']);
     Route::get( '/fund/{category}', [ClientFundProduct::class, 'category']);
     Route::get( '/fund/{category}/{product}', [ClientFundProduct::class, 'detail']);
@@ -80,9 +80,6 @@ Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     Route::get( '/market/{category}/{product}', [ClientMarketProduct::class, 'detail']);
     Route::post('/market/{category}/{product}/buy', [ClientMarketProduct::class, 'buy']);
     Route::get( '/market/{category}/{product}/like', [ClientMarketProduct::class, 'like']);
-
-    // Route::get( '/profile/wishlist', [ClientWishlist::class, 'index']);
-    // Route::post('/profile/wishlist/{slug}/like', [ClientMarketProduct::class, 'like_add']);
 
     Route::get( '/profile', [ClientProfileIndex::class, 'profile']);
     Route::post('/profile', [ClientProfileIndex::class, 'profile_save']);
@@ -97,10 +94,8 @@ Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     Route::get( '/profile/market/invoice/{invoice}', [ClientProfileMarket::class, 'invoice']);
     Route::get( '/profile/market/invoice/{invoice}/pay', [ClientProfileMarket::class, 'pay']);
     Route::post('/profile/market/invoice/{invoice}/pay', [ClientProfileMarket::class, 'pay_save']);
-    // Route::get( '/profile/checkout', [ClientCheckout::class, 'index']);
-    // Route::get( '/profile/checkout/{id}', [ClientCheckout::class, 'detail']);
-    // Route::get( '/profile/checkout/{id}/pay', [ClientCheckout::class, 'pay']);
-    // Route::post('/profile/checkout/{id}/pay', [ClientCheckout::class, 'pay_do']);
+    
+    Route::get( '/profile/wishlist', [ClientProfileWishlist::class, 'wishlist']);
 });
 
 Route::get('/logout', [Auth::class, 'logout'])->middleware('auth');

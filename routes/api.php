@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
  */
 use App\Http\Controllers\Api\KodeposController as Kodepos;
 use App\Http\Controllers\Api\MarketProductController as MarketProduct;
+use App\Http\Controllers\Api\WishlistController as Wishlist;
  
 Route::group(['middleware' => ['api']], function () {
     Route::get('/provinsi', [Kodepos::class, 'get_provinsis']);
@@ -27,4 +28,5 @@ Route::group(['middleware' => ['api']], function () {
     Route::get('/kodepos', [Kodepos::class, 'get_kodepos']);
 
     Route::get('/market/product/{page}', [MarketProduct::class, 'get']);
+    Route::get('/wishlist/{page}', [Wishlist::class, 'get']);
 });
