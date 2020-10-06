@@ -20,7 +20,7 @@ use App\Http\Controllers\Api\KodeposController as Kodepos;
 use App\Http\Controllers\Api\MarketProductController as MarketProduct;
 use App\Http\Controllers\Api\FundProductController as FundProduct;
 use App\Http\Controllers\Api\WishlistController as Wishlist;
- 
+
 Route::group(['middleware' => ['api']], function () {
     Route::get('/provinsi', [Kodepos::class, 'get_provinsis']);
     Route::get('/kabupaten', [Kodepos::class, 'get_kabupatens']);
@@ -32,4 +32,6 @@ Route::group(['middleware' => ['api']], function () {
 
     Route::get('/market/product', [MarketProduct::class, 'get']);
     Route::get('/market/wishlist/{page}', [Wishlist::class, 'get']);
+
+    Route::post('/market/wishlist/new', [Wishlist::class, 'new']);
 });

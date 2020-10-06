@@ -21,12 +21,16 @@ class WishlistController extends Controller
     }
 
     public function new(Request $request){
-        $product = MarketProduct::where('slug', $request->product)->first();
-        $wishlist = new MarketWishlist;
-        $wishlist->user_id = Auth::id();
-        $wishlist->product_id = $product->id;
-        $wishlist->created_at = Carbon::now();
-        $wishlist->save();
+        $is_exist = MarketWishlist::where('user_id', Auth::id())->where('product_id', $request->product)->first();
+        if($is_exist){
+            $is_exist->delete();
+        }else{
+            $wishlist = new MarketWishlist;
+            $wishlist->user_id = Auth::id();
+            $wishlist->product_id = $request->product;
+            $wishlist->created_at = Carbon::now();
+            $wishlist->save();
+        }
         return response()->json(['status' => 'success'], 200);
     }
 }

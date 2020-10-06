@@ -23,7 +23,7 @@ class FundProduct extends JsonResource
             'return' => $this->return_per_periode,
             'stock' => $this->stock,
             'size' => $this->size,
-            'closed_at' => $this->closed_at
+            'closed_at' => date('d M Y', strtotime($this->closed_at))
         ];
     }
 }

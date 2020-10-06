@@ -67,6 +67,7 @@ use App\Http\Controllers\Client\Profile\SecurityController as ClientProfileSecur
 use App\Http\Controllers\Client\Profile\FundController as ClientProfileFund;
 use App\Http\Controllers\Client\Profile\MarketController as ClientProfileMarket;
 use App\Http\Controllers\Client\Profile\WishlistController as ClientProfileWishlist;
+use App\Http\Controllers\Api\WishlistController as Wishlist;
 
 Route::get( '/', [ClientHome::class, 'index']);
 Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
@@ -96,6 +97,8 @@ Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     Route::post('/profile/market/invoice/{invoice}/pay', [ClientProfileMarket::class, 'pay_save']);
 
     Route::get( '/profile/market/wishlist', [ClientProfileWishlist::class, 'wishlist']);
+
+    Route::post('/market/wishlist/new', [Wishlist::class, 'new']);
 });
 
 Route::get('/logout', [Auth::class, 'logout'])->middleware('auth');

@@ -7,7 +7,8 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <form class="d-none d-md-flex ml-3 mr-auto">
+            <div class="mr-auto">&nbsp;</div>
+            {{-- <form class="d-none d-md-flex ml-3 mr-auto">
                 <div class="input-group">
                     <span class="input-group-text" id="basic-addon1">
                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -17,7 +18,7 @@
                     </span>
                     <input type="text" style="width: 20vw" class="form-control" placeholder="Cari produk" aria-label="Cari produk" aria-describedby="basic-addon1">
                 </div>
-            </form>
+            </form> --}}
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="{{ url('/market') }}">Market</a>

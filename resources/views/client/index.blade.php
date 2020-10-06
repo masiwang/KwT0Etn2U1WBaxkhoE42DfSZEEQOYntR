@@ -34,7 +34,7 @@
                                     </li>
                                 </ul>
                             </nav>
-                        </aside> <!-- col.// -->
+                        </aside>
                         <div class="col-xl-9 px-0">
                             <div id="carouselExampleIndicators" class="carousel carousel-index slide" data-ride="carousel">
                                 <ol class="carousel-indicators">
@@ -54,79 +54,12 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> <!-- col.// -->
-                    </div> <!-- row.// -->
-
-                </div>
-            </div>
-        </div>
-        {{-- <div class="row mt-4" id="menu">
-            <div class="col-12 p-2">
-                <div class="card-body shadow-sm bg-white px-2 py-0">
-                    <div class="row">
-                        <div class="col-4 p-3 bg-danger">
-                            <header class="section-heading h-100" style="background: url('/image/assets/undraw_Notify_re_65on.svg'); background-size: cover; background-position: bottom; background-size: 300px; background-repeat: no-repeat;">
-                                <h3 class="font-weight-bold text-white">Hampir tutup</h3>
-                                <p class="text-light">Segera danai sebelum waktu berakhir.</p>
-                            </header><!-- sect-heading -->
-                        </div> <!-- col.// -->
-                        <div class="col-8">
-                            <div class="row">
-                                <div class="col-3 border-left">
-                                    <figure class="card-body">
-                                        <a href="#" class="img-wrap">
-                                            <img src="/image/fund-product/chicken-egg-b-300x295.jpg" style="max-width: 100%">
-                                        </a>
-                                        <div class="text-center p-3">
-                                            <a class="text-decoration-none text-dark" href="#"><h6>Another category</h6></a>
-                                            <div><span class="badge bg-success">15%</span></div>
-                                            <em style="font-size: .7rem">per periode</em>
-                                        </div>
-                                    </figure>
-                                </div> <!-- col.// -->
-                                <div class="col-3 border-left">
-                                    <figure class="card-body ">
-                                        <a href="#" class="img-wrap">
-                                            <img src="/image/fund-product/chicken-egg-b-300x295.jpg" style="max-width: 100%">
-                                        </a>
-                                        <div class="text-center p-3">
-                                            <a class="text-decoration-none text-dark" href="#"><h6>Another category</h6></a>
-                                            <div><span class="badge bg-success">15%</span></div>
-                                            <em style="font-size: .7rem">per periode</em>
-                                        </div>
-                                    </figure>
-                                </div> <!-- col.// -->
-                                <div class="col-3 border-left">
-                                    <figure class="card-body ">
-                                        <a href="#" class="img-wrap">
-                                            <img src="/image/fund-product/chicken-egg-b-300x295.jpg" style="max-width: 100%">
-                                        </a>
-                                        <div class="text-center p-3">
-                                            <a class="text-decoration-none text-dark" href="#"><h6>Another category</h6></a>
-                                            <div><span class="badge bg-success">15%</span></div>
-                                            <em style="font-size: .7rem">per periode</em>
-                                        </div>
-                                    </figure>
-                                </div> <!-- col.// -->
-                                <div class="col-3 border-left">
-                                    <figure class="card-body">
-                                        <a href="#" class="img-wrap">
-                                            <img src="/image/fund-product/chicken-egg-b-300x295.jpg" style="max-width: 100%">
-                                        </a>
-                                        <div class="text-center p-3">
-                                            <a class="text-decoration-none text-dark" href="#"><h6>Another category</h6></a>
-                                            <div><span class="badge bg-success">15%</span></div>
-                                            <em style="font-size: .7rem">per periode</em>
-                                        </div>
-                                    </figure>
-                                </div> <!-- col.// -->
-                            </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-        </div> --}}
+        </div>
+        {{-- Funding start --}}
         <div class="row mt-3">
             <div class="col-12 p-2">
                 <header class="section-heading heading-line">
@@ -147,93 +80,33 @@
                         <p class="card-text mb-1 text-success"><b>Rp.@{{ product.price }}/unit</b>
                             </p>
                             <div class="d-flex flex-row w-100" style="font-size: .8rem">
-                                <div class="col-7">
-                                    <b>Kontrak</b>
-                                </div>
-                                <div class="col-5">
-                                    @{{ product.periode }} Tahun
-                                </div>
+                                <div class="col-7"><b>Kontrak</b></div>
+                                <div class="col-5">@{{ product.periode }} Tahun</div>
                             </div>
                             <div class="d-flex flex-row w-100" style="font-size: .8rem">
-                                <div class="col-7">
-                                    <b>Return</b>
-                                </div>
-                                <div class="col-5">
-                                    @{{ product.return_per_periode }}%
-                                </div>
+                                <div class="col-7"><b>Return</b></div>
+                                <div class="col-5">@{{ product.return_per_periode }}%</div>
                             </div>
                             <div class="d-flex flex-row w-100" style="font-size: .8rem">
-                                <div class="col-7">
-                                    <b>Stock</b>
-                                </div>
-                                <div class="col-5">
-                                    @{{ product.stock }} @{{ product.size }}
-                                </div>
+                                <div class="col-7"><b>Stock</b></div>
+                                <div class="col-5">@{{ product.stock }} @{{ product.size }}</div>
                             </div>
                             <div class="d-flex flex-row w-100 mb-3" style="font-size: .8rem">
-                                <div class="col-7">
-                                    <b>Batas waktu</b>
-                                </div>
-                                <div class="col-5">
-                                    @{{ product.closed_at }}
-                                </div>
+                                <div class="col-7"><b>Batas waktu</b></div>
+                                <div class="col-5">@{{ product.closed_at }}</div>
                             </div>
                             <div class="w-100">
-                                <a v-bind:href="'/fund/product/'+product.slug" class="btn btn-success btn-sm w-100">
-                                    Danai
-                                </a>
+                                <a v-bind:href="'/fund/product/'+product.slug" class="btn btn-success btn-sm w-100">Danai</a>
                             </div>
                         </div>
                     </div>
-                    <div v-show="loading" class="card card-product shadow-sm mr-2 bg-dark" style="display: inline-block; width: 240px">
-                        <div style="overflow: hidden">
-                            &nbsp;
+                    <div class="mt-3" v-if="loading">
+                        <div class="spinner">
+                            <div class="bounce1"></div>
+                            <div class="bounce2"></div>
+                            <div class="bounce3"></div>
                         </div>
-                        <div class="card-body d-flex flex-column">
-                            <p class="card-title align-self-stretch" style="max-height: 44px; overflow: hidden; font-size: .9rem;">
-                                <a class="text-decoration-none text-dark">&nbsp;</a>
-                            </p>
-                            <p class="card-text mb-1 text-success">&nbsp;</b>
-                                </p>
-                                <div class="d-flex flex-row w-100" style="font-size: .8rem">
-                                    <div class="col-7">
-                                        <b>Kontrak</b>
-                                    </div>
-                                    <div class="col-5">
-                                        &nbsp;
-                                    </div>
-                                </div>
-                                <div class="d-flex flex-row w-100" style="font-size: .8rem">
-                                    <div class="col-7">
-                                        <b>Return</b>
-                                    </div>
-                                    <div class="col-5">
-                                        &nbsp;
-                                    </div>
-                                </div>
-                                <div class="d-flex flex-row w-100" style="font-size: .8rem">
-                                    <div class="col-7">
-                                        <b>Stock</b>
-                                    </div>
-                                    <div class="col-5">
-                                        &nbsp;
-                                    </div>
-                                </div>
-                                <div class="d-flex flex-row w-100 mb-3" style="font-size: .8rem">
-                                    <div class="col-7">
-                                        <b>Batas waktu</b>
-                                    </div>
-                                    <div class="col-5">
-                                        &nbsp;
-                                    </div>
-                                </div>
-                                <div class="w-100">
-                                    <a class="btn btn-success btn-sm w-100">
-                                        Danai
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                    </div>
                 </div>
             
         </div>
@@ -278,28 +151,11 @@
                         </div>
                     </div>
                 </div>
-                <div v-show="loading" v-for="n in 6" class="col-6 col-md-2 p-2">
-                    <div class="card card-product h-100 shadow-sm bg-secondary">
-                        <div style="height: 160px" class="d-flex justify-content-center align-items-center">
-                            <img src="/image/assets/loading.gif" alt="" width="80px">
-                        </div>
-                        <div class="card-body p-2 d-flex flex-column">
-                            <p class="product-title align-self-stretch w-100 bg-white" style="max-height: 44px; overflow: hidden; font-size: .9rem;">
-                                <a href="#" class="text-decoration-none">
-                                    &nbsp;
-                                </a>
-                            </p>
-                            <p class="card-text mb-1 text-success bg-white">&nbsp;</p>
-                            <hr>
-                            <div class="mb-1 d-flex justify-content-between">
-                                <p class="mb-0 btn btn-white w-100 bg-white">
-                                    &nbsp;
-                                </p>
-                                <p class="mb-0 btn btn-white w-100 bg-white">
-                                    &nbsp;
-                                </p>
-                            </div>
-                        </div>
+                <div class="mt-3" v-if="loading">
+                    <div class="spinner">
+                        <div class="bounce1"></div>
+                        <div class="bounce2"></div>
+                        <div class="bounce3"></div>
                     </div>
                 </div>
             </div>
