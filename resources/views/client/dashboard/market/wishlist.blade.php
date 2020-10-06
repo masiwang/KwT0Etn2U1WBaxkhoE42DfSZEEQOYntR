@@ -37,5 +37,5 @@
     @include('client._components.footer')
 @endsection
 @section('bottom-script')
-    <script src="/script/client-market.js"></script>
+    <script src="/script/client-wishlist.js"></script>
 @endsection

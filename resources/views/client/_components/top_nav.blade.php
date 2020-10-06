@@ -75,6 +75,7 @@
         </div>
     </div>
 </nav>
+@if (\Auth::user())
 <nav class="navbar navbar-expand-lg navbar-dark text-light bg-success shadow-sm d-none d-md-block">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -98,3 +99,4 @@
         </div>
     </div>
 </nav>
+@endif

@@ -94,8 +94,8 @@ Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     Route::get( '/profile/market/invoice/{invoice}', [ClientProfileMarket::class, 'invoice']);
     Route::get( '/profile/market/invoice/{invoice}/pay', [ClientProfileMarket::class, 'pay']);
     Route::post('/profile/market/invoice/{invoice}/pay', [ClientProfileMarket::class, 'pay_save']);
-    
-    Route::get( '/profile/wishlist', [ClientProfileWishlist::class, 'wishlist']);
+
+    Route::get( '/profile/market/wishlist', [ClientProfileWishlist::class, 'wishlist']);
 });
 
 Route::get('/logout', [Auth::class, 'logout'])->middleware('auth');
