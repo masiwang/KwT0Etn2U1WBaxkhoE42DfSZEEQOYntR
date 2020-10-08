@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client\Fund;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\FundProductCollection as FundProductResources;
 use Illuminate\Http\Request;
 use App\Models\FundProduct;
 use App\Models\FundProductCategory;
@@ -45,5 +46,19 @@ class ProductController extends Controller
         $checkout->created_at = Carbon::now();
         $checkout->save();
         return redirect('/profile/fund/invoice/'.$invoice);
+    }
+
+    public function _get(Request $request){
+        $per_page = 6;
+        $products = new FundProduct;
+        if($request->category){
+            $category = FundProductCategory::where('slug', $request->category)->first();
+            if($category){
+                $products = $products->where('category_id', $category->id);
+            }
+        }
+        $products = $products->skip(($request->page)*$per_page)->take($per_page)->get();
+        $products = new FundProductResources($products);
+        return response()->json($products, 200);
     }
 }

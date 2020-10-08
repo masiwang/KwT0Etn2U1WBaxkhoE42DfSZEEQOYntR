@@ -1,22 +1,23 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController as Auth;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\GettingStartedController;
 
-Route::get( 'login', [Auth::class, 'login'])->name('login'); //done
-Route::post('login', [Auth::class, 'login_do']);
+Route::get( 'login', [AuthController::class, 'login'])->name('login'); //done
+Route::post('login', [AuthController::class, 'login_do']);
 
-Route::get( '/register', [Auth::class, 'register']);
-Route::post('/register', [Auth::class, 'register_do']);
+Route::get( '/register', [AuthController::class, 'register']);
+Route::post('/register', [AuthController::class, 'register_do']);
 Route::get( '/getting-started', [GettingStartedController::class, 'getting_started']);
 Route::post('/getting-started', [GettingStartedController::class, 'getting_started_save']);
 
 Route::get('/404', [ErrorController::class, 'not_found']);
 
-Route::post('profile/send-email-verification', [Auth::class, 'email_verification_send']);
-Route::post('profile/verify-my-email', [Auth::class, 'email_verification_do']);
+Route::post('profile/send-email-verification', [AuthController::class, 'email_verification_send']);
+Route::post('profile/verify-my-email', [AuthController::class, 'email_verification_do']);
 
 use App\Http\Controllers\Basecamp\DashboardController;
 use App\Http\Controllers\Basecamp\Fund\IndexController as FundIndex;
@@ -57,10 +58,9 @@ Route::group(['prefix' => 'basecamp', 'middleware' => ['auth', 'admin']], functi
  * Client area
  */
 use App\Http\Controllers\Client\HomeController as ClientHome;
-use App\Http\Controllers\Client\Wishlist as ClientWishlist;
 use App\Http\Controllers\Client\Checkout as ClientCheckout;
-use App\Http\Controllers\Client\Fund\ProductController as ClientFundProduct;
-use App\Http\Controllers\Client\Market\ProductController as ClientMarketProduct;
+
+
 use App\Http\Controllers\Client\Profile\IndexController as ClientProfileIndex;
 use App\Http\Controllers\Client\Profile\AddressController as ClientProfileAddress;
 use App\Http\Controllers\Client\Profile\SecurityController as ClientProfileSecurity;
@@ -69,19 +69,36 @@ use App\Http\Controllers\Client\Profile\MarketController as ClientProfileMarket;
 use App\Http\Controllers\Client\Profile\WishlistController as ClientProfileWishlist;
 use App\Http\Controllers\Api\WishlistController as Wishlist;
 
-Route::get( '/', [ClientHome::class, 'index']);
+Route::get( '/', function(){
+    return view((Auth::id() ? 'client.index' : 'client.landing'), ['user' => Auth::user()]);
+});
+
+use App\Http\Controllers\Client\Fund\ProductController as ClientFundProduct;
 Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     Route::get( '/fund', [ClientFundProduct::class, 'index']);
     Route::get( '/fund/{category}', [ClientFundProduct::class, 'category']);
     Route::get( '/fund/{category}/{product}', [ClientFundProduct::class, 'detail']);
     Route::post('/fund/{category}/{product}/buy', [ClientFundProduct::class, 'buy']);
+    // api dimulai
+    Route::get('/v1/fund', [ClientFundProduct::class, '_get']);
+});
 
+use App\Http\Controllers\Client\Market\ProductController as ClientMarketProduct;
+Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     Route::get( '/market', [ClientMarketProduct::class, 'index']);
     Route::get( '/market/{category}', [ClientMarketProduct::class, 'category']);
     Route::get( '/market/{category}/{product}', [ClientMarketProduct::class, 'detail']);
     Route::post('/market/{category}/{product}/buy', [ClientMarketProduct::class, 'buy']);
-    Route::get( '/market/{category}/{product}/like', [ClientMarketProduct::class, 'like']);
+});
 
+use App\Http\Controllers\Client\WishlistController as ClientWishlist;
+Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
+    Route::get('wishlist', [ClientWishlist::class, 'index']);
+    Route::get('_wishlist', [ClientWishlist::class, '_get']);
+});
+
+
+Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     Route::get( '/profile', [ClientProfileIndex::class, 'profile']);
     Route::post('/profile', [ClientProfileIndex::class, 'profile_save']);
     Route::get( '/profile/address', [ClientProfileAddress::class, 'address']);
@@ -97,7 +114,7 @@ Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     Route::post('/profile/market/invoice/{invoice}/pay', [ClientProfileMarket::class, 'pay_save']);
 
     Route::get( '/profile/market/wishlist', [ClientProfileWishlist::class, 'wishlist']);
-
+    // API DIMULAI DISINI
     Route::post('/market/wishlist/new', [Wishlist::class, 'new']);
 });
 

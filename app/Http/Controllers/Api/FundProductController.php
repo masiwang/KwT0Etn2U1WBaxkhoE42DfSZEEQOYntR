@@ -10,7 +10,7 @@ use App\Models\FundProduct;
 class FundProductController extends Controller
 {
     public function get(Request $request){
-        $per_page = 1;
+        $per_page = 6;
         $products = new FundProductResource(FundProduct::skip($request->page*$per_page)->take($per_page)->get());
         return response()->json($products, 200);
     }
