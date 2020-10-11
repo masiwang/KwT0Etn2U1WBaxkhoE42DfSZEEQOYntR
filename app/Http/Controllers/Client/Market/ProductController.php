@@ -35,7 +35,7 @@ class ProductController extends Controller
 
     public function buy(Request $request){
         $product = MarketProduct::where('slug', $request->product)->first();
-        $invoice = 'INVM'.Carbon::now()->timestamp;
+        $invoice = 'MKYM'.Carbon::now()->timestamp;
 
         $checkout = new MarketCheckout;
         $checkout->invoice = $invoice;

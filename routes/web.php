@@ -58,7 +58,6 @@ Route::group(['prefix' => 'basecamp', 'middleware' => ['auth', 'admin']], functi
  * Client area
  */
 use App\Http\Controllers\Client\HomeController as ClientHome;
-use App\Http\Controllers\Client\Checkout as ClientCheckout;
 
 
 use App\Http\Controllers\Client\Profile\IndexController as ClientProfileIndex;
@@ -69,20 +68,23 @@ use App\Http\Controllers\Client\Profile\MarketController as ClientProfileMarket;
 use App\Http\Controllers\Client\Profile\WishlistController as ClientProfileWishlist;
 use App\Http\Controllers\Api\WishlistController as Wishlist;
 
+// ! Client homepage
 Route::get( '/', function(){
     return view((Auth::id() ? 'client.index' : 'client.landing'), ['user' => Auth::user()]);
 });
 
+// ! Produk pendanaan
 use App\Http\Controllers\Client\Fund\ProductController as ClientFundProduct;
 Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     Route::get( '/fund', [ClientFundProduct::class, 'index']);
     Route::get( '/fund/{category}', [ClientFundProduct::class, 'category']);
     Route::get( '/fund/{category}/{product}', [ClientFundProduct::class, 'detail']);
     Route::post('/fund/{category}/{product}/buy', [ClientFundProduct::class, 'buy']);
-    // api dimulai
+    // api
     Route::get('/v1/fund', [ClientFundProduct::class, '_get']);
 });
 
+// ! Produk market
 use App\Http\Controllers\Client\Market\ProductController as ClientMarketProduct;
 Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     Route::get( '/market', [ClientMarketProduct::class, 'index']);
@@ -91,10 +93,44 @@ Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     Route::post('/market/{category}/{product}/buy', [ClientMarketProduct::class, 'buy']);
 });
 
+// ! Wishlist
 use App\Http\Controllers\Client\WishlistController as ClientWishlist;
 Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     Route::get('wishlist', [ClientWishlist::class, 'index']);
-    Route::get('_wishlist', [ClientWishlist::class, '_get']);
+    // api
+    Route::get('/v1/wishlist', [ClientWishlist::class, '_get']);
+});
+
+// ! Checkout
+use App\Http\Controllers\Client\CheckoutController as ClientCheckout;
+Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
+    Route::get('checkout', [ClientCheckout::class, 'index']);
+    Route::get('checkout/{invoice}', [ClientCheckout::class, 'detail']);
+    Route::get('checkout/{invoice}/pay', [ClientCheckout::class, 'pay']);
+    Route::post('checkout/{invoice}/pay', [ClientCheckout::class, 'pay_save']);
+    // api
+    Route::get('/v1/checkout', [ClientCheckout::class, '_get']);
+    Route::get('/v1/checkout/{invoice}', [ClientCheckout::class, '_detail']);
+});
+
+// ! Portofolio
+use App\Http\Controllers\Client\PortofolioController as ClientPortofolio;
+Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
+    Route::get( 'portofolio', [ClientPortofolio::class, 'index']);
+    Route::get( 'portofolio/{invoice}', [ClientPortofolio::class, 'detail']);
+    Route::get( 'portofolio/{invoice}/pay', [ClientPortofolio::class, 'pay']);
+    Route::post('portofolio/{invoice}/pay', [ClientPortofolio::class, 'pay_save']);
+    // api
+    Route::get('v1/portofolio', [ClientPortofolio::class, '_get']);
+    Route::get('v1/portofolio/{invoice}', [ClientPortofolio::class, '_detail']);
+});
+
+// ! User profile
+use App\Http\Controllers\Client\ProfileController;
+Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
+
+    // api
+    Route::get('/v1/user', [ProfileController::class, '_get']);
 });
 
 
@@ -112,8 +148,6 @@ Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     Route::get( '/profile/market/invoice/{invoice}', [ClientProfileMarket::class, 'invoice']);
     Route::get( '/profile/market/invoice/{invoice}/pay', [ClientProfileMarket::class, 'pay']);
     Route::post('/profile/market/invoice/{invoice}/pay', [ClientProfileMarket::class, 'pay_save']);
-
-    Route::get( '/profile/market/wishlist', [ClientProfileWishlist::class, 'wishlist']);
     // API DIMULAI DISINI
     Route::post('/market/wishlist/new', [Wishlist::class, 'new']);
 });

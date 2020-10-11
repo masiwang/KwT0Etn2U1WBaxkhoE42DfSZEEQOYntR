@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Wishlist extends JsonResource
+class Checkout extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,13 +15,15 @@ class Wishlist extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->product_id,
             'image' => $this->product->image,
-            'slug' => $this->product->slug,
-            'name' => $this->product->name,
+            'invoice' => $this->invoice,
+            'product' => $this->product->name,
+            'status' => $this->status->name,
+            'qty' => $this->qty,
             'price' => $this->product->price,
-            'category' => $this->product->category->slug,
-            'is_wishlist' => $this->id
+            'description' => $this->product->description,
+            'category_slug' => $this->product->category->slug,
+            'product_slug' => $this->product->slug,
         ];
     }
 }

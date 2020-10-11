@@ -92,7 +92,6 @@
 @section('bottom-script')
 <script>
     var _token = document.querySelector("meta[name='_token']").getAttribute('content');
-    console.log(_token);
     var marketProductGet = new Vue({
         el: '#market-product-container',
         data(){

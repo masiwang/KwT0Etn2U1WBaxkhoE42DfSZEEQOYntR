@@ -1,14 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\User as UserResources;
 use Illuminate\Http\Request;
+use Auth;
 
 class ProfileController extends Controller
 {
     public function index(){
         return view('user/profile', ['user' => Auth::user()]);
+    }
+
+    public function _get(){
+        $user = new UserResources(Auth::user());
+        if(!$user){
+            return response()->json(['status' => 'Bad request'], 400);
+        }
+        return response()->json($user, 200);
     }
 
     public function update_save(Request $request){

@@ -36,7 +36,7 @@ class ProductController extends Controller
 
     public function buy(Request $request){
         $product = FundProduct::where('slug', $request->product)->first();
-        $invoice = 'INVF'.Carbon::now()->timestamp;
+        $invoice = 'MKYF'.Carbon::now()->timestamp;
         $checkout = new FundCheckout;
         $checkout->invoice = $invoice;
         $checkout->product_id = $product->id;

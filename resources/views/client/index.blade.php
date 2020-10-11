@@ -1,4 +1,5 @@
 @extends('client._components.master')
+@section('title') Home @endsection
 @section('content')
     @include('client._components.top_nav')
     <div class="container mb-5">
@@ -131,13 +132,11 @@
                             <p class="card-text mb-1 text-success"><strong>Rp.@{{ product.price }}</strong></p>
                             <hr>
                             <div class="mb-1 d-flex justify-content-between">
-                                <a v-if="product.is_wishlist" v-on:click="like(product)" class="btn btn-white text-danger w-100 btn-sm btn-action-like">
-                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <a v-on:click="like(product)" class="btn btn-white text-danger w-100 btn-sm btn-action-like">
+                                    <svg v-if="product.is_wishlist" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
                                     </svg>
-                                </a>
-                                <a v-else v-on:click="like(product)" class="btn btn-white text-danger w-100 btn-sm btn-action-like">
-                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <svg v-else width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
                                     </svg>
                                 </a>
@@ -218,8 +217,8 @@
     @include('client._components.footer')
 @endsection
 @section('bottom-script')
-    {{-- <script src="/script/client-market.js"></script> --}}
     <script>
+        var _token = document.querySelector("meta[name='_token']").getAttribute('content');
         var marketProductGet = new Vue({
             el: '#market-product-container',
             data(){
@@ -251,8 +250,19 @@
                         this.page = this.page + 1
                     })
                 },
-                like: function(event){
-                    event.is_wishlist = !event.is_wishlist
+                like: function(product){
+                    axios.post('http://127.0.0.1:8000/market/wishlist/new', {
+                        product: product.id,
+                        _token: _token
+                    })
+                    .then(response => {
+                        console.log(response)
+                        // (response.data.length < 6 ) ? this.is_endpage = true : this.is_endpage = false;
+                        // response.data.map(data => this.products.push(data))
+                    })
+                    .finally(() => {
+                        product.is_wishlist = !product.is_wishlist
+                    })
                 },
                 more: function(){
                     this.loading = true
@@ -282,7 +292,7 @@
             },
             methods: {
                 load: function(){
-                    axios.get('http://127.0.0.1:8000/api/fund/product', {
+                    axios.get('http://127.0.0.1:8000/v1/fund', {
                         params: {
                             category: this.category,
                             page: this.page

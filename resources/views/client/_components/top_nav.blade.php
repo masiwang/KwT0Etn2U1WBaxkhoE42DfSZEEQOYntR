@@ -16,16 +16,8 @@
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="{{ url('/fund') }}">Funding</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-                        <i class="far fa-bell"></i>
-                        <span class="ma-menu-title">Notifikasi</span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{ url('/notification') }}">Notifikasi</a>
                 </li>
                 @if ($user)
                 <li class="nav-item dropdown">
@@ -35,14 +27,6 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{{ url('profile') }}">Akun</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{{ url('wishlist') }}">Wishlist</a></li>
-                        <li><a class="dropdown-item" href="{{ url('cart') }}">Keranjang</a></li>
-                        <li><a class="dropdown-item" href="{{ url('checkout') }}">Pesanan</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{{ url('portofolio') }}">Portofolio</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Pengaturan</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="{{ url('logout') }}">Keluar</a></li>
                     </ul>
@@ -63,20 +47,17 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('/profile/market/wishlist') }}">Wishlist</a>
+                    <a class="nav-link" aria-current="page" target="_self" href="{{ url('/wishlist') }}">Wishlist</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('/profile/market/cart') }}">Keranjang</a>
+                    <a class="nav-link" aria-current="page" target="_self" href="{{ url('/checkout') }}">Pesanan</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('/profile/market/checkout') }}">Pesanan</a>
+                    <a class="nav-link" aria-current="page" target="_self" href="{{ url('/portofolio') }}">Portofolio</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('/profile/fund') }}">Portofolio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('/help') }}">Bantuan</a>
-                </li>
+                {{-- <li class="nav-item">
+                    <a class="nav-link" aria-current="page" target="_self" href="{{ url('/help') }}">Bantuan</a>
+                </li> --}}
             </ul>
         </div>
     </div>
