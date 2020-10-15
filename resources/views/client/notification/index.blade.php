@@ -70,7 +70,7 @@
         methods:{
             load: function(){
                 this.loading = true;
-                axios.get('http://127.0.0.1:8000/v1/notification', {
+                axios.get(_base+'/v1/notification', {
                     params: {
                         page: this.page
                     }

@@ -219,6 +219,7 @@
 @section('bottom-script')
     <script>
         var _token = document.querySelector("meta[name='_token']").getAttribute('content');
+        var _base = document.querySelector("base").getAttribute("href");
         var marketProductGet = new Vue({
             el: '#market-product-container',
             data(){
@@ -292,7 +293,7 @@
             },
             methods: {
                 load: function(){
-                    axios.get('http://127.0.0.1:8000/v1/fund', {
+                    axios.get(_base+'/v1/fund', {
                         params: {
                             category: this.category,
                             page: this.page

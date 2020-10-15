@@ -92,6 +92,7 @@
 @section('bottom-script')
 <script>
     var _token = document.querySelector("meta[name='_token']").getAttribute('content');
+    var _base = document.querySelector('base').getAttribute('href');
     var marketProductGet = new Vue({
         el: '#market-product-container',
         data(){
@@ -109,7 +110,7 @@
         },
         methods:{
             load: function(){
-                axios.get('http://127.0.0.1:8000/api/market/product', {
+                axios.get(_base+'/api/market/product', {
                     params: {
                         category: this.category,
                         page: this.page
@@ -125,7 +126,7 @@
                 })
             },
             like: function(product){
-                axios.post('http://127.0.0.1:8000/market/wishlist/new', {
+                axios.post(_base+'/market/wishlist/new', {
                     product: product.id,
                     _token: _token
                 })
