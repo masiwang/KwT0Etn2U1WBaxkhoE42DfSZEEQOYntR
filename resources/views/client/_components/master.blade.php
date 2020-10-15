@@ -92,6 +92,7 @@
           }
         }
       </style>
+      @yield('top-script')
     </head>
     <body style="background-color: whitesmoke">
       @yield('content')

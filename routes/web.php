@@ -58,8 +58,6 @@ Route::group(['prefix' => 'basecamp', 'middleware' => ['auth', 'admin']], functi
  * Client area
  */
 use App\Http\Controllers\Client\HomeController as ClientHome;
-
-
 use App\Http\Controllers\Client\Profile\IndexController as ClientProfileIndex;
 use App\Http\Controllers\Client\Profile\AddressController as ClientProfileAddress;
 use App\Http\Controllers\Client\Profile\SecurityController as ClientProfileSecurity;
@@ -86,11 +84,15 @@ Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
 
 // ! Produk market
 use App\Http\Controllers\Client\Market\ProductController as ClientMarketProduct;
+use App\Http\Controllers\Client\MarketProductController as ClientMarket;
+Route::get('/v1/market/guest', [ClientMarket::class, '_get_for_non_auth_user']);
 Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     Route::get( '/market', [ClientMarketProduct::class, 'index']);
     Route::get( '/market/{category}', [ClientMarketProduct::class, 'category']);
     Route::get( '/market/{category}/{product}', [ClientMarketProduct::class, 'detail']);
     Route::post('/market/{category}/{product}/buy', [ClientMarketProduct::class, 'buy']);
+    // api
+    Route::get('/v1/market', [ClientMarket::class, '_get']);
 });
 
 // ! Wishlist
@@ -125,10 +127,18 @@ Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     Route::get('v1/portofolio/{invoice}', [ClientPortofolio::class, '_detail']);
 });
 
+// ! Notification
+use App\Http\Controllers\Client\NotificationController as ClientNotification;
+Route::group(['middleware' => ['auth', 'profileiscomplete']], function(){
+    Route::get('/notification', [ClientNotification::class, 'index']);
+    // API
+    Route::get('/v1/notification', [ClientNotification::class, '_get']);
+    Route::get('/v1/notification/{id}', [ClientNotification::class, '_detail']);
+});
+
 // ! User profile
 use App\Http\Controllers\Client\ProfileController;
 Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
-
     // api
     Route::get('/v1/user', [ProfileController::class, '_get']);
 });
@@ -152,4 +162,8 @@ Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     Route::post('/market/wishlist/new', [Wishlist::class, 'new']);
 });
 
-Route::get('/logout', [Auth::class, 'logout'])->middleware('auth');
+// ! Logout
+Route::get('/logout', function(){
+    Auth::logout();
+    Session::flush();
+})->middleware('auth');

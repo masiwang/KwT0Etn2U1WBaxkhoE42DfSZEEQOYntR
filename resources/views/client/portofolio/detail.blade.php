@@ -80,25 +80,25 @@
                         <a class="ma-link" id="simulasi-tab" data-toggle="tab" href="#simulasi" role="tab" aria-controls="simulasi" aria-selected="false">Simulasi</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="ma-link" id="risk-analysis-tab" data-toggle="tab" href="#risk-analysis" role="tab" aria-controls="risk-analysis" aria-selected="false">Risk Analysis</a>
+                        <a class="ma-link" id="prospectus-tab" data-toggle="tab" href="#prospectus" role="tab" aria-controls="prospectus" aria-selected="false">Risk Analysis</a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
                         <div class="row">
                             <div class="col-12 p-4">
-                                <iframe class="bg-secondary" style="width: 100%; height: 600px" v-bind:src="portofolio.description"></iframe>
+                                <iframe class="" style="width: 100%; height: 600px" v-bind:src="portofolio.description"></iframe>
                             </div>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="simulasi" role="tabpanel" aria-labelledby="simulasi-tab">
                         <div class="row">
                             <div class="col-12 p-4">
-                                <iframe class="bg-secondary" style="width: 100%; height: 600px" v-bind:src="portofolio.simulation"></iframe>
+                                <iframe class="" style="width: 100%; height: 600px" v-bind:src="portofolio.simulation"></iframe>
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="risk-analysis" role="tabpanel" aria-labelledby="risk-analysis-tab">
+                    <div class="tab-pane fade" id="prospectus" role="tabpanel" aria-labelledby="prospectus-tab">
                         <div class="row">
                             <div class="col-12 p-4">
                                 <iframe class="bg-secondary" style="width: 100%; height: 600px" v-bind:src="portofolio.risk_analysis"></iframe>

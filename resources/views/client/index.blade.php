@@ -235,7 +235,7 @@
             },
             methods:{
                 load: function(){
-                    axios.get('http://127.0.0.1:8000/api/market/product', {
+                    axios.get('http://127.0.0.1:8000/v1/market', {
                         params: {
                             category: this.category,
                             page: this.page
