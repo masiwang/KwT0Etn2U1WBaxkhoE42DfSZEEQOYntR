@@ -202,6 +202,7 @@
 @endsection
 @section('bottom-script')
     <script>
+        var _base = document.querySelector('base').getAttribute('href');
         var marketProductGet = new Vue({
             el: '#market-product-container',
             data(){
