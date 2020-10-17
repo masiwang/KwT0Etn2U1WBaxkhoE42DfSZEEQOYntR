@@ -96,4 +96,17 @@ class GettingStartedController extends Controller
             return redirect('/');
         }
     }
+
+    public function _2(Request $request){
+        $user = User::where('id', Auth::id())->first();
+        $user->jalan = $request->jalan;
+        $user->provinsi = $request->provinsi;
+        $user->kabupaten = $request->kabupaten;
+        $user->kecamatan = $request->kecamatan;
+        $user->kelurahan = $request->kelurahan;
+        $user->kodepos = $request->kodepos;
+        $user->getting_started_level = 3;
+        $user->save();
+        return response()->json(['status' => 'success'], 200);
+    }
 }

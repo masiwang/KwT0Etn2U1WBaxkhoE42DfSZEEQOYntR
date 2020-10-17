@@ -10,6 +10,7 @@ use App\Models\FundCheckout;
 use App\Models\FundProduct;
 use Auth;
 use Carbon\Carbon;
+use Mail;
 use Str;
 
 class PortofolioController extends Controller
@@ -50,6 +51,29 @@ class PortofolioController extends Controller
             ->skip((int)$request->page*$per_page)->take($per_page)->get();
         $checkout = new PortofolioCollection($checkout);
         return response()->json($checkout, 200);
+    }
+
+    public function _post(Request $request){
+        $product = FundProduct::where('slug', $request->product)->first();
+        $invoice = 'MKYF'.Carbon::now()->timestamp;
+        $portofolio = new FundCheckout;
+        $portofolio->invoice = $invoice;
+        $portofolio->user_id = Auth::id();
+        $portofolio->product_id = $product->id;
+        $portofolio->qty = $request->qty;
+        $portofolio->status_id = 1;
+        $portofolio->save();
+        $product->stock = (int)$product->stock - (int)$request->qty;
+        $product->save();
+        // kirim invoice ke email
+        $user = Auth::user();
+        $product = $product = FundProduct::where('slug', $request->product)->first();
+        $portofolio = FundCheckout::where('invoice', $invoice)->first();
+        Mail::send('template.email.invoice', ['user' => $user, 'product' => $product, 'portofolio' => $portofolio], function ($m) use ($user, $portofolio, $product) {
+            $m->from('no-reply@makarya.in', 'Invoice from Makarya');
+            $m->to($user->email)->subject('Invoice #'.$portofolio->invoice.' - Rp.'.((int)$portofolio->qty * (int)$product->price));
+        });
+        return response()->json(['status' => 'success', 'invoice' => $invoice]);
     }
 
     public function _detail($invoice){

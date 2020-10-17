@@ -125,7 +125,7 @@
             </div>
         </div>
     </div>
-    <div style="height: 5rem"></div>
+    {{-- <div style="height: 5rem"></div>
     <div class="container">
         <div class="mb-3">
             <h6 class="font-weight-bold text-muted">HASIL USAHA MITRA</h6>
@@ -196,11 +196,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <div style="height: 5rem"></div>
     @include('client._components.footer')
 @endsection
-@section('bottom-script')
+{{-- @section('bottom-script')
     <script>
         var _base = document.querySelector('base').getAttribute('href');
         var marketProductGet = new Vue({
@@ -238,4 +238,4 @@
             }
         });
     </script>
-@endsection
+@endsection --}}

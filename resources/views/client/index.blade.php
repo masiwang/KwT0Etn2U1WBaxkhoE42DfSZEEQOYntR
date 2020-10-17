@@ -7,51 +7,22 @@
             <div class="col-12">
                 <div class="card-body p-0">
                     <div class="row">
-                        <aside class="col-xl-3">
-                            <nav class="nav-home-aside p-4 d-none d-md-block shadow-sm bg-white ">
-                                <h6 class="font-weight-bold">Menu kategori <i class="d-md-none icon fa fa-chevron-down"></i>
-                                </h6>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item top-slide-list">
-                                        <a href="{{ url('/fund') }}" class="text-dark text-decoration-none py-3">Pendanaan</a>
-                                    </li>
-                                    <li class="list-group-item top-slide-list">
-                                        <a href="{{ url('/market') }}" class="text-dark text-decoration-none py-3">Produk Petani</a>
-                                    </li>
-                                    <li class="list-group-item top-slide-list">
-                                        <a href="{{ url('/market/sayur') }}" class="text-dark text-decoration-none py-3">Sayuran</a>
-                                    </li>
-                                    <li class="list-group-item top-slide-list">
-                                        <a href="{{ url('/market/buah') }}" class="text-dark text-decoration-none py-3">Buah-buahan</a>
-                                    </li>
-                                    <li class="list-group-item top-slide-list">
-                                        <a href="{{ url('/market/daging') }}" class="text-dark text-decoration-none py-3">Daging</a>
-                                    </li>
-                                    <li class="list-group-item top-slide-list">
-                                        <a href="{{ url('/market/ikan') }}" class="text-dark text-decoration-none py-3">Ikan</a>
-                                    </li>
-                                    <li class="list-group-item top-slide-list">
-                                        <a href="{{ url('/market/lainnya') }}" class="text-dark text-decoration-none py-3">Lainnya</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </aside>
-                        <div class="col-xl-9 px-0">
-                            <div id="carouselExampleIndicators" class="carousel carousel-index slide" data-ride="carousel">
+                        <div class="col-12">
+                            <div id="topCarousel" class="carousel carousel-index slide" data-ride="carousel">
                                 <ol class="carousel-indicators">
-                                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                    <li data-target="#topCarousel" data-slide-to="0" class="active"></li>
+                                    <li data-target="#topCarousel" data-slide-to="1"></li>
+                                    <li data-target="#topCarousel" data-slide-to="2"></li>
                                 </ol>
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
-                                        <img src="https://images.unsplash.com/photo-1511576661531-b34d7da5d0bb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" height="370px" class="d-block w-100" alt="...">
+                                        <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&h=370&w=1080" height="370px" class="d-block w-100" alt="...">
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="https://images.unsplash.com/photo-1500964757637-c85e8a162699?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=778&q=80" height="370px" class="d-block w-100" alt="...">
+                                        <img src="https://images.unsplash.com/photo-1556762163-542910c8765d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&h=370&w=1080" height="370px" class="d-block w-100" alt="...">
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="https://images.unsplash.com/photo-1532274402911-5a369e4c4bb5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" height="370px" class="d-block w-100" alt="...">
+                                        <img src="https://images.unsplash.com/photo-1544551763-77ef2d0cfc6c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&h=370&w=1080" height="370px" class="d-block w-100" alt="...">
                                     </div>
                                 </div>
                             </div>
@@ -60,7 +31,7 @@
                 </div>
             </div>
         </div>
-        {{-- Funding start --}}
+        {{-- ===== Funding start ===== --}}
         <div class="row mt-3">
             <div class="col-12 p-2">
                 <header class="section-heading heading-line">
@@ -69,8 +40,8 @@
             </div>
         </div>
         <div class="row mt-3" id="fund-product-container" style="min-height: 80px;">
-            <div style="min-width: 100%; overflow-x: auto; white-space: nowrap">
-                <div v-for="product in products" class="card card-product shadow-sm mr-2" style="display: inline-block; width: 240px">
+            <div v-show="!loading" v-for="product in products"  class="col-6 col-md-3 mb-4">
+                <div class="card card-product shadow-sm mr-2">
                     <div style="overflow: hidden">
                         <img v-bind:src="product.image" alt="Avatar" class="card-img" style="width: 100%">
                     </div>
@@ -78,40 +49,67 @@
                         <p class="card-title align-self-stretch" style="max-height: 44px; overflow: hidden; font-size: .9rem;">
                             <a v-bind:href="'/fund/'+product.category+'/'+product.slug" class="text-decoration-none text-dark">@{{ product.name }}</a>
                         </p>
-                        <p class="card-text mb-1 text-success"><b>Rp.@{{ product.price }}/unit</b>
-                            </p>
-                            <div class="d-flex flex-row w-100" style="font-size: .8rem">
-                                <div class="col-7"><b>Kontrak</b></div>
-                                <div class="col-5">@{{ product.periode }} Tahun</div>
-                            </div>
-                            <div class="d-flex flex-row w-100" style="font-size: .8rem">
-                                <div class="col-7"><b>Return</b></div>
-                                <div class="col-5">@{{ product.return_per_periode }}%</div>
-                            </div>
-                            <div class="d-flex flex-row w-100" style="font-size: .8rem">
-                                <div class="col-7"><b>Stock</b></div>
-                                <div class="col-5">@{{ product.stock }} @{{ product.size }}</div>
-                            </div>
-                            <div class="d-flex flex-row w-100 mb-3" style="font-size: .8rem">
-                                <div class="col-7"><b>Batas waktu</b></div>
-                                <div class="col-5">@{{ product.closed_at }}</div>
-                            </div>
-                            <div class="w-100">
-                                <a v-bind:href="'/fund/product/'+product.slug" class="btn btn-success btn-sm w-100">Danai</a>
-                            </div>
+                        <p class="card-text mb-1 text-success"><b>Rp.@{{ new Intl.NumberFormat('id-ID', { maximumSignificantDigits: 3 }).format(product.price) }}/unit</b></p>
+                        <div class="d-flex flex-row w-100" style="font-size: .8rem">
+                            <div class="col-7"><b>Kontrak</b></div>
+                            <div class="col-5">@{{ product.periode }} Tahun</div>
                         </div>
-                    </div>
-                    <div class="mt-3" v-if="loading">
-                        <div class="spinner">
-                            <div class="bounce1"></div>
-                            <div class="bounce2"></div>
-                            <div class="bounce3"></div>
+                        <div class="d-flex flex-row w-100" style="font-size: .8rem">
+                            <div class="col-7"><b>Return</b></div>
+                            <div class="col-5">@{{ product.return }}%</div>
+                        </div>
+                        <div class="d-flex flex-row w-100" style="font-size: .8rem">
+                            <div class="col-7"><b>Stock</b></div>
+                            <div class="col-5">@{{ product.stock }} @{{ product.size }}</div>
+                        </div>
+                        <div class="d-flex flex-row w-100 mb-3" style="font-size: .8rem">
+                            <div class="col-7"><b>Batas waktu</b></div>
+                            <div class="col-5">@{{ product.closed_at }}</div>
+                        </div>
+                        <div class="w-100">
+                            <a v-bind:href="'/fund/product/'+product.slug" class="btn btn-success btn-sm w-100">Danai</a>
                         </div>
                     </div>
                 </div>
-            
+            </div>
+            <div v-show="loading" v-for="n in 4" class="col-6 col-md-3 mb-4">
+                <div class="card card-product bg-secondary shadow-sm mr-2">
+                    <div style="height: 215px" class="d-flex justify-content-center align-items-center">
+                        <img src="/image/assets/loading.gif" style="height: 5rem" alt="">
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="mb-1 bg-secondary" style="width: 150px">&nbsp;</p>
+                        <p class="mb-3 bg-secondary" style="width: 100px">&nbsp;</p>
+                        <div class="mb-1 d-flex justify-content-between w-100">
+                            <div class="col-7 bg-white" style="width: 80px">&nbsp;</div>
+                            <div class="col-5 bg-white">&nbsp;</div>
+                        </div>
+                        <div class="mb-1 d-flex justify-content-between w-100">
+                            <div class="col-7 bg-white" style="width: 70px">&nbsp;</div>
+                            <div class="col-5 bg-white" style="width: 40px">&nbsp;</div>
+                        </div>
+                        <div class="mb-1 d-flex justify-content-between w-100">
+                            <div class="col-7 bg-white" style="width: 60px">&nbsp;</div>
+                            <div class="col-5 bg-white" style="width: 30px">&nbsp;</div>
+                        </div>
+                        <div class="mb-3 d-flex justify-content-between w-100">
+                            <div class="col-7 bg-white" style="width: 100px">&nbsp;</div>
+                            <div class="col-5 bg-white" style="width: 90px">&nbsp;</div>
+                        </div>
+                        <div class="w-100">
+                            <div class="bg-secondary w-100">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 text-center">
+                <button v-show="!is_endpage" class="btn btn-success btn-sm" @click="load()">Muat lebih banyak</button>
+            </div>
         </div>
-        <div class="row mt-3">
+        <script src="/script/homepage.js"></script>
+        {{-- ===== Funding end ===== --}}
+
+        {{-- <div class="row mt-3">
             <div class="col-12 p-2">
                 <header class="section-heading heading-line">
                     <h4 class="text-uppercase">Market</h4>
@@ -163,7 +161,7 @@
                     <button class="btn btn-success btn-sm" v-on:click="more" v-show="!is_endpage">Muat lebih banyak</button>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <div class="row mt-3">
             <div class="col-12 p-2">
                 <header class="section-heading heading-line">
@@ -217,98 +215,5 @@
     @include('client._components.footer')
 @endsection
 @section('bottom-script')
-    <script>
-        var _token = document.querySelector("meta[name='_token']").getAttribute('content');
-        var _base = document.querySelector("base").getAttribute("href");
-        var marketProductGet = new Vue({
-            el: '#market-product-container',
-            data(){
-                return{
-                    loading: true,
-                    products: [],
-                    page: 0,
-                    category: 'all',
-                    is_endpage: false,
-                }
-            },
-            mounted(){
-                this.load()
-            },
-            methods:{
-                load: function(){
-                    axios.get('http://127.0.0.1:8000/v1/market', {
-                        params: {
-                            category: this.category,
-                            page: this.page
-                        }
-                    })
-                    .then(response => {
-                        (response.data.length < 6 ) ? this.is_endpage = true : this.is_endpage = false;
-                        response.data.map(data => this.products.push(data))
-                    })
-                    .finally(() => {
-                        this.loading = false;
-                        this.page = this.page + 1
-                    })
-                },
-                like: function(product){
-                    axios.post('http://127.0.0.1:8000/market/wishlist/new', {
-                        product: product.id,
-                        _token: _token
-                    })
-                    .then(response => {
-                        console.log(response)
-                        // (response.data.length < 6 ) ? this.is_endpage = true : this.is_endpage = false;
-                        // response.data.map(data => this.products.push(data))
-                    })
-                    .finally(() => {
-                        product.is_wishlist = !product.is_wishlist
-                    })
-                },
-                more: function(){
-                    this.loading = true
-                    this.load()
-                },
-                setCategory: function(category){
-                    this.loading = true
-                    this.category = category
-                    this.page = 0
-                    this.products = []
-                    this.load()
-                }
-            }
-        });
-        var fundProductGet = new Vue({
-            el: '#fund-product-container',
-            data(){
-                return {
-                    page: 0,
-                    loading: true,
-                    products: [],
-                    is_endpage: false
-                }
-            },
-            mounted(){
-                this.load()
-            },
-            methods: {
-                load: function(){
-                    axios.get(_base+'/v1/fund', {
-                        params: {
-                            category: this.category,
-                            page: this.page
-                        }
-                    })
-                    .then(response => {
-                        (response.data.length < 6 ) ? this.is_endpage = true : this.is_endpage = false;
-                        response.data.map(data => this.products.push(data))
-                    })
-                    .finally(() => {
-                        this.loading = false;
-                        this.page = this.page + 1
-                    })
-                }
-            }
-        });
-    </script>
+
 @endsection

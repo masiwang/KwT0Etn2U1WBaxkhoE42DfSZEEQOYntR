@@ -36,8 +36,7 @@ class ProductController extends Controller
         $product->started_at = $request->started_at;
         $product->ended_at = $request->ended_at;
         $product->category_id = $request->category_id;
-        $product->simulation = $request->simulation;
-        $product->risk_analysis = $request->risk_analysis;
+        $product->risk_analysis = $request->prospectus;
         $product->vendor_id = 1;
         $product->save();
     }
@@ -53,7 +52,7 @@ class ProductController extends Controller
     }
 
     public function new(){
-        return view('basecamp.fund.product.new');
+        return view('basecamp.fund.product.new', ['user' => Auth::user()]);
     }
 
     public function new_save(Request $request){
@@ -73,12 +72,10 @@ class ProductController extends Controller
         $product = FundProduct::where('slug', $request->product)->first();
         $product->name = $request->name;
         $product->description = $request->description;
-        $product->simulation = $request->simulation;
-        $product->risk_analysis = $request->risk_analysis;
+        $product->risk_analysis = $request->prospectus;
         $product->category_id = $request->category_id;
         $product->price = $request->price;
         $product->stock = $request->stock;
-        $product->max_buy = $request->max_buy;
         $product->return_per_periode = $request->return;
         $product->opened_at = $request->opened_at;
         $product->closed_at = $request->closed_at;

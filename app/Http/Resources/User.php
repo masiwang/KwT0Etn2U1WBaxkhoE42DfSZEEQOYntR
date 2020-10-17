@@ -20,7 +20,15 @@ class User extends JsonResource
             'kelurahan' => $this->kelurahan,
             'kecamatan' => $this->kecamatan,
             'kabupaten' => $this->kabupaten,
-            'kodepos' => $this->kodepos
+            'kodepos' => $this->kodepos,
+            'job' => $this->job,
+            'email' => $this->email,
+            'phone' => $this->phone,
+            'birthday' => date('d M Y', strtotime($this->birthday)),
+            'ktp' => $this->ktp,
+            'ktp_image' => $this->ktp_image,
+            'gender' => $this->gender,
+            'saldo' => $this->saldo
         ];
     }
 }

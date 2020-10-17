@@ -3,8 +3,7 @@
 @include('client._components.top_nav')
 <div class="container mb-5 px-xl-5">
     <div class="row mt-4" id="menu">
-        <form class="card col-12 p-4 border-0 shadow-sm" action="{{ url('/getting-started') }}" method="POST">
-            @csrf
+        <div id="root">
             <div class="card-body">
                 <div class="row">
                     <div class="col-3">
@@ -13,139 +12,174 @@
                     <div class="col-9">
                         <div class="mb-3">
                             <label for="jalan" class="form-label">Jalan</label>
-                            <input type="text" class="form-control" id="jalan" name="jalan">
+                            <input type="text" class="form-control" v-model="jalan" name="jalan">
                         </div>
                         <div class="row mb-3">
                             <div class="col-xl-6">
                                 <label for="provinsi" class="form-label">Provinsi</label>
-                                <input class="form-control" list="provinsiList" name="provinsi" id="provinsi" placeholder="Ketik untuk mencari...">
+                                <input class="form-control" list="provinsiList" v-model="provinsi" @change="getKabupaten" placeholder="Ketik untuk mencari...">
                                 <datalist id="provinsiList">
+                                    <option v-for="provinsi in provinsiList" :value="provinsi.provinsi"></option>
                                 </datalist>
                             </div>
                             <div class="col-xl-6">
                                 <label for="kabupaten" class="form-label">Kabupaten/ Kota</label>
-                                <input class="form-control" list="kabupatenList" name="kabupaten" id="kabupaten" placeholder="Ketik untuk mencari...">
+                                <input class="form-control" list="kabupatenList" v-model="kabupaten" @change="getKecamatan" placeholder="Ketik untuk mencari...">
                                 <datalist id="kabupatenList">
+                                    <option v-for="kabupaten in kabupatenList" :value="kabupaten.kabupaten"></option>
                                 </datalist>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-xl-4">
                                 <label for="kecamatan" class="form-label">Kecamatan</label>
-                                <input class="form-control" list="kecamatanList" name="kecamatan" id="kecamatan" placeholder="Ketik untuk mencari...">
+                                <input class="form-control" list="kecamatanList" v-model="kecamatan" @change="getKelurahan" placeholder="Ketik untuk mencari...">
                                 <datalist id="kecamatanList">
+                                    <option v-for="kecamatan in kecamatanList" :value="kecamatan.kecamatan"></option>
                                 </datalist>
                             </div>
                             <div class="col-xl-4">
                                 <label for="kelurahan" class="form-label">Desa/ Kelurahan</label>
-                                <input class="form-control" list="kelurahanList" name="kelurahan" id="kelurahan" placeholder="Ketik untuk mencari...">
+                                <input class="form-control" list="kelurahanList" v-model="kelurahan" @change="getKodepos" placeholder="Ketik untuk mencari...">
                                 <datalist id="kelurahanList">
+                                    <option v-for="kelurahan in kelurahanList" :value="kelurahan.kelurahan"></option>
                                 </datalist>
                             </div>
                             <div class="col-xl-4">
                                 <label for="kodepos" class="form-label">Kode pos</label>
-                                <input type="text" class="form-control" id="kodepos" name="kodepos">
+                                <input type="text" class="form-control" :value="kodepos">
                             </div>
                         </div>
                         <hr>
                         <div class="text-right">
-                            <button class="btn btn-success" type="submit">Simpan</button>
+                            <button class="btn btn-success" @click="save">Simpan</button>
                         </div>
-                        <script>
-                            function myFetch(url, data, handle){
-                                $.ajax({
-                                    type: "get",
-                                    url: url,
-                                    data: data,
-                                    dataType: "json",
-                                    success: function (response) {
-                                        handle(response);
-                                    }
-                                });
-                            }
-                            var token = $('meta[name="_token"]').attr('content');
-                            var provinsi = $('input[name="provinsi"]');
-                            var provinsiList = $('#provinsiList');
-                            $(document).ready(function(){
-                                myFetch('/api/provinsi', {}, function(response){
-                                    var html = '';
-                                    response.map(
-                                        (e) => (
-                                            html += `<option value="${e.provinsi}">`
-                                        )
-                                    );
-                                    provinsiList.html(html);
-                                });
-                            });
-                            var kabupaten = $('input[name="kabupaten"]');
-                            var kabupatenList = $('#kabupatenList');
-                            provinsi.on('change', function(){
-                                myFetch('/api/kabupaten', {
-                                    'provinsi': provinsi.val(),
-                                    '_token': token
-                                }, function(response){
-                                    var html = '';
-                                    response.map(
-                                        (e) => (
-                                            html += `<option value="${e.kabupaten}">`
-                                        )
-                                    );
-                                    kabupatenList.html(html);
-                                })
-                            });
-                            var kecamatan = $('input[name="kecamatan"]');
-                            var kecamatanList = $('#kecamatanList');
-                            kabupaten.on('change', function(){
-                                myFetch('/api/kecamatan', {
-                                    'provinsi': provinsi.val(),
-                                    'kabupaten': kabupaten.val(),
-                                    '_token': token
-                                }, function(response){
-                                    var html = '';
-                                    response.map(
-                                        (e) => (
-                                            html += `<option value="${e.kecamatan}">`
-                                        )
-                                    );
-                                    kecamatanList.html(html);
-                                })
-                            });
-                            var kelurahan = $('input[name="kelurahan"]');
-                            var kelurahanList = $('#kelurahanList');
-                            kecamatan.on('change', function(){
-                                myFetch('/api/kelurahan', {
-                                    'provinsi': provinsi.val(),
-                                    'kabupaten': kabupaten.val(),
-                                    'kecamatan': kecamatan.val(),
-                                    '_token': token
-                                }, function(response){
-                                    var html = '';
-                                    response.map(
-                                        (e) => (
-                                            html += `<option value="${e.kelurahan}">`
-                                        )
-                                    );
-                                    kelurahanList.html(html);
-                                })
-                            });
-                            var kodepos = $('input[name="kodepos"]');
-                            kelurahan.on('change', function(){
-                                myFetch('/api/kodepos', {
-                                    'provinsi': provinsi.val(),
-                                    'kabupaten': kabupaten.val(),
-                                    'kecamatan': kecamatan.val(),
-                                    'kelurahan': kelurahan.val(),
-                                    '_token': token
-                                }, function(response){
-                                    kodepos.val(response.kodepos);
-                                })
-                            });
-                        </script>
                     </div>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 @include('client._components.footer')
+@endsection
+@section('bottom-script')
+    <script>
+        var _base = document.querySelector('base').getAttribute('href');
+        var _token = document.querySelector('meta[name="_token"]').getAttribute('content');
+        var script = new Vue({
+            el: '#root',
+            data(){
+                return {
+                    provinsiList: [],
+                    kabupatenList: [],
+                    kecamatanList: [],
+                    kelurahanList: [],
+                    jalan: '',
+                    provinsi: '',
+                    kabupaten: '',
+                    kecamatan: '',
+                    kelurahan: '',
+                    kodepos: '',
+                }
+            },
+            mounted(){
+                this.getProvinsi();
+            },
+            methods: {
+                getProvinsi: function(){
+                    axios.get(_base+'/api/provinsi')
+                    .then(
+                        response => {
+                            response.data.map(
+                                data => this.provinsiList.push(data)
+                            )
+                        }
+                    )
+                },
+                getKabupaten: function(){
+                    axios.get(_base+'/api/kabupaten', {
+                        params: {
+                            provinsi: this.provinsi
+                        }
+                    })
+                    .then(
+                        response => {
+                            response.data.map(
+                                data => this.kabupatenList.push(data)
+                            )
+                        }
+                    )
+                },
+                getKecamatan: function(){
+                    axios.get(_base+'/api/kecamatan', {
+                        params: {
+                            provinsi: this.provinsi,
+                            kabupaten: this.kabupaten
+                        }
+                    })
+                    .then(
+                        response => {
+                            response.data.map(
+                                data => this.kecamatanList.push(data)
+                            )
+                        }
+                    )
+                },
+                getKelurahan: function(){
+                    axios.get(_base+'/api/kelurahan', {
+                        params: {
+                            provinsi: this.provinsi,
+                            kabupaten: this.kabupaten,
+                            kecamatan: this.kecamatan
+                        }
+                    })
+                    .then(
+                        response => {
+                            response.data.map(
+                                data => this.kelurahanList.push(data)
+                            )
+                        }
+                    )
+                },
+                getKodepos: function(){
+                    axios.get(_base+'/api/kodepos', {
+                        params: {
+                            provinsi: this.provinsi,
+                            kabupaten: this.kabupaten,
+                            kecamatan: this.kecamatan,
+                            kelurahan: this.kelurahan
+                        }
+                    })
+                    .then(
+                        response => {
+                            this.kodepos = response.data.kodepos
+                        }
+                    )
+                },
+                save: function(){
+                    axios.post(_base+'/v1/getting-started/2', {
+                        provinsi: this.provinsi,
+                        kabupaten: this.kabupaten,
+                        kecamatan: this.kecamatan,
+                        kelurahan: this.kelurahan,
+                        kodepos: this.kodepos,
+                        jalan: this.jalan,
+                        _token: _token
+                    }, {
+                        validateStatus: function(status){
+                            return status
+                        }
+                    })
+                    .then(
+                        response => {
+                            console.log(response.status)
+                            if(response.status === 200){
+                                window.location.replace(_base+'/getting-started');
+                            }
+                        }
+                    );
+                }
+            }
+        });
+    </script>
 @endsection

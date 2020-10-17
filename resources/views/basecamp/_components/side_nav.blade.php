@@ -13,11 +13,29 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#sidebarFuding" data-toggle="collapse" role="button" aria-expanded="true"
-                        aria-controls="sidebarFuding">
+                    <a class="nav-link">
+                        <i class="fe fe-home"></i> Client
+                    </a>
+                    <div>
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ url('/basecamp/client') }}" class="nav-link nav-link-child">
+                                    Overview
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ url('/basecamp/client/ktp') }}" class="nav-link nav-link-child">
+                                    Konfirmasi KTP
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">
                         <i class="fe fe-home"></i> Funding
                     </a>
-                    <div class="collapse {{ ((\Request::is('basecamp/fund')) or (\Request::is('basecamp/fund/product')) or (\Request::is('basecamp/fund/payment'))) ? 'show' : '' }}" id="sidebarFuding" style="">
+                    <div>
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="{{ url('/basecamp/fund') }}" class="nav-link nav-link-child  {{ \Request::is('basecamp/fund') ? 'active' : ''}}">
@@ -37,12 +55,11 @@
                         </ul>
                     </div>
                 </li>
-
                 <li class="nav-item">
-                    <a class="nav-link" href="#sidebarMarket" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebarMarket">
+                    <a class="nav-link">
                         <i class="fe fe-home"></i> Market
                     </a>
-                    <div class="collapse {{ ((\Request::is('basecamp/fund')) or (\Request::is('basecamp/fund/product')) or (\Request::is('basecamp/fund/payment'))) ? 'show' : '' }}" id="sidebarMarket" style="">
+                    <div>
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="{{ url('/basecamp/market') }}" class="nav-link nav-link-child  {{ \Request::is('basecamp/fund') ? 'active' : ''}}">

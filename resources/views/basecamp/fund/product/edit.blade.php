@@ -22,8 +22,7 @@
                     <input type="hidden" name="product" value="{{ $product->slug }}">
                     <div class="form-group mb-4">
                         <label class="mr-2">Foto produk</label><br/>
-                        <img src="{{ $product->image }}" alt="" style="height: 180px">
-                        <a class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editImage">Ganti foto</a>
+                        <img src="{{ $product->image }}" alt="" style="height: 180px" data-toggle="modal" data-target="#editImage">
                     </div>
                     <div class="form-group mb-4">
                         <label>Nama produk</label>
@@ -37,18 +36,11 @@
                         <textarea class="form-control" name="description" rows="3">{{ $product->description }}</textarea>
                     </div>
                     <div class="form-group mb-4">
-                        <label class="mr-2">Simulasi investasi</label>
+                        <label class="mr-2">Prospektus</label>
                         <small class="text-muted">
-                            Tulis menggunakan bahasa HTML
+                            Link googledrive
                         </small>
-                        <textarea class="form-control" name="simulation" rows="3">{{ $product->simulation }}</textarea>
-                    </div>
-                    <div class="form-group mb-4">
-                        <label class="mr-2">Analisis Risiko</label>
-                        <small class="text-muted">
-                            Tulis menggunakan bahasa HTML
-                        </small>
-                        <textarea class="form-control" name="risk_analysis" rows="3">{{ $product->risk_analysis }}</textarea>
+                        <input type="text" class="form-control" name="prospectus" value="{{ $product->risk_analysis }}">
                     </div>
                     <div class="form-group mb-4">
                         <label>Kategori produk</label>
@@ -63,21 +55,20 @@
                         </select>
                     </div>
                     <div class="row mb-4">
-                        <div class="col-12 col-md-3">
+                        <div class="col-12 col-md-4">
                             <label>Harga per slot</label>
                             <input type="number" class="form-control" name="price" placeholder="Rp." value="{{ $product->price }}">
                         </div>
-                        <div class="col-12 col-md-3">
+                        <div class="col-12 col-md-2">
                             <label>Stock slot</label>
                             <input type="number" class="form-control" name="stock" placeholder="unit" value="{{ $product->stock }}">
                         </div>
-                        <div class="col-12 col-md-3">
-                            <label>Return</label>
-                            <input type="number" class="form-control" name="return" placeholder="%" value="{{ $product->return_per_periode }}">
-                        </div>
-                        <div class="col-12 col-md-3">
-                            <label>Max. pembelian</label>
-                            <input type="number" class="form-control" name="max_buy" placeholder="%" value="{{ $product->max_buy }}">
+                        <div class="col-12 col-md-6">
+                            <label class="mr-2">Return</label>
+                            <small class="text-muted">
+                                Format penulisan "l0w-high"
+                            </small>
+                            <input type="text" class="form-control" name="return" placeholder="%" value="{{ $product->return_per_periode }}">
                         </div>
                     </div>
                     <div class="row mb-4">

@@ -36,30 +36,30 @@
                                     @{{ product.name }}
                                 </a>
                             </p>
-                            <p class="card-text mb-1 text-success"><b>Rp.@{{ product.price }}/unit</b>
+                            <p class="card-text mb-1 text-success"><b>Rp.@{{ new Intl.NumberFormat('id-ID', { maximumSignificantDigits: 3 }).format(product.price) }}/unit</b>
                             </p>
                             <div class="d-flex flex-row w-100" style="font-size: .8rem">
                                 <div class="col-6">
                                     <b>Kontrak</b>
                                 </div>
                                 <div class="col-6">
-                                    @{{ product.periode }} Tahun
+                                    @{{ product.periode }} hari
                                 </div>
                             </div>
                             <div class="d-flex flex-row w-100" style="font-size: .8rem">
                                 <div class="col-6">
-                                    <b>Return</b>
+                                    <b>ROI</b>
                                 </div>
                                 <div class="col-6">
-                                    @{{ product.return_per_periode }}%
+                                    @{{ product.return }}%
                                 </div>
                             </div>
                             <div class="d-flex flex-row w-100" style="font-size: .8rem">
                                 <div class="col-6">
-                                    <b>Stock</b>
+                                    <b>Stok</b>
                                 </div>
                                 <div class="col-6">
-                                    @{{ product.stock }} @{{ product.size }}
+                                    @{{ product.stock }} paket
                                 </div>
                             </div>
                             <div class="d-flex flex-row w-100 mb-3" style="font-size: .8rem">
@@ -110,55 +110,6 @@
             </div>
         </div>
     </div>
+    <script src="/script/funding.js"></script>
     @include('client._components.footer')
-@endsection
-@section('bottom-script')
-<script>
-    var _token = document.querySelector("meta[name='_token']").getAttribute('content');
-    console.log(_token);
-    var fundProductGet = new Vue({
-        el: '#fund-product-container',
-        data(){
-            return{
-                loading: true,
-                products: [],
-                page: 0,
-                category: '',
-                is_endpage: false
-            }
-        },
-        mounted(){
-            this.load()
-        },
-        methods:{
-            load: function(){
-                axios.get('http://127.0.0.1:8000/v1/fund', {
-                    params: {
-                        category: this.category,
-                        page: this.page
-                    }
-                })
-                .then(response => {
-                    (response.data.length < 6 ) ? this.is_endpage = true : this.is_endpage = false;
-                    response.data.map(data => this.products.push(data))
-                })
-                .finally(() => {
-                    this.loading = false;
-                    this.page = this.page + 1
-                })
-            },
-            more: function(){
-                this.loading = true
-                this.load()
-            },
-            setCategory: function(category){
-                this.loading = true
-                this.category = category
-                this.page = 0
-                this.products = []
-                this.load()
-            }
-        }
-    })
-</script>
 @endsection

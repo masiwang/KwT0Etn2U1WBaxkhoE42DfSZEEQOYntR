@@ -31,26 +31,19 @@
                         <textarea class="form-control" name="description" rows="3"></textarea>
                     </div>
                     <div class="form-group mb-4">
-                        <label class="mr-2">Simulasi investasi</label>
+                        <label class="mr-2">Prospektus</label>
                         <small class="text-muted">
-                            Tulis menggunakan bahasa HTML
+                            Link pdf googledrive
                         </small>
-                        <textarea class="form-control" name="simulation" rows="3"></textarea>
-                    </div>
-                    <div class="form-group mb-4">
-                        <label class="mr-2">Simulasi investasi</label>
-                        <small class="text-muted">
-                            Tulis menggunakan bahasa HTML
-                        </small>
-                        <textarea class="form-control" name="risk_analysis" rows="3"></textarea>
+                        <input type="text" class="form-control" name="prospectus">
                     </div>
                     <div class="form-group mb-4">
                         <label>Kategori produk</label>
                         <select class="form-select form-select-sm" name="category_id" aria-label=".form-select-sm example">
                             <option selected>Open this select menu</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <option value="1">Pertanian</option>
+                            <option value="2">Peternakan</option>
+                            <option value="3">Perikanan</option>
                         </select>
                     </div>
                     <div class="row mb-4">
@@ -58,13 +51,16 @@
                             <label>Harga per slot</label>
                             <input type="number" class="form-control" name="price" placeholder="Rp.">
                         </div>
-                        <div class="col-4">
+                        <div class="col-2">
                             <label>Stock slot</label>
-                            <input type="number" class="form-control" name="stock" placeholder="unit">
+                            <input type="number" class="form-control" name="stock" placeholder="paket">
                         </div>
-                        <div class="col-4">
-                            <label>Return</label>
-                            <input type="number" class="form-control" name="return" placeholder="%">
+                        <div class="col-6">
+                            <label class="mr-2">Return</label>
+                            <small class="text-muted">
+                                Format penulisan "low-high"
+                            </small>
+                            <input type="text" class="form-control" name="return" placeholder="">
                         </div>
                     </div>
                     <div class="row mb-4">

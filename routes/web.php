@@ -4,13 +4,20 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ErrorController;
-use App\Http\Controllers\GettingStartedController;
+
 
 Route::get( 'login', [AuthController::class, 'login'])->name('login'); //done
 Route::post('login', [AuthController::class, 'login_do']);
 
 Route::get( '/register', [AuthController::class, 'register']);
 Route::post('/register', [AuthController::class, 'register_do']);
+
+// ! Getting started
+use App\Http\Controllers\GettingStartedController;
+Route::group(['middleware' => ['auth']], function () {
+    Route::post('/v1/getting-started/2', [GettingStartedController::class, '_2']);
+});
+
 Route::get( '/getting-started', [GettingStartedController::class, 'getting_started']);
 Route::post('/getting-started', [GettingStartedController::class, 'getting_started_save']);
 
@@ -26,6 +33,17 @@ use App\Http\Controllers\Basecamp\Fund\PaymentController as FundPayment;
 use App\Http\Controllers\Basecamp\Market\IndexController as MarketIndex;
 use App\Http\Controllers\Basecamp\Market\ProductController as MarketProduct;
 use App\Http\Controllers\Basecamp\Market\PaymentController as MarketPayment;
+
+// ! Client
+use App\Http\Controllers\Basecamp\ClientController as BasecampClient;
+Route::group(['prefix' => 'basecamp'], function () {
+    Route::get('/client/ktp', [BasecampClient::class, 'ktp']);
+    Route::get('/client/ktp/{ktp}', [BasecampClient::class, 'ktp_detail']);
+    // api
+    Route::get('/v1/_client', [BasecampClient::class, '_ktp']);
+    Route::get('/v1/client/ktp/{ktp}', [BasecampClient::class, '_ktp_detail']);
+    Route::post('/v1/client/ktp/{ktp}', [BasecampClient::class, '_ktp_verify']);
+});
 
 Route::group(['prefix' => 'basecamp', 'middleware' => ['auth', 'admin']], function () {
     Route::get( '/', [DashboardController::class, 'index']);
@@ -71,8 +89,9 @@ Route::get( '/', function(){
     return view((Auth::id() ? 'client.index' : 'client.landing'), ['user' => Auth::user()]);
 });
 
-// ! Produk pendanaan
+// ! FUND
 use App\Http\Controllers\Client\Fund\ProductController as ClientFundProduct;
+use App\Http\Controllers\Client\FundController as ClientFund;
 Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     Route::get( '/fund', [ClientFundProduct::class, 'index']);
     Route::get( '/fund/{category}', [ClientFundProduct::class, 'category']);
@@ -80,9 +99,10 @@ Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     Route::post('/fund/{category}/{product}/buy', [ClientFundProduct::class, 'buy']);
     // api
     Route::get('/v1/fund', [ClientFundProduct::class, '_get']);
+    Route::get('/v1/fund/{slug}', [ClientFund::class, '_detail']);
 });
 
-// ! Produk market
+// ! MARKET
 use App\Http\Controllers\Client\Market\ProductController as ClientMarketProduct;
 use App\Http\Controllers\Client\MarketProductController as ClientMarket;
 Route::get('/v1/market/guest', [ClientMarket::class, '_get_for_non_auth_user']);
@@ -115,7 +135,7 @@ Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     Route::get('/v1/checkout/{invoice}', [ClientCheckout::class, '_detail']);
 });
 
-// ! Portofolio
+// ! PORTOFOLIO
 use App\Http\Controllers\Client\PortofolioController as ClientPortofolio;
 Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     Route::get( 'portofolio', [ClientPortofolio::class, 'index']);
@@ -124,6 +144,7 @@ Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     Route::post('portofolio/{invoice}/pay', [ClientPortofolio::class, 'pay_save']);
     // api
     Route::get('v1/portofolio', [ClientPortofolio::class, '_get']);
+    Route::post('v1/portofolio', [ClientPortofolio::class, '_post']);
     Route::get('v1/portofolio/{invoice}', [ClientPortofolio::class, '_detail']);
 });
 
@@ -141,6 +162,14 @@ use App\Http\Controllers\Client\ProfileController;
 Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     // api
     Route::get('/v1/user', [ProfileController::class, '_get']);
+});
+
+// ! TRANSACTION
+use App\Http\Controllers\Client\TransactionController as ClientTransaction;
+Route::group(['middleware' => ['auth', 'profileiscomplete']], function(){
+    Route::get('/profile/transaction', [ClientTransaction::class, 'index']);
+    // api
+    Route::get('/v1/transaction', [ClientTransaction::class, '_get']);
 });
 
 

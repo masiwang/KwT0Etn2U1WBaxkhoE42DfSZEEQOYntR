@@ -52,9 +52,9 @@ class AuthController extends Controller
         $user->created_at = Carbon::now();
         $user->save();
         // TODO: kirim verifikasi email
-        Mail::send('template.email.verification', ['token' => $user->email_token], function ($m) use ($user) {
+        Mail::send('template.email.verification', ['token' => $user->email_token], function ($m) use ($request) {
             $m->from('no-reply@makarya.in', 'Makarya - PT. Inspira Karya Teknologi Nusantara');
-            $m->to($user->email)->subject('Email verification @makarya.in');
+            $m->to($request->email)->subject('Email verification @makarya.in');
         });
 
         // Login

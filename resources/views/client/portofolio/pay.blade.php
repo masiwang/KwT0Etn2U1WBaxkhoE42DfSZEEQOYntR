@@ -1,5 +1,9 @@
 @extends('client._components.master')
 @section('title') Pembayaran portofolio @endsection
+@section('top-script')
+<script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+<link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
+@endsection
 @section('content')
     @include('client._components.top_nav')
     <div class="container mb-5" id="portofolio-detail-container">
@@ -157,7 +161,7 @@
                 .finally(() => {
                     this.loading = false;
                 })
-            }
+            },
         }
     });
 </script>

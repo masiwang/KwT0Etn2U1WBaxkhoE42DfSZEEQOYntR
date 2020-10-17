@@ -10,9 +10,10 @@
             <div class="mr-auto">&nbsp;</div>
 
             <ul class="navbar-nav mb-2 mb-lg-0">
-                <li class="nav-item">
+                {{-- market ditutup dulu --}}
+                {{-- <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="{{ url('/market') }}">Market</a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="{{ url('/fund') }}">Funding</a>
                 </li>
@@ -46,18 +47,19 @@
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mb-2 mb-lg-0">
-                <li class="nav-item">
+                {{-- market disembunyikan dulu --}}
+                {{-- <li class="nav-item">
                     <a class="nav-link" aria-current="page" target="_self" href="{{ url('/wishlist') }}">Wishlist</a>
-                </li>
-                <li class="nav-item">
+                </li> --}}
+                {{-- <li class="nav-item">
                     <a class="nav-link" aria-current="page" target="_self" href="{{ url('/checkout') }}">Pesanan</a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" target="_self" href="{{ url('/portofolio') }}">Portofolio</a>
                 </li>
-                {{-- <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link" aria-current="page" target="_self" href="{{ url('/help') }}">Bantuan</a>
-                </li> --}}
+                </li>
             </ul>
         </div>
     </div>
