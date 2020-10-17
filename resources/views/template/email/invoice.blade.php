@@ -55,6 +55,12 @@
                         Sragen - 67516
                     </td>
                 </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td style="text-align: right">
+                        <span style="color: #ff6f00">BNI Syariah<span> 1060317498
+                    </td>
+                </tr>
             </table>
         </td>
     </tr>
