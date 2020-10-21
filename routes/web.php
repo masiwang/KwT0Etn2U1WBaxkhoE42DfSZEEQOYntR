@@ -172,6 +172,12 @@ Route::group(['middleware' => ['auth', 'profileiscomplete']], function(){
     Route::get('/v1/transaction', [ClientTransaction::class, '_get']);
 });
 
+use App\Http\Controllers\Client\TopupController as ClientTopup;
+Route::group(['middleware' => ['auth', 'profileiscomplete']], function(){
+    Route::get('/topup', [ClientTopup::class, 'index']);
+    // api
+    Route::post('/v1/topup', [ClientTopup::class, '_new']);
+});
 
 Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     Route::get( '/profile', [ClientProfileIndex::class, 'profile']);

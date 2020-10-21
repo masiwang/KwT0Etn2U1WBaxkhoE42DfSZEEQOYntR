@@ -13,14 +13,13 @@ class PaymentController extends Controller
 {
     public function index(){
         $payments = FundCheckout::where('status_id', 2)->get();
-        $user = Auth::user();
-        return view('basecamp.fund.payment.index', ['user' => $user, 'payments' => $payments]);
+        return response()->json($payments, 200);
+        return view('basecamp.fund.payment.index', ['user' => Auth::user(), 'payments' => $payments]);
     }
 
     public function detail($invoice){
         $payment = FundCheckout::where('invoice', $invoice)->first();
-        $user = Auth::user();
-        return view('basecamp.fund.payment.detail', ['user' => $user, 'payment' => $payment]);
+        return view('basecamp.fund.payment.detail', ['user' => Auth::user(), 'payment' => $payment]);
     }
 
     public function confirm(Request $request){

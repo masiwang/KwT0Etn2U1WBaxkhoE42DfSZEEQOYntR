@@ -15,7 +15,7 @@ var fundProductGet = new Vue({
     },
     methods: {
         load: function(){
-            axios.get(_base+'/v1/fund', {
+            axios.get('/v1/fund', {
                 params: {
                     category: this.category,
                     page: this.page

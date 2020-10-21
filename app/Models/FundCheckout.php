@@ -9,7 +9,7 @@ class FundCheckout extends Model
 {
     use HasFactory;
     public function product(){
-        return $this->belongsTo('App\Models\FundProduct', 'product_id', 'id');
+        return $this->belongsTo('App\Models\FundProduct', 'product_id');
     }
 
     public function status(){
