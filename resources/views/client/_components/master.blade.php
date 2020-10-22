@@ -8,7 +8,6 @@
       <link rel="shortcut icon" type="image/jpg" href="{{ asset('image/logo.ico')}}"/>
       <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&display=swap" rel="stylesheet"> 
       <title>@yield('title') - Makarya</title>
-      <link rel="stylesheet" href="{{asset('/styles/client.css')}}">
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
       <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -58,6 +57,102 @@
             -webkit-transform: scale(1.0);
             transform: scale(1.0);
           }
+        }
+        body, html{
+            font-family: 'Hind', sans-serif;
+        }
+        .card-title {
+            font-size: 1rem;
+            font-weight: 200;
+            text-transform: uppercase
+        }
+
+        .product-title a {
+            color: #333;
+        }
+
+        .product-title a:hover {
+            color: #28a745;
+        }
+
+        .footer-link {
+            padding-left: 0px;
+        }
+
+        .footer-link a {
+            color: #bbb;
+        }
+
+        .footer-link a:hover {
+            color: #fff;
+        }
+
+        .footer-link li {
+            list-style-type: none;
+            padding: .8rem 0;
+        }
+
+        .top-slide-list {
+            padding-left: 0
+        }
+
+        .sidemenu ul {
+            padding-left: .5rem;
+            list-style-type: none;
+        }
+
+        .sidemenu-link {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .sidemenu-link:hover {
+            color: #28a745
+        }
+
+        .ma-link {
+            padding: .5rem 1rem 2rem .5rem;
+            color: #333;
+            text-decoration: none;
+            margin: 1rem
+        }
+
+        .ma-link:hover {
+            color: #28a745
+        }
+
+        .ma-link.active {
+            color: #28a745
+        }
+
+        .getting-started-disable {
+            pointer-events: none;
+        }
+
+        .getting-started-disable span {
+            background: #6c757d !important;
+        }
+
+        .getting-started-disable p {
+            color: #6c757d !important;
+        }
+
+        .card-product {
+            border: 0px;
+        }
+
+        .card-product hr {
+            margin: 5px 0;
+        }
+
+        .card-img-top {
+            height: 180px;
+        }
+
+        @media only screen and (max-width: 768px) {
+            .card-product__image-container {
+                height: calc(50vw - 12px);
+            }
         }
       </style>
       <style>
