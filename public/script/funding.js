@@ -1,5 +1,4 @@
 var _token = document.querySelector("meta[name='_token']").getAttribute('content');
-var _base = document.querySelector("base").getAttribute('href');
 var fundProductsGet = new Vue({
     el: '#fund-product-container',
     data() {
