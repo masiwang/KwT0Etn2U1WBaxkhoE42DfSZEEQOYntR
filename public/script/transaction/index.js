@@ -17,7 +17,7 @@ var root = new Vue({
             .then(response => {
                 response.data.map(
                     data => {
-                        this.transactions.push(data)
+                        this.transactions.push(data) 
                     }
                 )
             })

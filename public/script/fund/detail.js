@@ -17,7 +17,7 @@ var fundProductGet = new Vue({
     },
     methods: {
         load: function () {
-            axios.get(_base+'/v1/fund/'+window.location.pathname.split('/')[3])
+            axios.get('/v1/fund/'+window.location.pathname.split('/')[3])
                 .then(response => {
                     this.product = response.data
                 })
