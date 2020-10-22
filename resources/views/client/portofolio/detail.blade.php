@@ -106,7 +106,6 @@
 
 @section('bottom-script')
     <script>
-        var _base = document.querySelector("base").getAttribute('href');
         var portofolioDetail = new Vue({
         el: '#portofolio-detail-container',
         data(){
@@ -125,7 +124,7 @@
         methods:{
             load: function(){
                 this.loading = true;
-                axios.get(_base+'/v1/portofolio/'+window.location.pathname.split('/')[2])
+                axios.get('/v1/portofolio/'+window.location.pathname.split('/')[2])
                 .then(response => {
                     this.portofolio = response.data
                 })
@@ -136,13 +135,13 @@
                 })
             },
             estimatedReturn: function(){
-                var low = new Intl.NumberFormat('id-ID', { maximumSignificantDigits: 3 }).format((1+(this.portofolio.return.split('-')[0]/100))*this.portofolio.qty*this.portofolio.price)
-                var high = new Intl.NumberFormat('id-ID', { maximumSignificantDigits: 3 }).format((1+(this.portofolio.return.split('-')[1]/100))*this.portofolio.qty*this.portofolio.price)
+                var low = new Intl.NumberFormat('id-ID').format((1+(this.portofolio.return.split('-')[0]/100))*this.portofolio.qty*this.portofolio.price)
+                var high = new Intl.NumberFormat('id-ID').format((1+(this.portofolio.return.split('-')[1]/100))*this.portofolio.qty*this.portofolio.price)
                 this.estimated_return = low+' s/d Rp.'+high;
             },
             actualReturn: function(){
                 if(this.portofolio.status === 'pendanaan selesai'){
-                    this.actual_return = new Intl.NumberFormat('id-ID', { maximumSignificantDigits: 3 }).format((1+(this.portofolio.actual_return/100))*this.portofolio.qty*this.portofolio.price)
+                    this.actual_return = new Intl.NumberFormat('id-ID').format((1+(this.portofolio.actual_return/100))*this.portofolio.qty*this.portofolio.price)
                 }else{
                     this.actual_return = 0
                 }
