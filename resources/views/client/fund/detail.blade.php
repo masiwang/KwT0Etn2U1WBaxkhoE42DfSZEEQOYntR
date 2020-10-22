@@ -49,20 +49,35 @@
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-12">
-                                        <h5 class="text-success"><span class="text-dark">Estimasi harga: </span>Rp.@{{ new Intl.NumberFormat('id-ID', { maximumSignificantDigits: 3 }).format(priceEstimation) }}</h5>
+                                        <h5 class="text-success"><span class="text-dark">Estimasi harga: </span>Rp.@{{ new Intl.NumberFormat('id-ID').format(priceEstimation) }}</h5>
                                     </div>
                                     <div class="col-12">
                                         <h6 class="text-success"><span class="text-dark">Estimasi perdapatan: </span>Rp.@{{ returnEstimation }}</h6>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-12">
+                                    <div v-show="(thereIsSaldo && !product.is_ended && !product.is_closed)" class="col-12">
                                         <a v-if="qtyAlert" class="btn btn-success w-100 pb-1 disabled" style="position: relative">
                                             <span class="text-light" style="position: relative;"><i class="fas fa-money-bill-alt"></i> Danai</span>
                                         </a>
                                         <button v-else @click="fund" class="btn btn-success w-100 pb-1" style="position: relative">
                                             <span class="text-light" style="position: relative;"><i class="fas fa-money-bill-alt"></i> Danai</span>
                                         </button>
+                                    </div>
+                                    <div v-show="(!thereIsSaldo && !product.is_ended && !product.is_closed)" class="col-12">
+                                        <a class="btn btn-success w-100 pb-1 disabled" style="position: relative">
+                                            <span class="text-light" style="position: relative;"><i class="fas fa-money-bill-alt"></i> Saldo tidak mencukupi</span>
+                                        </a>
+                                    </div>
+                                    <div v-show="product.is_ended" class="col-12">
+                                        <a class="btn btn-success w-100 pb-1 disabled" style="position: relative">
+                                            <span class="text-light" style="position: relative;"><i class="fas fa-money-bill-alt"></i> Pendanaan telah selesai</span>
+                                        </a>
+                                    </div>
+                                    <div v-show="product.is_closed" class="col-12">
+                                        <a class="btn btn-success w-100 pb-1 disabled" style="position: relative">
+                                            <span class="text-light" style="position: relative;"><i class="fas fa-money-bill-alt"></i> Pendaftaran telah ditutup</span>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -101,6 +116,6 @@
             </div>
         </div>
     </div>
-    <script src="/script/funding-detail.js"></script>
+    <script src="/script/fund/detail.js"></script>
     @include('client._components.footer')
 @endsection

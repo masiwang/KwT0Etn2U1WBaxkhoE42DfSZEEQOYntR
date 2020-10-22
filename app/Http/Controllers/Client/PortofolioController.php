@@ -8,6 +8,7 @@ use App\Http\Resources\Portofolio as PortofolioResources;
 use Illuminate\Http\Request;
 use App\Models\FundCheckout;
 use App\Models\FundProduct;
+use App\Models\Transaction;
 use Auth;
 use Carbon\Carbon;
 use Mail;
@@ -49,30 +50,45 @@ class PortofolioController extends Controller
         $per_page = 6;
         $checkout = FundCheckout::where('user_id', Auth::id())
             ->skip((int)$request->page*$per_page)->take($per_page)->get();
-        $checkout = new PortofolioCollection($checkout);
-        return response()->json($checkout, 200);
+        $checkout_res = new PortofolioCollection($checkout);
+        return response()->json($checkout_res, 200);
     }
 
     public function _post(Request $request){
         $product = FundProduct::where('slug', $request->product)->first();
+        $saldo = $this->getSaldo();
+        if($saldo < $product->price*$request->qty){
+            return response()->json(['status', 'error'], 400);
+        }
         $invoice = 'MKYF'.Carbon::now()->timestamp;
         $portofolio = new FundCheckout;
         $portofolio->invoice = $invoice;
         $portofolio->user_id = Auth::id();
         $portofolio->product_id = $product->id;
         $portofolio->qty = $request->qty;
-        $portofolio->status_id = 1;
         $portofolio->save();
+        // kurangi saldo user
+        $transaction = new Transaction;
+        $transaction->user_id = Auth::id();
+        $transaction->type = 'out';
+        $transaction->bank_type = 'MAKARYA';
+        $transaction->nominal = (-1)*($product->price*$request->qty);
+        $transaction->comment = 'Funding '.$product->name;
+        $transaction->status_id = 2;
+        $transaction->approved_by = 1;
+        $transaction->approved_at = Carbon::now();
+        $transaction->save();
+        // kurangi stock barang
         $product->stock = (int)$product->stock - (int)$request->qty;
         $product->save();
         // kirim invoice ke email
-        $user = Auth::user();
-        $product = $product = FundProduct::where('slug', $request->product)->first();
-        $portofolio = FundCheckout::where('invoice', $invoice)->first();
-        Mail::send('template.email.invoice', ['user' => $user, 'product' => $product, 'portofolio' => $portofolio], function ($m) use ($user, $portofolio, $product) {
-            $m->from('no-reply@makarya.in', 'Invoice from Makarya');
-            $m->to($user->email)->subject('Invoice #'.$portofolio->invoice.' - Rp.'.((int)$portofolio->qty * (int)$product->price));
-        });
+        // $user = Auth::user();
+        // $product = FundProduct::where('slug', $request->product)->first();
+        // $portofolio = FundCheckout::where('invoice', $invoice)->first();
+        // Mail::send('template.email.invoice', ['user' => $user, 'product' => $product, 'portofolio' => $portofolio], function ($m) use ($user, $portofolio, $product) {
+        //     $m->from('no-reply@makarya.in', 'Invoice from Makarya');
+        //     $m->to($user->email)->subject('Invoice #'.$portofolio->invoice.' - Rp.'.((int)$portofolio->qty * (int)$product->price));
+        // });
         return response()->json(['status' => 'success', 'invoice' => $invoice]);
     }
 

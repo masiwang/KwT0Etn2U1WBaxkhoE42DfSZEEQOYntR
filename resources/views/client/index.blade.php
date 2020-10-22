@@ -52,7 +52,7 @@
                         <p class="card-text mb-1 text-success"><b>Rp.@{{ new Intl.NumberFormat('id-ID', { maximumSignificantDigits: 3 }).format(product.price) }}/unit</b></p>
                         <div class="d-flex flex-row w-100" style="font-size: .8rem">
                             <div class="col-7"><b>Kontrak</b></div>
-                            <div class="col-5">@{{ product.periode }} Tahun</div>
+                            <div class="col-5">@{{ product.periode }} hari</div>
                         </div>
                         <div class="d-flex flex-row w-100" style="font-size: .8rem">
                             <div class="col-7"><b>Return</b></div>
@@ -62,12 +62,17 @@
                             <div class="col-7"><b>Stock</b></div>
                             <div class="col-5">@{{ product.stock }} @{{ product.size }}</div>
                         </div>
-                        <div class="d-flex flex-row w-100 mb-3" style="font-size: .8rem">
+                        <div class="d-flex flex-row w-100" style="font-size: .8rem">
                             <div class="col-7"><b>Batas waktu</b></div>
                             <div class="col-5">@{{ product.closed_at }}</div>
                         </div>
+                        <div class="d-flex flex-row w-100 mb-3" style="font-size: .8rem">
+                            <div class="col-7"><b>Pendanaan selesai</b></div>
+                            <div class="col-5">@{{ product.ended_at }}</div>
+                        </div>
                         <div class="w-100">
-                            <a v-bind:href="'/fund/product/'+product.slug" class="btn btn-success btn-sm w-100">Danai</a>
+                            <a v-if="product.is_closed" disabled class="btn btn-success btn-sm w-100 disabled">Pendaftaran telah ditutup</a>
+                            <a v-else v-bind:href="'/fund/product/'+product.slug" class="btn btn-success btn-sm w-100">Danai</a>
                         </div>
                     </div>
                 </div>
@@ -162,14 +167,14 @@
                 </div>
             </div>
         </div> --}}
-        <div class="row mt-3">
+        {{-- <div class="row mt-3">
             <div class="col-12 p-2">
                 <header class="section-heading heading-line">
                     <h4 class="text-uppercase">Request</h4>
                 </header>
             </div>
-        </div>
-        <div class="row mb-4" id="fundProduct">
+        </div> --}}
+        {{-- <div class="row mb-4">
             <div class="col-12">
                 <div class="d-flex align-items-stretch bg-white p-0 shadow-sm">
                     <div class="row">
@@ -210,7 +215,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
     @include('client._components.footer')
 @endsection

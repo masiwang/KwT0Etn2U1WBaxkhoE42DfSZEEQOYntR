@@ -33,6 +33,9 @@
                     <div class="mb-4">
                         <label for="exampleFormControlInput1" class="form-label">Email address</label>
                         <input type="email" name="email" class="form-control" id="email" placeholder="nama@makarya.in">
+                        @if (\Session::has('email'))
+                            <small class="text-danger">{{ \Session::get('email') }}</small>
+                        @endif
                     </div>
                     <div class="mb-4">
                         <div class="row">
@@ -49,6 +52,9 @@
                             </div>
                         </div>
                         <input type="password" name="password_confirm" class="form-control" id="passwordConfirm" placeholder="Masukkan password Anda sekali lagi">
+                        @if (\Session::has('password'))
+                            <small class="text-danger">{{ \Session::get('password') }}</small>
+                        @endif
                     </div>
                     <div class="mb-3">
                         <button class="btn btn-success w-100 py-2 rounded-lg">Sign up</button>

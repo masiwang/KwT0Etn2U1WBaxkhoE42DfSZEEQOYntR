@@ -50,9 +50,11 @@
                                 <input type="text" class="form-control" :value="kodepos">
                             </div>
                         </div>
+                        <div v-show="isError"><small class="text-danger">Alamat tidak valid.</small></div>
                         <hr>
                         <div class="text-right">
-                            <button class="btn btn-success" @click="save">Simpan</button>
+                            <button v-if="isInvalid" disabled class="btn btn-success disabled">Simpan</button>
+                            <button v-else class="btn btn-success" @click="save">Simpan</button>
                         </div>
                     </div>
                 </div>
@@ -80,6 +82,7 @@
                     kecamatan: '',
                     kelurahan: '',
                     kodepos: '',
+                    isError: false,
                 }
             },
             mounted(){
@@ -172,12 +175,20 @@
                     })
                     .then(
                         response => {
-                            console.log(response.status)
                             if(response.status === 200){
                                 window.location.replace(_base+'/getting-started');
                             }
                         }
                     );
+                }
+            },
+            computed: {
+                isInvalid(){
+                    if(this.jalan && this.provinsi && this.kabupaten && this.kecamatan && this.kelurahan && this.kodepos){
+                        return false
+                    }else{
+                        return true
+                    }
                 }
             }
         });

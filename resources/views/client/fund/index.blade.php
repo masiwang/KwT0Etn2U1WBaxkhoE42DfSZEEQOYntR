@@ -71,7 +71,13 @@
                                 </div>
                             </div>
                             <div class="w-100">
-                                <a v-bind:href="'fund/'+product.category+'/'+product.slug" class="btn btn-success btn-sm w-100">
+                                <a v-if="product.is_closed" disabled class="btn btn-success btn-sm w-100 disabled">
+                                    Pendaftaran telah ditutup
+                                </a>
+                                <a v-if="product.is_ended" disabled class="btn btn-success btn-sm w-100 disabled">
+                                    Pendanaan telah selesai
+                                </a>
+                                <a v-show="!product.is_closed" v-show="!product.id_ended" v-bind:href="'fund/'+product.category+'/'+product.slug" class="btn btn-success btn-sm w-100">
                                     Danai
                                 </a>
                             </div>

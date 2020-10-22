@@ -43,14 +43,14 @@
                         @{{ user.kabupaten+', '+user.kodepos }}</p>
                 </div>
                 <div class="mb-4">
-                    <small class="text-muted"><span class="text-uppercase mr-3">Saldo</span> <a href="/topup">
+                    <small class="text-muted"><span class="text-uppercase mr-3">Saldo</span> <a href="/transaction/topup">
                         <span class="badge bg-success">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
                             </svg> Topup
                         </span></a>
                     </small>
-                    <h4>Rp.@{{ new Intl.NumberFormat('id-ID', {  }).format(user.saldo[0].amount) }}</h4>
+                    <h4>Rp.@{{ saldo }}</h4>
 
                 </div>
                 <div class="tab-content" id="myTabContent">
@@ -101,8 +101,8 @@
                             <table class="table table-hover">
                                 <tr v-for="transaction in transactions" :class="{ 'text-success' : (transaction.type == 'in'),  'text-danger' : (transaction.type == 'out')}">
                                     <td width="25%">@{{ transaction.time }}</td>
-                                    <td>@{{ transaction.description.toUpperCase() }}</td>
-                                    <td>Rp.@{{ new Intl.NumberFormat('id-ID', {  }).format(transaction.amount) }}</td>
+                                    <td class="text-uppercase">@{{ transaction.description }}</td>
+                                    <td>Rp.@{{ new Intl.NumberFormat('id-ID').format(transaction.nominal) }}</td>
                                 </tr>
                             </table>
                         </div>

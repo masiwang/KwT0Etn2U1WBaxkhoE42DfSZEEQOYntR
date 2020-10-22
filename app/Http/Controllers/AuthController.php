@@ -39,8 +39,12 @@ class AuthController extends Controller
 
     public function register_do(Request $request){
         // TODO: validate
+        $email_is_exist = User::where('email', $request->email)->first();
+        if($email_is_exist){
+            return back()->with(['email' => 'Email telah terdaftar']);
+        }
         if(!($request->password == $request->password_confirm)){
-            return back()->withErrors(['password' => 'Periksa kembali password Anda.']);
+            return back()->with(['password' => 'Periksa kembali password Anda.']);
         }
         // write data
         $email_token = rand (1000,9999);
@@ -50,6 +54,7 @@ class AuthController extends Controller
         $user->password = Hash::make($request->password);
         $user->remember_token = Str::random(100);
         $user->created_at = Carbon::now();
+        $user->getting_started_level = 0;
         $user->save();
         // TODO: kirim verifikasi email
         Mail::send('template.email.verification', ['token' => $user->email_token], function ($m) use ($request) {
@@ -63,12 +68,6 @@ class AuthController extends Controller
         if( Auth::attempt($credential) ){
             return redirect('/getting-started');
         }
-    }
-
-    public function register_success(){
-        // $user = Auth::user();
-        $user = User::first();
-        return view('auth.register_success', ['user' => $user]);
     }
 
     public function logout(){

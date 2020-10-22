@@ -10,23 +10,45 @@
                     <div class="col-3">
                         @include('client.getting_started._components.side_nav')
                     </div>
-                    <div class="col-9">
+                    <div class="col-9" id="root">
                         <div class="mb-3">
                             <label for="no_ktp" class="form-label">No. KTP</label>
-                            <input type="text" class="form-control" id="no_ktp" name="no_ktp">
+                            <input v-model="no_ktp" type="text" class="form-control" name="no_ktp">
                         </div>
                         <div class="mb-3">
                             <label for="ktp_image" class="form-label">Foto KTP</label>
-                            <input type="file" class="form-control" id="ktp_image" name="ktp_image">
+                            <input @change="handleFile" type="file" class="form-control" name="ktp_image">
                         </div>
                         <hr>
                         <div class="text-right">
-                            <button class="btn btn-success" type="submit">Simpan</button>
+                            <button v-show="isValid" class="btn btn-success" type="submit">Simpan</button>
+                            <a v-show="!isValid" disabled class="btn btn-success disabled">Simpan</a>
                         </div>
                     </div>
                 </div>
             </div>
         </form>
+        <script>
+            var root = new Vue({
+                el: '#root',
+                data(){
+                    return {
+                        no_ktp: '',
+                        image: ''
+                    }
+                },
+                methods: {
+                    handleFile(e){
+                        this.image = e.target.files[0]
+                    }
+                },
+                computed:{
+                    isValid(){
+                        return (this.no_ktp && this.image)
+                    }
+                }
+            });
+        </script>
     </div>
 </div>
 @include('client._components.footer')

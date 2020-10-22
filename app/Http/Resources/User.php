@@ -27,8 +27,7 @@ class User extends JsonResource
             'birthday' => date('d M Y', strtotime($this->birthday)),
             'ktp' => $this->ktp,
             'ktp_image' => $this->ktp_image,
-            'gender' => $this->gender,
-            'saldo' => $this->saldo
+            'gender' => $this->gender
         ];
     }
 }

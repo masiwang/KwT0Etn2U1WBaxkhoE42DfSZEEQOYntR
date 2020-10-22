@@ -79,6 +79,30 @@
                         </ul>
                     </div>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link">
+                        <i class="fe fe-home"></i> Transaksi
+                    </a>
+                    <div>
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ url('/basecamp/transaction') }}" class="nav-link nav-link-child  {{ \Request::is('basecamp/fund') ? 'active' : ''}}">
+                                    Rekap
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ url('/basecamp/transaction/topup') }}" class="nav-link nav-link-child {{ \Request::is('basecamp/fund/product') ? 'active' : ''}}">
+                                    Topup
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ url('/basecamp/transaction/withdraw') }}" class="nav-link  nav-link-child  {{ \Request::is('basecamp/fund/payment') ? 'active' : ''}}">
+                                    Withdraw
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
         </div>
         <div class="btn-group dropup w-100 mt-4">

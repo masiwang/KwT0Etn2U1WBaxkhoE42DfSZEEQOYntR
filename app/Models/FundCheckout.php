@@ -11,8 +11,4 @@ class FundCheckout extends Model
     public function product(){
         return $this->belongsTo('App\Models\FundProduct', 'product_id');
     }
-
-    public function status(){
-        return $this->belongsTo('App\Models\FundCheckoutStatus', 'status_id', 'id');
-    }
 }

@@ -22,7 +22,6 @@ class Portofolio extends JsonResource
             'invoice' => $this->invoice,
             'vendor' => $this->product->vendor->name,
             'product' => $this->product->name,
-            'status' => $this->status->name,
             'qty' => $this->qty,
             'price' => $this->product->price,
             'return' => $this->product->return_per_periode,

@@ -14,11 +14,17 @@
                         <div class="mb-3">
                             <label for="name" class="form-label">Nama</label>
                             <input type="text" class="form-control" id="name" name="name">
+                            @if (\Session::has('name'))
+                                <small class="text-danger">{{ \Session::get('name') }}</small>
+                            @endif
                         </div>
                         <div class="row mb-3">
                             <div class="col-xl-6">
                                 <label for="phone" class="form-label">Tanggal Lahir</label>
                                 <input id="datepicker" class="form-control" name="birthday"/>
+                                @if (\Session::has('birthday'))
+                                    <small class="text-danger">{{ \Session::get('birthday') }}</small>
+                                @endif
                                 <script>
                                     $("#datepicker").flatpickr();
                                 </script>
@@ -35,6 +41,9 @@
                         <div class="mb-3">
                             <label for="phone" class="form-label">Nomor HP</label>
                             <input type="text" class="form-control" id="phone" name="phone">
+                            @if (\Session::has('phone'))
+                                <small class="text-danger">{{ \Session::get('phone') }}</small>
+                            @endif
                         </div>
                         <div class="mb-3">
                             <label for="job" class="form-label">Pekerjaan</label>

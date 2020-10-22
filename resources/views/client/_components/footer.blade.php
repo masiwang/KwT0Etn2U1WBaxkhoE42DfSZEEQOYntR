@@ -4,7 +4,7 @@
         <div class="col-md-6 px-4">
             <img src="/image/assets/makarya-light-250x75.png" height="75px" alt="">
             <div style="height:20px"></div>
-            <p>Jl. Shinta No. 20, Purwo Asri, RT 40B, RW 016, Kroyo, Karang Malang,
+            <p>Jl. Shinta No. 22, Purwo Asri, RT 40B, RW 016, Kroyo, Karang Malang,
                 Sragen, Indonesia
             </p>
             <div style="height:2rem"></div>

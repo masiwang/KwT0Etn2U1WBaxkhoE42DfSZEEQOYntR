@@ -45,10 +45,21 @@ class GettingStartedController extends Controller
                 $user->email_verified_at = Carbon::now();
                 $user->getting_started_level = 1;
                 $user->save();
+            }else{
+                return back()->with('error', 'Periksa kembali token Anda.');
             }
             return redirect('/getting-started');
         }
         if( $getting_started_level == 1 ){
+            if(!$request->name){
+                return back()->with('name', 'Nama tidak boleh kosong.');
+            }
+            if(!$request->birthday){
+                return back()->with('birthday', 'Tanggal lahir tidak boleh kosong.');
+            }
+            if(!$request->phone){
+                return back()->with('phone', 'Nomor HP tidak boleh kosong.');
+            }
             $user = User::find(Auth::id());
             $user->name = $request->name;
             $user->birthday = $request->birthday;
@@ -61,19 +72,14 @@ class GettingStartedController extends Controller
         }
         if( $getting_started_level == 2 ){
             $user = User::find(Auth::id());
+            $user->jalan = $request->jalan;
+            $user->kelurahan = $request->kelurahan;
+            $user->kecamatan = $request->kecamatan;
+            $user->kabupaten = $request->kabupaten;
+            $user->provinsi = $request->provinsi;
+            $user->kodepos = $request->kodepos;
             $user->getting_started_level = 3;
             $user->save();
-            $address = new UserAddress;
-            $address->jalan = $request->jalan;
-            $address->kelurahan = $request->kelurahan;
-            $address->kecamatan = $request->kecamatan;
-            $address->kabupaten = $request->kabupaten;
-            $address->provinsi = $request->provinsi;
-            $address->kodepos = $request->kodepos;
-            $address->user_id = Auth::id();
-            $address->is_default = 1;
-            $address->created_at = Carbon::now();
-            $address->save();
             return redirect('/getting-started');
         }
         if( $getting_started_level == 3 ){

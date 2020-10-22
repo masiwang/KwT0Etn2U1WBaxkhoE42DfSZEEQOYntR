@@ -6,7 +6,7 @@
             <div class="col-12 p-2">
                 <header class="row border-bottom">
                     <div class="col-12 col-md-6">
-                        <h4 class="text-uppercase">Portofolio <span>@{{ portofolio.invoice }}</span></h4>
+                        <h4 class="text-uppercase">Portofolio <span>@{{ portofolio.product }}</span></h4>
                     </div>
                 </header>
             </div>
@@ -21,18 +21,9 @@
                         </div>
                         <div class="col-sm-7">
                             <div class="row">
-                                <h4 class="col-12 mb-2">@{{ portofolio.product }}</h4>
-                                <div class="col-12 mb-4">
-                                    <span class="badge" :class="{
-                                        'bg-danger' : (portofolio.status == 'menunggu pembayaran'),
-                                        'bg-warning' : (portofolio.status == 'menunggu konfirmasi'),
-                                        'bg-primary' : (portofolio.status == 'pendanaan berlangsung'),
-                                        'bg-success' : (portofolio.status == 'pendanaan selesai')
-                                    }">@{{ portofolio.status }}</span>
-                                    <a v-if="(portofolio.status == 'menunggu pembayaran')" :href="'/portofolio/'+portofolio.invoice+'/pay'" class="badge bg-success text-white text-decoration-none">Bayar sekarang</a>
-                                </div>
+                                <h3 class="col-12 mb-2">@{{ portofolio.product }}</h3>
                                 <div class="col-12 mb-2">
-                                    <h4 class="text-success" style="font-weight: 600">Rp.@{{ new Intl.NumberFormat('id-ID', { maximumSignificantDigits: 3 }).format(portofolio.price) }}/paket</h4>
+                                    <h6 class="text-success" style="font-weight: 600">Rp.@{{ new Intl.NumberFormat('id-ID', { maximumSignificantDigits: 3 }).format(portofolio.price) }}/paket</h6>
                                 </div>
                                 <div class="col-12">
                                     <table class="table table-borderless">
@@ -58,10 +49,10 @@
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-12">
-                                        <h6 class="text-success"><span class="text-dark">Estimasi pendapatan: </span>Rp.@{{ estimated_return }}</h6>
+                                        <h5 class="text-success"><span class="text-dark">Estimasi pendapatan: </span>Rp.@{{ estimated_return }}</h5>
                                     </div>
                                     <div class="col-12">
-                                        <h5 class="text-success mb-0"><span class="text-dark">Aktual perdapatan: </span>Rp.@{{ actual_return }}</h5>
+                                        <h4 class="text-success mb-0"><span class="text-dark">Aktual perdapatan: </span>Rp.@{{ actual_return }}</h4>
                                         <small class="text-info" style="font-size: .75rem">*)Aktual pendapatan muncul saat pendanaan selesai</small>
                                     </div>
                                 </div>
@@ -88,7 +79,7 @@
                     <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
                         <div class="row">
                             <div class="col-12 p-4">
-                                <iframe class="text-center" width="100%" height="600" :src="portofolio.description"></iframe>
+                                @{{portofolio.description}}
                             </div>
                         </div>
                     </div>

@@ -17,6 +17,9 @@ class FundProduct extends JsonResource
     {
         $started = new Carbon($this->started_at);
         $ended = new Carbon($this->ended_at);
+        $closed = new Carbon($this->closed_at);
+        $is_closed = (Carbon::now()->timestamp > $closed->timestamp);
+        $is_ended = (Carbon::now()->timestamp > $ended->timestamp);
         return [
             'id' => $this->id,
             'image' => $this->image,
@@ -28,8 +31,10 @@ class FundProduct extends JsonResource
             'stock' => $this->stock,
             'category' => $this->category->slug,
             'closed_at' => date('d M Y', strtotime($this->closed_at)),
+            'ended_at' => date('d M Y', strtotime($this->ended_at)),
             'description' => $this->description,
-            'prospectus' => $this->risk_analysis
+            'prospectus' => $this->risk_analysis,
+            'is_closed' => $is_closed,
         ];
     }
 }

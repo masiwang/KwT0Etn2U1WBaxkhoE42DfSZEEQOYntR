@@ -22,16 +22,9 @@
                         <div class="flex-fill">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">@{{ portofolio.invoice }}</h5>
-                                <span class="badge" 
-                                    v-bind:class="{
-                                        'bg-danger': (portofolio.status == 'menunggu pembayaran'),
-                                        'bg-warning': (portofolio.status == 'menunggu konfirmasi'),
-                                        'bg-info': (portofolio.status == 'pendanaan berlangsung'),
-                                        'bg-success': (portofolio.status == 'pendanaan selesai'),
-                                    }" style="line-height: 2;">@{{ portofolio.status }}</span>
                             </div>
                             <p class="mb-1">@{{ portofolio.product }}</p>
-                            <small class="text-muted">Rp.@{{ portofolio.price }}</small>
+                            <small class="text-muted">Rp.@{{ new Intl.NumberFormat('id-ID').format(parseInt(portofolio.price)*parseInt(portofolio.qty)) }}</small>
                         </div>
                     </div>
                 </a>
@@ -53,8 +46,6 @@
                                 <img class="d-none d-xl-block" src="/image/assets/loading-h.gif" alt="" style="height: 2rem">
                                 <p style="width: 180px">&nbsp;</p>
                             </div>
-                            
-                            
                         </div>
                     </div>
                 </a>
@@ -66,44 +57,6 @@
             </div>
         </div>
     </div>
+    <script src="/script/portofolio/index.js"></script>
     @include('client._components.footer')
-@endsection
-@section('bottom-script')
-<script>
-    var _base = document.querySelector("base").getAttribute('href');
-    var _token = document.querySelector("meta[name='_token']").getAttribute('content');
-    var portofolio = new Vue({
-        el: '#portofolio-container',
-        data(){
-            return{
-                loading:true,
-                portofolios: [],
-                page: 0,
-                is_endpage: false,
-            }
-        },
-        mounted(){
-            this.load()
-        },
-        methods:{
-            load: function(){
-                this.loading = true;
-                axios.get(_base+'/v1/portofolio', {
-                    params: {
-                        page: this.page
-                    }
-                })
-                .then(response => {
-                    (response.data.length < 6) ? this.is_endpage = true: this.is_endpage = false;
-                    response.data.map(data => this.portofolios.push(data))
-                    console.log(this.portofolios)
-                })
-                .finally(() => {
-                    this.loading = false;
-                    this.page = this.page + 1;
-                })
-            }
-        }
-    });
-</script>
 @endsection

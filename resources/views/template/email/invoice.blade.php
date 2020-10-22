@@ -55,12 +55,6 @@
                         Sragen - 67516
                     </td>
                 </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                    <td style="text-align: right">
-                        <span style="color: #ff6f00">BNI Syariah<span> 1060317498
-                    </td>
-                </tr>
             </table>
         </td>
     </tr>
@@ -107,19 +101,6 @@
                     </td>
                 </tr>
             </table>
-        </td>
-    </tr>
-    <tr>
-        <td>&nbsp;</td>
-    </tr>
-    <tr>
-        <td style="border-bottom: 1px solid #6c757d!important">
-            NOTE:
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Segera verifikasi setelah Anda melakukan pembayaran pada laman portofolio Makarya.
         </td>
     </tr>
 </table>

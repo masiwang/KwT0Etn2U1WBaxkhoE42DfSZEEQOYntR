@@ -45,6 +45,19 @@ Route::group(['prefix' => 'basecamp'], function () {
     Route::post('/v1/client/ktp/{ktp}', [BasecampClient::class, '_ktp_verify']);
 });
 
+// ! BASECAMP TRANSACTION
+use App\Http\Controllers\Basecamp\TransactionController as BasecampTransaction;
+Route::group(['prefix' => 'basecamp', 'middleware' => 'auth'], function(){
+    Route::get('/transaction', [BasecampTransaction::class, 'index']);
+    Route::get('/transaction/topup', [BasecampTransaction::class, 'topup']);
+    Route::get('/transaction/topup/{id}', [BasecampTransaction::class, 'topup_detail']);
+    // api
+    Route::get('/v1/transaction', [BasecampTransaction::class, '_index']);
+    Route::get('/v1/transaction/topup', [BasecampTransaction::class, '_topup']);
+    Route::get('/v1/transaction/topup/{id}', [BasecampTransaction::class, '_topup_detail']);
+    Route::post('/v1/transaction/topup/{id}', [BasecampTransaction::class, '_topup_confirm']);
+});
+
 Route::group(['prefix' => 'basecamp', 'middleware' => ['auth', 'admin']], function () {
     Route::get( '/', [DashboardController::class, 'index']);
     Route::get( '/fund', [FundIndex::class, 'index']);
@@ -72,10 +85,9 @@ Route::group(['prefix' => 'basecamp', 'middleware' => ['auth', 'admin']], functi
     Route::post('/market/payment/{invoice}', [MarketPayment::class, 'confirm']);
 });
 
-/**
+/***************************************************************************
  * Client area
- */
-use App\Http\Controllers\Client\HomeController as ClientHome;
+ ****************************************************************************/
 use App\Http\Controllers\Client\Profile\IndexController as ClientProfileIndex;
 use App\Http\Controllers\Client\Profile\AddressController as ClientProfileAddress;
 use App\Http\Controllers\Client\Profile\SecurityController as ClientProfileSecurity;
@@ -85,9 +97,8 @@ use App\Http\Controllers\Client\Profile\WishlistController as ClientProfileWishl
 use App\Http\Controllers\Api\WishlistController as Wishlist;
 
 // ! Client homepage
-Route::get( '/', function(){
-    return view((Auth::id() ? 'client.index' : 'client.landing'), ['user' => Auth::user()]);
-});
+use App\Http\Controllers\Client\HomeController as ClientHome;
+Route::get( '/', [ClientHome::class, 'index']);
 
 // ! FUND
 use App\Http\Controllers\Client\Fund\ProductController as ClientFundProduct;
@@ -143,9 +154,9 @@ Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     Route::get( 'portofolio/{invoice}/pay', [ClientPortofolio::class, 'pay']);
     Route::post('portofolio/{invoice}/pay', [ClientPortofolio::class, 'pay_save']);
     // api
-    Route::get('v1/portofolio', [ClientPortofolio::class, '_get']);
-    Route::post('v1/portofolio', [ClientPortofolio::class, '_post']);
-    Route::get('v1/portofolio/{invoice}', [ClientPortofolio::class, '_detail']);
+    Route::get('/v1/portofolio', [ClientPortofolio::class, '_get']);
+    Route::post('/v1/portofolio', [ClientPortofolio::class, '_post']);
+    Route::get('/v1/portofolio/{invoice}', [ClientPortofolio::class, '_detail']);
 });
 
 // ! Notification
@@ -167,18 +178,17 @@ Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
 // ! TRANSACTION
 use App\Http\Controllers\Client\TransactionController as ClientTransaction;
 Route::group(['middleware' => ['auth', 'profileiscomplete']], function(){
-    Route::get('/profile/transaction', [ClientTransaction::class, 'index']);
+    Route::get('/transaction', [ClientTransaction::class, 'index']);
+    Route::get('/transaction/topup', [ClientTransaction::class, 'topup']);
+    Route::get('/transaction/withdraw', [ClientTransaction::class, 'withdraw']);
     // api
-    Route::get('/v1/transaction', [ClientTransaction::class, '_get']);
+    Route::get('/v1/transaction', [ClientTransaction::class, '_index']);
+    Route::post('/v1/transaction/topup', [ClientTransaction::class, '_topup']);
+    Route::post('/v1/transaction/withdraw', [ClientTransaction::class, '_withdraw']);
+    Route::get('/v1/transaction/saldo', [ClientTransaction::class, '_saldo']);
 });
 
-use App\Http\Controllers\Client\TopupController as ClientTopup;
-Route::group(['middleware' => ['auth', 'profileiscomplete']], function(){
-    Route::get('/topup', [ClientTopup::class, 'index']);
-    // api
-    Route::post('/v1/topup', [ClientTopup::class, '_new']);
-});
-
+// ! PROFILE
 Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     Route::get( '/profile', [ClientProfileIndex::class, 'profile']);
     Route::post('/profile', [ClientProfileIndex::class, 'profile_save']);
@@ -201,4 +211,5 @@ Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
 Route::get('/logout', function(){
     Auth::logout();
     Session::flush();
+    return redirect('/');
 })->middleware('auth');

@@ -6,7 +6,7 @@
     <div class="row mt-4" id="menu">
         <form class="card col-12 p-4 border-0 shadow-sm" action="{{ url('/getting-started') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <div class="card-body">
+            <div id="root" class="card-body">
                 <div class="row">
                     <div class="col-3">
                         @include('client.getting_started._components.side_nav')
@@ -85,7 +85,7 @@
                             </div>
                             <div class="mb-3">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="agree">
+                                    <input @change="handleChange" class="form-check-input" type="checkbox" value="" id="agree">
                                     <label class="form-check-label" for="flexCheckDefault">
                                       Saya telah membaca dan menyetujui Syarat dan Ketentuan Makarya.
                                     </label>
@@ -93,25 +93,40 @@
                             </div>
                             <div class="mb-3">
                                 <label for="ttd" class="form-label">Unggah Tanda Tangan</label>
-                                <input type="file" class="form-control" id="ttd" name="ttd">
+                                <input @change="handleFile" type="file" class="form-control" id="ttd" name="ttd">
                             </div>
                         </div>
                         <hr>
                         <div class="text-right">
-                            <button class="btn btn-success" type="submit" disabled>Simpan</button>
+                            <button v-show="isValid" class="btn btn-success" type="submit">Simpan</button>
+                            <a v-show="!isValid" class="btn btn-success disabled" disabled>Simpan</a>
                         </div>
-                        <script>
-                            var agree = $('#agree');
-                            agree.on('change', function(){
-                                if( agree.prop('checked') ){
-                                    $('button[type="submit"]').removeAttr('disabled');
-                                }else{
-                                    $('button[type="submit"]').attr('disabled', '');
-                                }
-                            });
-                        </script>
                     </div>
                 </div>
+                <script>
+                    var root = new Vue({
+                        el: '#root',
+                        data(){
+                            return {
+                                isAgree: false,
+                                ttd: ''
+                            }
+                        },
+                        methods: {
+                            handleFile(e){
+                                this.ttd = e.target.files[0] 
+                            },
+                            handleChange(){
+                                this.isAgree = !this.isAgree
+                            }
+                        },
+                        computed: {
+                            isValid(){
+                                return (this.isAgree && this.ttd)
+                            }
+                        }
+                    });
+                </script>
             </div>
         </form>
     </div>

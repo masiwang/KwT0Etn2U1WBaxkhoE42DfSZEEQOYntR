@@ -9,10 +9,12 @@ var fundProductGet = new Vue({
             qty: '',
             qtyAlert: false,
             fundWait: false,
+            saldo: 0
         }
     },
     mounted() {
         this.load()
+        this.getSaldo()
     },
     methods: {
         load: function () {
@@ -36,7 +38,7 @@ var fundProductGet = new Vue({
             this.products = []
             this.load()
         },
-        fund: function(){
+        fund(){
             this.fundWait = true;
             axios.post('/v1/portofolio', {
                 _token: _token,
@@ -49,6 +51,12 @@ var fundProductGet = new Vue({
               .catch(function (error) {
                 console.log(error);
               });
+        },
+        getSaldo(){
+            axios.get('/v1/transaction/saldo')
+            .then(response =>{
+                this.saldo = response.data
+            })
         }
     },
     computed: {
@@ -67,9 +75,18 @@ var fundProductGet = new Vue({
             return this.qtyConstraint*this.product.price
         },
         returnEstimation: function(){
-            var low = new Intl.NumberFormat('id-ID', { maximumSignificantDigits: 3 }).format((1+(this.product.return.split('-')[0]/100))*this.qtyConstraint*this.product.price)
-            var high = new Intl.NumberFormat('id-ID', { maximumSignificantDigits: 3 }).format((1+(this.product.return.split('-')[1]/100))*this.qtyConstraint*this.product.price)
-            return low+' s/d Rp.'+high;
+            if(this.product.return){
+                var low = new Intl.NumberFormat('id-ID').format((1+(this.product.return.split('-')[0]/100))*this.qtyConstraint*this.product.price)
+                var high = new Intl.NumberFormat('id-ID').format((1+(this.product.return.split('-')[1]/100))*this.qtyConstraint*this.product.price)
+                return low+' s/d Rp.'+high;
+            }
+        },
+        thereIsSaldo(){
+            if(this.saldo >= this.priceEstimation){
+                return true
+            }else{
+                return false
+            }
         }
     }
 })
