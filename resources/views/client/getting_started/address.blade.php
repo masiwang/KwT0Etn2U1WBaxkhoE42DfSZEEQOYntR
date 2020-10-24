@@ -66,7 +66,6 @@
 @endsection
 @section('bottom-script')
     <script>
-        var _base = document.querySelector('base').getAttribute('href');
         var _token = document.querySelector('meta[name="_token"]').getAttribute('content');
         var script = new Vue({
             el: '#root',
@@ -90,7 +89,7 @@
             },
             methods: {
                 getProvinsi: function(){
-                    axios.get(_base+'/api/provinsi')
+                    axios.get('/api/provinsi')
                     .then(
                         response => {
                             response.data.map(
@@ -100,7 +99,7 @@
                     )
                 },
                 getKabupaten: function(){
-                    axios.get(_base+'/api/kabupaten', {
+                    axios.get('/api/kabupaten', {
                         params: {
                             provinsi: this.provinsi
                         }
@@ -114,7 +113,7 @@
                     )
                 },
                 getKecamatan: function(){
-                    axios.get(_base+'/api/kecamatan', {
+                    axios.get('/api/kecamatan', {
                         params: {
                             provinsi: this.provinsi,
                             kabupaten: this.kabupaten
@@ -129,7 +128,7 @@
                     )
                 },
                 getKelurahan: function(){
-                    axios.get(_base+'/api/kelurahan', {
+                    axios.get('/api/kelurahan', {
                         params: {
                             provinsi: this.provinsi,
                             kabupaten: this.kabupaten,
@@ -145,7 +144,7 @@
                     )
                 },
                 getKodepos: function(){
-                    axios.get(_base+'/api/kodepos', {
+                    axios.get('/api/kodepos', {
                         params: {
                             provinsi: this.provinsi,
                             kabupaten: this.kabupaten,
@@ -160,7 +159,7 @@
                     )
                 },
                 save: function(){
-                    axios.post(_base+'/v1/getting-started/2', {
+                    axios.post('/v1/getting-started/2', {
                         provinsi: this.provinsi,
                         kabupaten: this.kabupaten,
                         kecamatan: this.kecamatan,
@@ -176,7 +175,7 @@
                     .then(
                         response => {
                             if(response.status === 200){
-                                window.location.replace(_base+'/getting-started');
+                                window.location.replace('/getting-started');
                             }
                         }
                     );
