@@ -57,7 +57,7 @@ class PortofolioController extends Controller
     public function _post(Request $request){
         $product = FundProduct::where('slug', $request->product)->first();
         $saldo = $this->getSaldo();
-        if($saldo < $product->price*$request->qty){
+        if($saldo <= $product->price*$request->qty){
             return response()->json(['status', 'error'], 400);
         }
         $invoice = 'MKYF'.Carbon::now()->timestamp;
