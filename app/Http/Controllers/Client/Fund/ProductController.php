@@ -57,7 +57,7 @@ class ProductController extends Controller
                 $products = $products->where('category_id', $category->id);
             }
         }
-        $products = $products->skip(($request->page)*$per_page)->take($per_page)->get();
+        $products = $products->orderBy('id', 'desc')->skip(($request->page)*$per_page)->take($per_page)->get();
         $products = new FundProductResources($products);
         return response()->json($products, 200);
     }
