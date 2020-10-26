@@ -42,20 +42,23 @@
                                 </tr>
                             </thead>
                             <tbody class="list">
-                                <tr v-for="client in clients">
+                                @foreach ($clients as $client)
+                                <tr>
                                     <td class="orders-order">
-                                        @{{ client.name }}
+                                        {{ $client->name }}
                                     </td>
                                     <td class="orders-product">
-                                        @{{ client.jalan+', '+client.kelurahan+', '+client.kecamatan+', '+client.kabupaten+', '+client.kodepos }}
+                                        {{ $client->jalan.', '.$client->kelurahan.', '.$client->kecamatan.', '.$client->kabupaten.', '.$client->kodepos}}
                                     </td>
                                     <td class="orders-total">
-                                        @{{ client.ktp }}
+                                        {{ $client->ktp }}
                                     </td>
                                     <td>
-                                        <a class="btn btn-sm btn-success" :href="'/basecamp/client/ktp/'+client.ktp">Detail</a>
+                                        <a class="btn btn-sm btn-success" href="/basecamp/client/ktp/{{$client->ktp}}">Detail</a>
                                     </td>
                                 </tr>
+                                @endforeach
+                                
                             </tbody>
                         </table>
                     </div>
@@ -73,42 +76,4 @@
         </div>
     </div>
 </div>
-@endsection
-@section('bottom-script')
-    <script>
-        var _base = document.querySelector('base').getAttribute('href');
-        var usersKtp = new Vue({
-            el: '#clientKtpContainer',
-            data(){
-                return {
-                    loading: true,
-                    clients: [],
-                    page: 1
-                }
-            },
-            mounted(){
-                this.load()
-            },
-            methods: {
-                load: function(){
-                    this.loading = true;
-                    axios.get(_base+'/basecamp/v1/_client')
-                    .then(
-                        response => {
-                            response.data.map(
-                                data => {
-                                    this.clients.push(data)
-                                }
-                            )
-                        }
-                    )
-                    .finally( () => {
-                        this.page = this.page + 1;
-                        this.loading = false
-                        console.log(this.clients)
-                    });
-                }
-            }
-        });
-    </script>
 @endsection

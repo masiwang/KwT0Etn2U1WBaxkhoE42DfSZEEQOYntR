@@ -15,11 +15,29 @@ use Response;
 class ClientController extends Controller
 {
     public function ktp(){
-        return view('basecamp/client/ktp/index', ['user' => Auth::user()]);
+        $user=Auth::user();
+        $clients=User::whereNotNull('ktp_image')->whereNull('ktp_verified_at')->whereNotNull('ktp')->get(); 
+        return view('basecamp/client/ktp/index', compact(['user','clients']));
     }
 
-    public function ktp_detail(){
-        return view('basecamp/client/ktp/detail', ['user' => Auth::user()]);
+    public function ktp_detail($ktp){
+        $user=Auth::user();
+        $client=User::where('ktp',$ktp)->first();
+        return view('basecamp/client/ktp/detail', compact(['user','client']));
+    }
+
+    public function ktp_verifikasi(Request $request,$ktp){
+        $user=Auth::user();
+        if(Hash::check($request->password,$user->password)){
+            $client=User::where('ktp',$ktp)->first();
+            $client->ktp_verified_at=Carbon::now();
+            $client->ktp_verified_by=$user->id;
+            $client->save();
+            return redirect('/basecamp/client/ktp');
+        }
+        else{
+            return response()->json(['status'=>'Bad request'], 400); 
+        }
     }
 
     public function _ktp(){

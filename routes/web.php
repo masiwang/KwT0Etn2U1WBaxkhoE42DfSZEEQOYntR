@@ -39,6 +39,7 @@ use App\Http\Controllers\Basecamp\ClientController as BasecampClient;
 Route::group(['prefix' => 'basecamp'], function () {
     Route::get('/client/ktp', [BasecampClient::class, 'ktp']);
     Route::get('/client/ktp/{ktp}', [BasecampClient::class, 'ktp_detail']);
+    Route::post('/client/ktp/{ktp}', [BasecampClient::class, 'ktp_verifikasi']);
     // api
     Route::get('/v1/_client', [BasecampClient::class, '_ktp']);
     Route::get('/v1/client/ktp/{ktp}', [BasecampClient::class, '_ktp_detail']);
