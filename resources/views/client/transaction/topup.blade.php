@@ -20,10 +20,15 @@
             <hr>
             <div class="col-sm-12 bg-white shadow-sm py-3">
                 <form class="p-3">
-                    <div class="mb-3">
-                        <label for="bank" class="form-label">Bank</label>
-                        <input type="text" class="form-control" v-model="bank">
-                    </div>
+                    <label for="exampleDataList" class="form-label">Bank</label>
+                        <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+                        <datalist id="datalistOptions">
+                        <option value="BNI">
+                        <option value="BNI SYARIAH">
+                        <option value="BRI">
+                        <option value="BRI SYARIAH">
+                        <option value="Mandiri">
+                        </datalist>
                     <div class="mb-3">
                         <label for="acc" class="form-label">No. Rekening</label>
                         <input type="number" class="form-control" v-model="acc">
