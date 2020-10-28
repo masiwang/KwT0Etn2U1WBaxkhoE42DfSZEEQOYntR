@@ -19,36 +19,41 @@
             </div>
             <hr>
             <div class="col-sm-12 bg-white shadow-sm py-3">
-                <form class="p-3">
-                    <label for="exampleDataList" class="form-label">Bank</label>
-                        <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
-                        <datalist id="datalistOptions">
-                        <option value="BNI">
-                        <option value="BNI SYARIAH">
-                        <option value="BRI">
-                        <option value="BRI SYARIAH">
-                        <option value="Mandiri">
+                <form class="p-3" action="/transaction/topup" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="mb-3">  
+                        <label for="exampleDataList" class="form-label">Bank</label>
+                            <input class="form-control" list="datalistOptions" id="exampleDataList" name="bank_type">
+                            <datalist id="datalistOptions">
+                            <option value="BNI">
+                            <option value="BNI SYARIAH">
+                            <option value="BRI">
+                            <option value="BRI SYARIAH">
+                            <option value="Mandiri">
+                            <option value="BTN">
+                            <option value="BCA">
+                            <option value="BTPN">        
                         </datalist>
+                    </div>        
                     <div class="mb-3">
                         <label for="acc" class="form-label">No. Rekening</label>
-                        <input type="number" class="form-control" v-model="acc">
+                        <input type="number" class="form-control" name="bank_acc">
                     </div>
                     <div class="mb-3">
                         <label for="nominal" class="form-label">Nominal</label>
-                        <input type="number" class="form-control" v-model="nominal">
+                        <input type="number" class="form-control" name="nominal">
                     </div>
                     <div class="mb-3">
                         <label for="image" class="form-label">Bukti Transfer</label>
-                        <input type="file" class="form-control" id="image" @change="onFileChange">
+                        <input type="file" class="form-control" id="image" name="image">
                     </div>
                     <hr>
                     <div class="text-right">
-                        <button class="btn btn-success" @click="submitForm">Konfirmasi</button>
+                        <input class="btn btn-success" type="submit" value="Konfirmasi"/>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <script src="/script/transaction/topup.js"></script>
     @include('client._components.footer')
 @endsection

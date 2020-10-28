@@ -181,6 +181,7 @@ use App\Http\Controllers\Client\TransactionController as ClientTransaction;
 Route::group(['middleware' => ['auth', 'profileiscomplete']], function(){
     Route::get('/transaction', [ClientTransaction::class, 'index']);
     Route::get('/transaction/topup', [ClientTransaction::class, 'topup']);
+    Route::post('/transaction/topup', [ClientTransaction::class, 'topup_save']);
     Route::get('/transaction/withdraw', [ClientTransaction::class, 'withdraw']);
     // api
     Route::get('/v1/transaction', [ClientTransaction::class, '_index']);

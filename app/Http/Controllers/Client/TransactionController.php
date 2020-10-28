@@ -27,6 +27,19 @@ class TransactionController extends Controller
         return view('client.transaction.withdraw', compact('user'));
     }
 
+    public function topup_save(Request $request){
+        $user = Auth::user();
+        $transaction=new Transaction;
+        $transaction->user_id= $user->id;
+        $transaction->type='in';
+        $transaction->bank_type = $request->bank_type;
+        $transaction->bank_acc = $request->bank_acc;
+        $transaction->nominal = $request->nominal;
+        $transaction->image = $request->image;
+        $transaction->save();
+        return redirect('/transaction');
+    }
+
     public function _index(){
         $transactions = Transaction::where('user_id', Auth::id())->get();
         $transactions_res = new TransactionCollection($transactions);
