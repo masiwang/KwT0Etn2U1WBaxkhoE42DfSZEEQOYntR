@@ -19,7 +19,7 @@ class TransactionController extends Controller
         $user = Auth::user();
         return view('basecamp.client.transaction.detail', compact('user'));
     }
-
+    
     public function topup(){
         $user = Auth::user();
         $transactions = Transaction::where('type','in')->whereNull('approved_at')->get();

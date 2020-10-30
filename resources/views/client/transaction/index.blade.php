@@ -12,9 +12,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/transaction/withdraw">Withdraw</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Saldo</a>
-                    </li>
                   </ul>
             </div>
             <hr>
@@ -29,6 +26,7 @@
                             <th>Nominal</th>
                             <th>Deskripsi</th>
                             <th>Status</th>
+                            <th>Waktu Konfirmasi</th>
                             {{-- <th>&nbsp;</th> --}}
                         </tr>
                     </thead>
@@ -36,12 +34,13 @@
                         @foreach ($transactions as $transaction)
                         <tr>
                             <td>{{ $transaction->created_at }}</td>
-                            <td>{{ $transaction->type}}</td>
+                            <td>{{ ($transaction->type == 'in') ? 'Masuk' : 'Keluar'}}</td>
                             <td>{{ $transaction->bank_type }}</td>
                             <td>{{ $transaction->bank_acc }}</td>
-                            <td>{{ $transaction->nominal }}</td>
+                            <td>Rp.{{ $transaction->nominal }},00</td>
                             <td>{{ $transaction->description }}</td>
                             <td>{{ $transaction->status->name }}</td>
+                            <td>{{ $transaction->approved_at }}</td>
                             {{-- <td><a href="">Detail</a></td> --}}
                         </tr>
                         @endforeach
