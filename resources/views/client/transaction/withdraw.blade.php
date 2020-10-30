@@ -19,27 +19,27 @@
             </div>
             <hr>
             <div class="col-sm-12 bg-white shadow-sm py-3">
-                <form class="p-3">
+                <form class="p-3" action="/transaction/withdraw" method="POST">
+                    @csrf
                     <div class="mb-3">
                         <label for="bank" class="form-label">Bank Tujuan</label>
-                        <input type="text" class="form-control" v-model="bank">
+                        <input type="text" class="form-control" name="bank_type">
                     </div>
                     <div class="mb-3">
                         <label for="acc" class="form-label">No. Rekening</label>
-                        <input type="number" class="form-control" v-model="acc">
+                        <input type="number" class="form-control" name="bank_acc">
                     </div>
                     <div class="mb-3">
                         <label for="nominal" class="form-label">Nominal</label>
-                        <input type="number" class="form-control" v-model="nominal">
+                        <input type="number" class="form-control" name="nominal">
                     </div>
                     <hr>
                     <div class="text-right">
-                        <button class="btn btn-success" @click="submitForm">Konfirmasi</button>
+                        <input type="submit" class="btn btn-success" value="konfirmasi">
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <script src="/script/transaction/withdraw.js"></script>
     @include('client._components.footer')
 @endsection

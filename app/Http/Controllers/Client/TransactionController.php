@@ -14,7 +14,9 @@ class TransactionController extends Controller
 {
     public function index(){
         $user = Auth::user();
-        return view('client.transaction.index', compact('user'));
+        $transactions=Transaction::where('user_id',$user->id)->get();
+        // return dd($transactions);
+        return view('client.transaction.index', compact('user','transactions'));
     }
 
     public function topup(){
@@ -27,7 +29,25 @@ class TransactionController extends Controller
         return view('client.transaction.withdraw', compact('user'));
     }
 
+    public function withdraw_save(Request $request){
+        $user = Auth::user();
+        $withdraw=new Transaction;
+        $withdraw->user_id=$user->id;
+        $withdraw->bank_type = $request->bank_type;
+        $withdraw->bank_acc = $request->bank_acc;
+        $withdraw->nominal = $request->nominal*(-1);
+        $withdraw->status_id=1;
+        $withdraw->type="out";
+        $withdraw->save();
+        return redirect('/transaction');
+    }
+
     public function topup_save(Request $request){
+        if(!$request->image){
+            return back()->with('error', 'Harap masukkan bukti pembayaran.');
+        }
+        $image_name = Str::random(32).'.jpg';
+        $request->image->move('image/transaction/', $image_name);
         $user = Auth::user();
         $transaction=new Transaction;
         $transaction->user_id= $user->id;
@@ -35,7 +55,8 @@ class TransactionController extends Controller
         $transaction->bank_type = $request->bank_type;
         $transaction->bank_acc = $request->bank_acc;
         $transaction->nominal = $request->nominal;
-        $transaction->image = $request->image;
+        $transaction->image = '/image/transaction/'.$image_name;
+        $transaction->status_id=1;
         $transaction->save();
         return redirect('/transaction');
     }

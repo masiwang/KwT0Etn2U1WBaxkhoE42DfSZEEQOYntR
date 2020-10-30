@@ -44,14 +44,14 @@
                                 </tr>
                             </thead>
                             <tbody class="list">
-                                @foreach ($transactions as $topup)
+                                @foreach ($transactions as $withdraw)     
                                 <tr>
-                                    <td>{{ $topup->created_at }}</td>
-                                    <td>{{ $topup->user_id }}</td>
-                                    <td>{{ $topup->bank_type}}</td> 
-                                    <td>{{ $topup->bank_acc }}</td>
-                                    <td>{{ $topup->nominal }}</td>
-                                <td><a href="/basecamp/transaction/topup/{{$topup->id}}" class="btn btn-success btn-sm">Detail</a></td>
+                                    <td>{{ $withdraw->created_at }}</td>
+                                    <td>{{ $withdraw->user_id }}</td>
+                                    <td>{{ $withdraw->bank_type}}</td>
+                                    <td>{{ $withdraw->bank_acc }}</td>
+                                    <td>{{ $withdraw->nominal }}</td>
+                                <td><a href="/basecamp/transaction/withdraw/{{$withdraw->id}}" class="btn btn-success btn-sm">Detail</a></td>
                                 </tr>
                                 @endforeach
                             </tbody>

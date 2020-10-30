@@ -22,12 +22,48 @@ class TransactionController extends Controller
 
     public function topup(){
         $user = Auth::user();
-        return view('basecamp.transaction.topup', compact('user'));
+        $transactions = Transaction::where('type','in')->whereNull('approved_at')->get();
+        return view('basecamp.transaction.topup', compact('user','transactions'));
     }
 
-    public function topup_detail(){
+    public function topup_detail($id){
         $user = Auth::user();
-        return view('basecamp.transaction.topup_detail', compact('user'));
+        $topup=Transaction::find($id);
+        // return dd($topup);
+        return view('basecamp.transaction.topup_detail', compact('user','topup'));
+    }
+    
+    public function topup_confirm($id){
+        $user=Auth::user();
+        $topup=Transaction::find($id);
+        $topup->status_id=2;
+        $topup->approved_by=$user->id;
+        $topup->approved_at=Carbon::now();
+        $topup->save();
+        return redirect('/basecamp/transaction/topup'); 
+    }
+
+    public function withdraw(){
+        $user = Auth::user();
+        $transactions = Transaction::where('type','out')->whereNull('approved_at')->get();
+        return view('basecamp.transaction.withdraw', compact('user','transactions'));
+    }
+
+    public function withdraw_detail($id){
+        $user = Auth::user();
+        $withdraw=Transaction::find($id);
+        // return dd($topup);
+        return view('basecamp.transaction.withdraw_detail', compact('user','withdraw'));
+    }
+
+    public function withdraw_confirm($id){
+        $user=Auth::user();
+        $withdraw=Transaction::find($id);
+        $withdraw->status_id=2;
+        $withdraw->approved_by=$user->id;
+        $withdraw->approved_at=Carbon::now();
+        $withdraw->save();
+        return redirect('/basecamp/transaction/withdraw'); 
     }
 
     public function _index(Request $erquest){

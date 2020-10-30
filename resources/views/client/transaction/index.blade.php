@@ -23,7 +23,9 @@
                     <thead>
                         <tr>
                             <th>Tanggal</th>
+                            <th>Tipe Transaksi</th>
                             <th>Akun Bank</th>
+                            <th>No Rekening</th>
                             <th>Nominal</th>
                             <th>Deskripsi</th>
                             <th>Status</th>
@@ -31,14 +33,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="transaction in transactions" :class="{'text-success': (transaction.type == 'in'), 'text-danger' : (transaction.type == 'out')}">
-                            <td>@{{ transaction.time }}</td>
-                            <td>@{{ transaction.bank_type }} @{{ transaction.bank_acc }}</td>
-                            <td>@{{ transaction.nominal }}</td>
-                            <td>@{{ transaction.description }}</td>
-                            <td>@{{ transaction.status }}</td>
+                        @foreach ($transactions as $transaction)
+                        <tr>
+                            <td>{{ $transaction->created_at }}</td>
+                            <td>{{ $transaction->type}}</td>
+                            <td>{{ $transaction->bank_type }}</td>
+                            <td>{{ $transaction->bank_acc }}</td>
+                            <td>{{ $transaction->nominal }}</td>
+                            <td>{{ $transaction->description }}</td>
+                            <td>{{ $transaction->status->name }}</td>
                             {{-- <td><a href="">Detail</a></td> --}}
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

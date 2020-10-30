@@ -52,6 +52,9 @@ Route::group(['prefix' => 'basecamp', 'middleware' => 'auth'], function(){
     Route::get('/transaction', [BasecampTransaction::class, 'index']);
     Route::get('/transaction/topup', [BasecampTransaction::class, 'topup']);
     Route::get('/transaction/topup/{id}', [BasecampTransaction::class, 'topup_detail']);
+    Route::get('/transaction/topup/{id}/confirm', [BasecampTransaction::class, 'topup_confirm']);
+    Route::get('/transaction/withdraw', [BasecampTransaction::class, 'withdraw']);
+    Route::get('/transaction/withdraw/{id}', [BasecampTransaction::class, 'withdraw_detail']);
     // api
     Route::get('/v1/transaction', [BasecampTransaction::class, '_index']);
     Route::get('/v1/transaction/topup', [BasecampTransaction::class, '_topup']);
@@ -183,6 +186,7 @@ Route::group(['middleware' => ['auth', 'profileiscomplete']], function(){
     Route::get('/transaction/topup', [ClientTransaction::class, 'topup']);
     Route::post('/transaction/topup', [ClientTransaction::class, 'topup_save']);
     Route::get('/transaction/withdraw', [ClientTransaction::class, 'withdraw']);
+    Route::post('/transaction/withdraw', [ClientTransaction::class, 'withdraw_save']);
     // api
     Route::get('/v1/transaction', [ClientTransaction::class, '_index']);
     Route::post('/v1/transaction/topup', [ClientTransaction::class, '_topup']);
