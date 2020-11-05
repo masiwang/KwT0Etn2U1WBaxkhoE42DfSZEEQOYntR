@@ -14,7 +14,7 @@
         <div id="profileIndexContainer" class="row mt-3 bg-white shadow-sm">
             <div class="col-3 p-4 border-right">
                 <div>
-                    <img src="/image/assets/makarya-sheep-330x330.jpg" alt="" srcset="" style="width: 100%">
+                    <img src="/image/assets/user.png" alt="" srcset="" style="width: 100%">
                 </div>
                 <div class="mt-3">
                     <small class="text-secondary text-uppercase">Menu</small>
@@ -44,11 +44,11 @@
                 </div>
                 <div class="mb-4">
                     <small class="text-muted"><span class="text-uppercase mr-3">Saldo</span> <a href="/transaction/topup">
-                        <span class="badge bg-success">
+                        <button type="button" class="btn btn-success btn-sm">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
                             </svg> Topup
-                        </span></a>
+                        </button></a>
                     </small>
                     <h4>Rp.@{{ saldo }}</h4>
 
