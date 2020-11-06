@@ -79,9 +79,8 @@
             </ul>
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <li id="saldo" class="nav-item">
-                    <a class="nav-link" disabled>Saldo: Rp. @{{ saldo }}</a>
+                    <a class="nav-link" disabled>Saldo: Rp. {{ $saldo }}</a>
                 </li>
-                <script src="/script/global/saldo.js"></script>
             </ul>
         </div>
     </div>

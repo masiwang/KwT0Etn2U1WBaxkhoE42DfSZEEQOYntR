@@ -14,22 +14,29 @@ class TransactionController extends Controller
 {
     public function index(){
         $user = Auth::user();
+        $saldo = $this->saldo();
         $transactions=Transaction::where('user_id',$user->id)->get();
         // return dd($transactions);
-        return view('client.transaction.index', compact('user','transactions'));
+        return view('client.transaction.index', compact('user','transactions','saldo'));
     }
 
     public function topup(){
         $user = Auth::user();
-        return view('client.transaction.topup', compact('user'));
+        $saldo = $this->saldo();
+        return view('client.transaction.topup', compact('user', 'saldo'));
     }
 
     public function withdraw(){
         $user = Auth::user();
-        return view('client.transaction.withdraw', compact('user'));
+        $saldo = $this->saldo();
+        return view('client.transaction.withdraw', compact('user','saldo'));
     }
 
     public function withdraw_save(Request $request){
+        $saldo = $this->saldo();
+        if($request->nominal > $saldo){
+            return back()->with(['error' => 'saldo tidak mencukupi']) ;
+        } 
         $user = Auth::user();
         $withdraw=new Transaction;
         $withdraw->user_id=$user->id;

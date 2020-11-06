@@ -13,8 +13,9 @@ class FundController extends Controller
 {
     public function index(){
         $user = Auth::user();
+        $saldo = $this->saldo();
         $portofolios = FundCheckout::where('user_id', Auth::id())->get();
-        return view('client.dashboard.portofolio.index', ['user' => $user, 'portofolios' => $portofolios]);
+        return view('client.dashboard.portofolio.index', ['user' => $user, 'portofolios' => $portofolios, $saldo => 'saldo']);
     }
 
     public function invoice($invoice){

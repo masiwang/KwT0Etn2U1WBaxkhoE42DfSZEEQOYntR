@@ -10,6 +10,7 @@ class DocumentController extends Controller
 {
     public function index(){
         $user = User::first();
-        return view('client.dashboard.profile.document', ['user' => $user]);
+        $saldo = $this->saldo();
+        return view('client.dashboard.profile.document', ['user' => $user, $saldo => 'saldo']);
     }
 }

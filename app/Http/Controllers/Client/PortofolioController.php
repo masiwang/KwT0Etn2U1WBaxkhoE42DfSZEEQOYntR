@@ -17,7 +17,8 @@ use Str;
 class PortofolioController extends Controller
 {
     public function index(){
-        return view('client.portofolio.index', ['user' => Auth::user()]);
+        $saldo = $this->saldo();
+        return view('client.portofolio.index', ['user' => Auth::user(), 'saldo' => $saldo]);
     }
 
     public function detail(){

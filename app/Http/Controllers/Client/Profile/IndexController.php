@@ -11,7 +11,8 @@ class IndexController extends Controller
 {
     public function profile(){
         $user = Auth::user();
-        return view('client.dashboard.profile.index', ['user' => $user]);
+        $saldo = $this->saldo();
+        return view('client.dashboard.profile.index', ['user' => $user, 'saldo' => $saldo]);
     }
 
     public function profile_save(Request $request){

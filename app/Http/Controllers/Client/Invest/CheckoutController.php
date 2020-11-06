@@ -14,7 +14,8 @@ class CheckoutController extends Controller
     public function index(){
         $this->client_only();
         $checkouts = InvestCheckout::where('user_id', Auth::id())->paginate(10);
-        return view('/invest/index', ['user' => Auth::user(),'checkouts', $checkouts]);
+        $saldo = $this->saldo();
+        return view('/invest/index', ['user' => Auth::user(),'checkouts', $checkouts, $saldo => 'saldo']);
     }
 
     public function new_save(Request $request){

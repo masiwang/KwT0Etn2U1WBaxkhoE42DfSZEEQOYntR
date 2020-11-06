@@ -8,6 +8,11 @@
             <div class="col-12 col-xl-12">
                 <div class="card">
                     <div class="table-responsive mb-0" style="overflow-y: auto; height: 400px">
+                        @if(\Session::has('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{\Session::get('error')}}
+                        </div>
+                        @endif
                         <table id="root" class="table table-sm table-nowrap table-hover card-table">
                             <thead>
                                 <tr>

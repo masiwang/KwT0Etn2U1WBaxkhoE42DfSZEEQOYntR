@@ -14,8 +14,9 @@ class MarketController extends Controller
 {
     public function index(){
         $user = Auth::user();
+        $saldo = $this->saldo();
         $carts = MarketCheckout::where('user_id', Auth::id())->get();
-        return view('client.dashboard.cart.index', ['user' => $user, 'carts' => $carts]);
+        return view('client.dashboard.cart.index', ['user' => $user, 'carts' => $carts, $saldo => 'saldo']);
     }
 
     public function invoice($invoice){

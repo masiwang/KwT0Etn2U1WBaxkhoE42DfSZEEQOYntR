@@ -10,7 +10,8 @@ use Auth;
 class ProfileController extends Controller
 {
     public function index(){
-        return view('user/profile', ['user' => Auth::user()]);
+        $saldo = $this->saldo();
+        return view('user/profile', ['user' => Auth::user(), 'saldo' => $saldo]);
     }
 
     public function _get(){

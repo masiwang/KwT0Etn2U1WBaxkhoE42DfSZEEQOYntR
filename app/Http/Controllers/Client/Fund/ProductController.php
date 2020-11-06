@@ -17,7 +17,8 @@ class ProductController extends Controller
     public function index(){
         $products = FundProduct::paginate(10);
         $user = Auth::user();
-        return view('client.fund.index', ['user' => $user, 'products' => $products, 'category_name' => '']);
+        $saldo = $this->saldo();
+        return view('client.fund.index', ['user' => $user, 'products' => $products, 'category_name' => '','saldo'=>$saldo]);
     }
 
     public function category($category){

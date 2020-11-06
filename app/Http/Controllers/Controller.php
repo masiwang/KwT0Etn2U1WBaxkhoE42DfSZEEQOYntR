@@ -26,8 +26,9 @@ class Controller extends BaseController
         }
     }
 
-    public function getSaldo(){
-        $saldo = Transaction::where('user_id', Auth::id())->sum('nominal');
+    public function saldo(){
+        $saldo = Transaction::where(['user_id' => Auth::id(), 'status_id' => 2])->sum('nominal');
         return $saldo;
     }
+
 }

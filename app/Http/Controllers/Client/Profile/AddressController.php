@@ -11,6 +11,7 @@ class AddressController extends Controller
 {
     public function address(){
         $user = Auth::user();
-        return view('client.dashboard.profile.address', ['user'=> $user]);
+        $saldo = $this->saldo();
+        return view('client.dashboard.profile.address', ['user'=> $user, $saldo => 'saldo']);
     }
 }

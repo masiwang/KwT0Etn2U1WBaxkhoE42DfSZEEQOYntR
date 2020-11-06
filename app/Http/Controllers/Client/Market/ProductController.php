@@ -16,7 +16,8 @@ class ProductController extends Controller
 {
     public function index(){
         $user = Auth::user();
-        return view('client.market.index', ['user' => $user, 'category_name' => '']);
+        $saldo = $this->saldo();
+        return view('client.market.index', ['user' => $user, 'category_name' => '', $saldo => 'saldo']);
     }
 
     public function category($category){
