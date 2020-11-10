@@ -67,6 +67,9 @@ class ProfileController extends Controller
         return redirect('/profile');
     }
 
+    //Update Profile
+
+    
 
     // ! Daerah Admin ! //
     public function ktp_verification(){

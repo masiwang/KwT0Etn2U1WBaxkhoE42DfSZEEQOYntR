@@ -29,12 +29,6 @@ class ProductController extends Controller
         return view('client.fund.index', ['user' => $user, 'products' => $products, 'category_name' => $category_name]);
     }
 
-    public function detail($category, $product){
-        $product = FundProduct::where('slug', $product)->first();
-        $user = Auth::user();
-        return view('client.fund.detail', ['user' => $user,'product' => $product]);
-    }
-
     public function buy(Request $request){
         $product = FundProduct::where('slug', $request->product)->first();
         $invoice = 'MKYF'.Carbon::now()->timestamp;

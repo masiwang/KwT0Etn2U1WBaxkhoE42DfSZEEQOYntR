@@ -17,4 +17,11 @@ class FundController extends Controller
         $product_res = new FundProductResources($product);
         return response()->json($product_res, 200);
     }
+
+    public function detail($category, $product){
+        $product = FundProduct::where('slug', $product)->first();
+        $user = Auth::user();
+        $saldo = $this->saldo(); 
+        return view('client.fund.detail', ['user' => $user,'product' => $product, 'saldo' => $saldo]);
+    }
 }
