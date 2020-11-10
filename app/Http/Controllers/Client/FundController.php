@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\FundProduct as FundProductResources;
 use App\Models\FundProduct;
 use Illuminate\Http\Request;
+use Auth;
+
 
 class FundController extends Controller
 {
@@ -23,5 +25,23 @@ class FundController extends Controller
         $user = Auth::user();
         $saldo = $this->saldo(); 
         return view('client.fund.detail', ['user' => $user,'product' => $product, 'saldo' => $saldo]);
+    }
+
+      public function funding_save(Request $request){
+        // TODO: validasi
+        
+        // cek ketersediaan produk
+        $product = InvestProduct::find($request->product_id);
+        if( (int)$product->stock < (int)$request->qty ){
+            return back()->with('error', 'Periksa kembali stock produk ini');
+        }
+
+        // minus stock
+        $product = MarketProduct::where('id', $invoice->product_id)->first();
+        $old_stock = $product->stock;
+        $product->stock = (int)$old_stock - (int)$invoice->qty;
+        $product->save();
+        return redirect('checkout');
+
     }
 }

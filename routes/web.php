@@ -111,7 +111,8 @@ Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     Route::get( '/fund', [ClientFundProduct::class, 'index']);
     Route::get( '/fund/{category}', [ClientFundProduct::class, 'category']);
     Route::get( '/fund/{category}/{product}', [ClientFund::class, 'detail']);
-    Route::post('/fund/{category}/{product}/buy', [ClientFundProduct::class, 'buy']);
+    Route::post( '/fund/{category}/{product}', [ClientFund::class, 'detail']);
+    Route::post( '/fund/{category}/{product}/buy', [ClientFundProduct::class, 'buy']);
     // api
     Route::get('/v1/fund', [ClientFundProduct::class, '_get']);
     Route::get('/v1/fund/{slug}', [ClientFund::class, '_detail']);

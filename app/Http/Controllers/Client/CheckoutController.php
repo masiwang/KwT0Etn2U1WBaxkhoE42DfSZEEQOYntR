@@ -25,6 +25,7 @@ class CheckoutController extends Controller
     }
 
     public function pay_save(Request $request){
+        
         $image_name = 'payment-'.Str::random(32).'.jpg';
         $request->file('pay_image')->move('image/market/', $image_name);
         $invoice = MarketCheckout::where('invoice', $request->invoice)->first();

@@ -16,7 +16,7 @@
             </div>
             <hr>
             <div class="col-sm-12 bg-white shadow-sm py-3">
-                <table class="table table-stripped">
+                <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th>Tanggal</th>
@@ -49,6 +49,11 @@
             </div>
         </div>
     </div>
-    <script src="/script/transaction/index.js"></script>
+    <script src="/script/transaction/index.js">
+    $(document).ready(function () {
+    $('#dtBasicExample').DataTable();
+    $('.dataTables_length').addClass('bs-select');
+    });
+    </script>
     @include('client._components.footer')
 @endsection
