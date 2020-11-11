@@ -132,7 +132,7 @@
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/profile" method="POST" class="row g-3">
+                <form action="{{route('/profile/update_save')}}" method="POST" class="row g-3">
                         @csrf
                         <div class="col-md-4">
                             <label for="name" class="form-label">Nama</label>
