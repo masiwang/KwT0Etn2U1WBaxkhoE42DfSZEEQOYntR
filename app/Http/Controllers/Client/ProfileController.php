@@ -38,17 +38,17 @@ class ProfileController extends Controller
             });
         }
 
-        if( $request->password ){
-            if( Hash::check($request->password, $user->password) ){
-                $user->password = Hash::make($request->password);
-            }
-        }
+        // if( $request->password ){
+        //     if( Hash::check($request->password, $user->password) ){
+        //         $user->password = Hash::make($request->password);
+        //     }
+        // }
 
-        if( $request->file('image') ){
-            $image_name = Str::random(32).'.jpg';
-            $this->upload_image('user', $request->file('image'), $image_name);
-            $user->image = $image_name;
-        }
+        // if( $request->file('image') ){
+        //     $image_name = Str::random(32).'.jpg';
+        //     $this->upload_image('user', $request->file('image'), $image_name);
+        //     $user->image = $image_name;
+        // }
 
         if( $request->file('image-ktp') ){
             $image_name = Str::random(32).'.jpg';

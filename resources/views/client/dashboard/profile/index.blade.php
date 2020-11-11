@@ -43,7 +43,7 @@
             <div class="col-9 p-4">
                 <div class="mb-4">
                     <div class="d-flex flex-row align-items-end">
-                        <h2 class="mb-1 mr-4">@{{ user.name }}</h2> <p class="mb-2 text-secondary">@{{ user.job }} <span class="badge bg-primary">@{{ (user.gender === 1) ? 'L' : 'P' }}</span></p>
+                        <h2 class="mb-1 mr-4">{{ $user->name }}</h2> <p class="mb-2 text-secondary">{{ $user->job }} <span class="badge bg-primary"> {{ ($user->gender === 1) ? 'L' : 'P' }}</span></p>
                     </div>  
                     <p class="text-info">
                         <span>
@@ -52,12 +52,12 @@
                                 <path fill-rule="evenodd" d="M8 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                             </svg>
                         </span>
-                        @{{ user.kabupaten+', '+user.kodepos }}</p>
+                        {{ $user->kabupaten, $user->kodepos }}</p>
                 </div>
                 <div class="mb-4">
                     <small class="text-muted"><span class="text-uppercase mr-3">Saldo Makarya Anda</span>
                     </small>
-                    <h4>Rp.@{{ saldo }}</h4>
+                    <h4>Rp.{{ $saldo }}</h4>
 
                 </div>
                 <div class="tab-content" id="myTabContent">
@@ -68,13 +68,13 @@
                                 <tr>
                                     <th width="20%">Tanggal lahir</th>
                                     <td>
-                                        @{{ user.birthday }}
+                                        {{ $user->birthday }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>KTP</th>
                                     <td>
-                                        @{{ user.ktp }}
+                                        {{ $user->ktp }}
                                     </td>
                                 </tr>
                             </table>
@@ -85,19 +85,19 @@
                                 <tr>
                                     <th width="20%">Alamat</th>
                                     <td>
-                                        @{{ user.jalan+', '+user.kelurahan+', '+user.kecamatan+', '+user.kabupaten+', '+user.kodepos }}
+                                        {{ $user->jalan, $user->kelurahan, $user->kecamatan, $user->kabupaten, $user->kodepos }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Email</th>
                                     <td>
-                                        @{{ user.email }}
+                                        {{ $user->email }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Telepon</th>
                                     <td>
-                                        @{{ user.phone }}
+                                        {{ $user->phone }}
                                     </td>
                                 </tr>
                             </table>
@@ -109,17 +109,17 @@
                               </svg> edit profile
                         </button>
                     </div>
-                    <div class="tab-pane fade" id="transaction" role="tabpanel" aria-labelledby="transaction-tab" style="height: 400px; overflow-y: scroll">
+                    {{-- <div class="tab-pane fade" id="transaction" role="tabpanel" aria-labelledby="transaction-tab" style="height: 400px; overflow-y: scroll">
                         <div class="p-3">
                             <table class="table table-hover">
                                 <tr v-for="transaction in transactions" :class="{ 'text-success' : (transaction.type == 'in'),  'text-danger' : (transaction.type == 'out')}">
-                                    <td width="25%">@{{ transaction.time }}</td>
-                                    <td class="text-uppercase">@{{ transaction.description }}</td>
-                                    <td>Rp.@{{ new Intl.NumberFormat('id-ID').format(transaction.nominal) }}</td>
+                                    <td width="25%">{{ $transaction->time }}</td>
+                                    <td class="text-uppercase">{{ $transaction->description }}</td>
+                                    <td>Rp.{{ new Intl.NumberFormat('id-ID').format($transaction->nominal) }}</td>
                                 </tr>
                             </table>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -132,7 +132,8 @@
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action={{url('/profile')}} method="POST" class="row g-3">
+                    <form action="/profile" method="POST" class="row g-3">
+                        @csrf
                         <div class="col-md-4">
                             <label for="name" class="form-label">Nama</label>
                         <input type="text" class="form-control" id="name" name="name" value="{{$user->name}}">
@@ -158,7 +159,6 @@
                                 <option value="1">Laki-laki</option>
                                 <option selected value="2">Perempuan</option>    
                                 @endif
-                                
                             </select>
                         </div>
                         <div class="col-md-6">
@@ -177,7 +177,7 @@
                             <label for="phone" class="form-label">Nomor HP</label>
                             <input type="text" class="form-control" id="phone" name="phone" value="{{$user->phone}}">
                         </div>
-                      </form>
+                    </form>
                 </div>
                 <div class="modal-footer">
                 <a type="button" class="btn btn-secondary" data-dismiss="modal">Batal</a>
@@ -186,7 +186,6 @@
             </div>
             </div>
         </div>
-        <script src="/script/profile-index.js"></script>
     </div>
     @include('client._components.footer')
 @endsection

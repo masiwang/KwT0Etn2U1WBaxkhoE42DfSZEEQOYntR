@@ -200,6 +200,7 @@ Route::group(['middleware' => ['auth', 'profileiscomplete']], function(){
 Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
     Route::get( '/profile', [ClientProfileIndex::class, 'profile']);
     Route::post('/profile', [ClientProfileIndex::class, 'profile_save']);
+    Route::post('/profile', [ClientProfileIndex::class, 'update_save']);
     Route::get( '/profile/address', [ClientProfileAddress::class, 'address']);
     Route::get( '/profile/security', [ClientProfileSecurity::class, 'security']);
     Route::get( '/profile/fund', [ClientProfileFund::class, 'index']);
