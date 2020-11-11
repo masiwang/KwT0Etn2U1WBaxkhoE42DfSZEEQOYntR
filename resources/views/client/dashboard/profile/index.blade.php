@@ -132,7 +132,7 @@
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                <form action="{{route('/profile/update_save')}}" method="POST" class="row g-3">
+                <form action="{{ url('/profile') }}" method="POST" class="row g-3">
                         @csrf
                         <div class="col-md-4">
                             <label for="name" class="form-label">Nama</label>
@@ -165,14 +165,14 @@
                           <label for="inputAddress2" class="form-label">No KTP</label>
                         <input type="text" class="form-control" id="inputAddress2" value="{{$user->ktp}}">
                         </div>
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                             <label for="job" class="form-label">Pekerjaan</label>
                             <input type="text" class="form-control" id="email" name="email" value="{{$user->job}}">
-                        </div>
-                        <div class="col-md-6">
+                        </div> --}}
+                        {{-- <div class="col-md-6">
                             <label for="phone" class="form-label">Email</label>
                         <input type="text" class="form-control" id="email" name="email" value="{{$user->email}}">
-                        </div>
+                        </div> --}}
                         <div class="col-md-6">
                             <label for="phone" class="form-label">Nomor HP</label>
                             <input type="text" class="form-control" id="phone" name="phone" value="{{$user->phone}}">
@@ -181,7 +181,7 @@
                 </div>
                 <div class="modal-footer">
                 <a type="button" class="btn btn-secondary" data-dismiss="modal">Batal</a>
-                <input type="submit" class="btn btn-primary" value="simpan">
+                <input type="submit" class="btn btn-success" value="simpan">
                 </div>
             </div>
             </div>

@@ -15,21 +15,6 @@ class IndexController extends Controller
         return view('client.dashboard.profile.index', ['user' => $user, 'saldo' => $saldo]);
     }
 
-    public function profile_save(Request $request){
-        $user = User::find(Auth::id());
-        $user->name = $request->name;
-        if($request->birthday){
-            $user->birthday = $request->birthday;
-        }
-        if($request->gender){
-            $user->gender = $request->gender;
-        }
-        $user->phone = $request->phone;
-        $user->ktp = $request->ktp;
-        $user->save();
-        return redirect('profile');
-    }
-
     public function update_save(Request $request){
         $user = User::find(Auth::id());
         $user->name = $request->name;

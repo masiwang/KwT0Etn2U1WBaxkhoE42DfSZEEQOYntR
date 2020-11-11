@@ -22,50 +22,50 @@ class ProfileController extends Controller
         return response()->json($user, 200);
     }
 
-    public function update_save(Request $request){
-        // TODO: validate
+    // public function update_save(Request $request){
+    //     // TODO: validate
 
-        // update
-        $user = User::find(Auth::id());
-        if( $request->name ){
-            $user->name = $request->name;
-        }
-        if( $request->email ){
-            $user->email = $request->email;
-            Mail::send('template.email-verification', ['user' => $request, 'token' => $user->email_verification_token], function ($m) use ($user) {
-                $m->from('no-reply@makarya.in', 'Makarya - PT. Inspira Karya Teknologin Nusantara');
-                $m->to($user->email, $user->name)->subject('Email verification @makarya.in');
-            });
-        }
+    //     // update
+    //     $user = User::find(Auth::id());
+    //     if( $request->name ){
+    //         $user->name = $request->name;
+    //     }
+    //     if( $request->email ){
+    //         $user->email = $request->email;
+    //         Mail::send('template.email-verification', ['user' => $request, 'token' => $user->email_verification_token], function ($m) use ($user) {
+    //             $m->from('no-reply@makarya.in', 'Makarya - PT. Inspira Karya Teknologin Nusantara');
+    //             $m->to($user->email, $user->name)->subject('Email verification @makarya.in');
+    //         });
+    //     }
 
-        // if( $request->password ){
-        //     if( Hash::check($request->password, $user->password) ){
-        //         $user->password = Hash::make($request->password);
-        //     }
-        // }
+    //     // if( $request->password ){
+    //     //     if( Hash::check($request->password, $user->password) ){
+    //     //         $user->password = Hash::make($request->password);
+    //     //     }
+    //     // }
 
-        // if( $request->file('image') ){
-        //     $image_name = Str::random(32).'.jpg';
-        //     $this->upload_image('user', $request->file('image'), $image_name);
-        //     $user->image = $image_name;
-        // }
+    //     // if( $request->file('image') ){
+    //     //     $image_name = Str::random(32).'.jpg';
+    //     //     $this->upload_image('user', $request->file('image'), $image_name);
+    //     //     $user->image = $image_name;
+    //     // }
 
-        if( $request->file('image-ktp') ){
-            $image_name = Str::random(32).'.jpg';
-            $this->upload_image('user_ktp', $request->file('image-ktp'), $image_name);
-            $user->image_ktp = $image_name;
-        }
+    //     if( $request->file('image-ktp') ){
+    //         $image_name = Str::random(32).'.jpg';
+    //         $this->upload_image('user_ktp', $request->file('image-ktp'), $image_name);
+    //         $user->image_ktp = $image_name;
+    //     }
 
-        if( $request->file('image-npwp') ){
-            $image_name = Str::random(32).'.jpg';
-            $this->upload_image('user_npwp', $request->file('image-npwp'), $image_name);
-            $user->image_npwp = $image_name;
-        }
+    //     if( $request->file('image-npwp') ){
+    //         $image_name = Str::random(32).'.jpg';
+    //         $this->upload_image('user_npwp', $request->file('image-npwp'), $image_name);
+    //         $user->image_npwp = $image_name;
+    //     }
 
-        $user->updated_at = Carbon::now();
-        $user->save();
-        return redirect('/profile');
-    }
+    //     $user->updated_at = Carbon::now();
+    //     $user->save();
+    //     return redirect('/profile');
+    // }
 
     //Update Profile
 

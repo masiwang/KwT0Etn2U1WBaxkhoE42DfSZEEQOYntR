@@ -16,7 +16,7 @@
             </div>
             <hr>
             <div class="col-sm-12 bg-white shadow-sm py-3">
-                <table id="Example1" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+                <table id="Example" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th>Tanggal</th>
@@ -50,17 +50,11 @@
         </div>
     </div>
     <script>
-        $(function () {
-          $('#example1').DataTable()
-          $('#example2').DataTable({
-            'paging'      : true,
-            'lengthChange': false,
-            'searching'   : false,
-            'ordering'    : true,
-            'info'        : true,
-            'autoWidth'   : false
-          })
-        })
+        $(document).ready(function() {
+            $('#example').DataTable( {
+                "order": [[ 3, "desc" ]]
+            } );
+        } );
       </script>
     @include('client._components.footer')
 @endsection
