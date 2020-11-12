@@ -76,6 +76,9 @@
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" target="_self" href="{{ url('/help') }}">Bantuan</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" target="_self" href="{{ url('/faq') }}">FAQ</a>
+                </li>
             </ul>
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <li id="saldo" class="nav-item">
