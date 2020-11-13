@@ -15,7 +15,7 @@ use Carbon\Carbon;
 class ProductController extends Controller
 {
     public function index(){
-        $products = FundProduct::paginate(10);
+        $products = FundProduct::paginate(2);
         $user = Auth::user();
         $saldo = $this->saldo();
         return view('client.fund.index', ['user' => $user, 'products' => $products, 'category_name' => '','saldo'=>$saldo]);

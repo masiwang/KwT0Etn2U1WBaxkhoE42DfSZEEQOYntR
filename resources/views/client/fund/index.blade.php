@@ -82,6 +82,7 @@
                 </div>
                 @endforeach
             </div>
+            <div>{{$products->links()}} </div>
         </div>
     </div>
     @include('client._components.footer')
