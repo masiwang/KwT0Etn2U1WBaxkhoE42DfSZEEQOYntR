@@ -16,6 +16,7 @@ class IndexController extends Controller
     }
 
     public function update_save(Request $request){
+        return dd($request);
         $user = User::find(Auth::id());
         $user->name = $request->name;
         if($request->birthday){

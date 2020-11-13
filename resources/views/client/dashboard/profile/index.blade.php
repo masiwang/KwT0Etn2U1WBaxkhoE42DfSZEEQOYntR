@@ -126,13 +126,13 @@
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-            <div class="modal-content">
+            <form class="modal-content" action="{{ url('/profile') }}" method="POST">
                 <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                <form action="{{ url('/profile') }}" method="POST" class="row g-3">
+                <div  class="row g-3">
                         @csrf
                         <div class="col-md-4">
                             <label for="name" class="form-label">Nama</label>
@@ -177,13 +177,13 @@
                             <label for="phone" class="form-label">Nomor HP</label>
                             <input type="text" class="form-control" id="phone" name="phone" value="{{$user->phone}}">
                         </div>
-                    </form>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                <a type="button" class="btn btn-secondary" data-dismiss="modal">Batal</a>
-                <input type="submit" class="btn btn-success" value="simpan">
+                {{-- <a type="button" class="btn btn-secondary" data-dismiss="modal">Batal</a> --}}
+                <button type="submit" class="btn btn-success">Simpans</button>
                 </div>
-            </div>
+            </form>
             </div>
         </div>
     </div>
