@@ -9,7 +9,7 @@
             <div class="col-12 p-2">
                 <header class="row border-bottom">
                     <div class="col-12 col-md-6">
-                        <h4 class="text-uppercase">Produk Pendanaan <span>@{{ category }}</span></h4>
+                        <h4 class="text-uppercase">Produk Pendanaan</h4>
                     </div>
                     <div class="col-12 col md-6">
                         <nav class="nav">

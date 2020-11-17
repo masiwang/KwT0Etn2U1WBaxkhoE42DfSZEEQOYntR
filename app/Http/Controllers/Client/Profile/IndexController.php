@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client\Profile;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Transaction;
 use Auth;
 
 class IndexController extends Controller
@@ -12,7 +13,8 @@ class IndexController extends Controller
     public function profile(){
         $user = Auth::user();
         $saldo = $this->saldo();
-        return view('client.dashboard.profile.index', ['user' => $user, 'saldo' => $saldo]);
+        $transactions=Transaction::where('user_id',$user->id)->get();
+        return view('client.dashboard.profile.index', ['user' => $user, 'saldo' => $saldo, 'transactions' => $transactions]);
     }
 
     public function update_save(Request $request){

@@ -109,17 +109,19 @@
                               </svg> edit profile
                         </button>
                     </div>
-                    {{-- <div class="tab-pane fade" id="transaction" role="tabpanel" aria-labelledby="transaction-tab" style="height: 400px; overflow-y: scroll">
+                    <div class="tab-pane fade" id="transaction" role="tabpanel" aria-labelledby="transaction-tab" style="height: 400px; overflow-y: scroll">
                         <div class="p-3">
                             <table class="table table-hover">
-                                <tr v-for="transaction in transactions" :class="{ 'text-success' : (transaction.type == 'in'),  'text-danger' : (transaction.type == 'out')}">
-                                    <td width="25%">{{ $transaction->time }}</td>
-                                    <td class="text-uppercase">{{ $transaction->description }}</td>
-                                    <td>Rp.{{ new Intl.NumberFormat('id-ID').format($transaction->nominal) }}</td>
-                                </tr>
+                                @foreach ($transactions as $transaction)
+                                <tr>
+                                    <td width="25%">{{ $transaction->created_at }}</td>
+                                    <td>{{ ($transaction->type == 'in') ? 'Masuk' : 'Keluar'}}</td>
+                                    <td>Rp.{{($transaction->nominal) }}</td>
+                                </tr>    
+                                @endforeach
                             </table>
                         </div>
-                    </div> --}}
+                    </div>
                 </div>
             </div>
         </div>
@@ -181,7 +183,7 @@
                 </div>
                 <div class="modal-footer">
                 {{-- <a type="button" class="btn btn-secondary" data-dismiss="modal">Batal</a> --}}
-                <button type="submit" class="btn btn-success">Simpans</button>
+                <button type="submit" class="btn btn-success">Simpan</button>
                 </div>
             </form>
             </div>
