@@ -15,8 +15,8 @@
                   </ul>
             </div>
             <hr>
-            <div class="col-sm-12 bg-white shadow-sm py-3">
-                <table id="Example" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+            <div style="height: 400px; overflow-y: scroll">
+                <table class="table table-hover">
                     <thead>
                         <tr>
                             <th>Tanggal</th>
