@@ -13,7 +13,7 @@ class IndexController extends Controller
     public function profile(){
         $user = Auth::user();
         $saldo = $this->saldo();
-        $transactions=Transaction::where('user_id',$user->id)->get();
+        $transactions=Transaction::where('user_id',$user->id)->orderBy('updated_at', 'DESC')->get();
         return view('client.dashboard.profile.index', ['user' => $user, 'saldo' => $saldo, 'transactions' => $transactions]);
     }
 

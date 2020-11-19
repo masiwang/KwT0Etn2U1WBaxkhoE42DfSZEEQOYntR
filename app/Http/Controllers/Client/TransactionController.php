@@ -15,7 +15,7 @@ class TransactionController extends Controller
     public function index(){
         $user = Auth::user();
         $saldo = $this->saldo();
-        $transactions=Transaction::where('user_id',$user->id)->get();
+        $transactions=Transaction::where('user_id',$user->id)->orderBy('updated_at', 'DESC')->get();
         // return dd($transactions);
         return view('client.transaction.index', compact('user','transactions','saldo'));
     }

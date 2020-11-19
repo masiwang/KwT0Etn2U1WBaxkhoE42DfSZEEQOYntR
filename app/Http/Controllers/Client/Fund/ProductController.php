@@ -15,10 +15,10 @@ use Carbon\Carbon;
 class ProductController extends Controller
 {
     public function index(){
-        $products = FundProduct::paginate(2);
+        $products = FundProduct::paginate(10);
         $user = Auth::user();
         $saldo = $this->saldo();
-        return view('client.fund.index', ['user' => $user, 'products' => $products, 'category_name' => '','saldo'=>$saldo]);
+        return view('client.fund.index', ['user' => $user, 'products' => $products, 'category_name' => '', 'saldo'=>$saldo]);
     }
 
     public function category($category){
@@ -26,7 +26,7 @@ class ProductController extends Controller
         $products = FundProduct::where('category_id', $category_id)->get();
         $user = Auth::user();
         $category_name = FundProductCategory::where('slug', $category)->first()->name;
-        return view('client.fund.index', ['user' => $user, 'products' => $products, 'category_name' => $category_name]);
+        return view('client.fund.index', ['user' => $user, 'products' => $products, 'category_name' => $category_name]); 
     }
 
     public function buy(Request $request){

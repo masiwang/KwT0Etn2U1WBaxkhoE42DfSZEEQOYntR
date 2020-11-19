@@ -11,7 +11,7 @@
                 <div>
                     <div class="row m-3">
                         <div class="col-sm-5 text-center" style="overflow:hidden; height: 400px">
-                            <img :src="product.image" style="width:100%">
+                            <img src="/image/assets/funding.jpg" alt="" srcset="" style="width: 100%">
                         </div>
                         <div class="col-sm-7">
                             <form class="row" action="/fund/{{ $product->category->slug }}/{{ $product->slug }}" method="POST">
@@ -25,13 +25,13 @@
                                         <tr>
                                             <th width="10%">ROI</th>
                                             <td>
-                                                {{ $product->return }}%
+                                                {{ $product->return_per_periode }}%
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>Periode</th>
                                             <td>
-                                                {{ $product->periode }} hari
+                                                {{ $product->started_at }}-{{ $product->ended_at }} hari
                                             </td>
                                         </tr>
                                     </table>
@@ -81,6 +81,7 @@
                     <div class="tab-pane fade" id="prospectus" role="tabpanel" aria-labelledby="prospectus-tab">
                         <div class="row">
                             <div class="col-12 p-4">
+                                {{$product->risk_analysis}}
                                 <iframe class="" style="width: 100%; height: 600px" :src="product.prospectus"></iframe>
                             </div>
                         </div>

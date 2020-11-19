@@ -25,14 +25,14 @@
         <div class="mt-3">
             <div class="row">
                 @foreach ($products as $product)
-                <div v-for="(product, index) in products" class="col-6 col-md-2 p-2">
+                <div class="col-6 col-md-2 p-2">
                     <div class="card card-product h-100 shadow-sm">
                         <div class="card-product__image-container" style="overflow: hidden">
                             <img v-bind:src="product.image" alt="Avatar" class="card-img-top" style="width: 100%;">
                         </div>
                         <div class="card-body d-flex align-items-start flex-column">
                             <p class="card-title mb-auto" style="max-height: 44px; overflow: hidden; font-size: .9rem;">
-                                <a href="fund/{{$product->category}}/{{$product->slug}}" class="btn btn-success btn-sm w-100"
+                                <a href="fund/{{$product->id}}/{{$product->slug}}" class="btn btn-success btn-sm w-100"
                                     class="text-decoration-none text-dark">
                                     {{ $product->name }}
                                 </a>
@@ -73,7 +73,7 @@
                             </div>
                             <div class="w-100">
                                 
-                                <a href="fund/{{$product->category}}/{{$product->slug}}" class="btn btn-success btn-sm w-100">
+                                <a href="fund/{{$product->slug}}/{{$product->name}}" class="btn btn-success btn-sm w-100">
                                     Danai
                                 </a>
                             </div>
@@ -82,7 +82,7 @@
                 </div>
                 @endforeach
             </div>
-            <div>{{$products->links()}} </div>
+            {{-- <div>{{$products->links()}} </div> --}}
         </div>
     </div>
     @include('client._components.footer')

@@ -52,7 +52,7 @@
                                 <path fill-rule="evenodd" d="M8 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                             </svg>
                         </span>
-                        {{ $user->kabupaten, $user->kodepos }}</p>
+                        {{ $user->kabupaten }}, {{ $user->kodepos }}</p>
                 </div>
                 <div class="mb-4">
                     <small class="text-muted"><span class="text-uppercase mr-3">Saldo Makarya Anda</span>
@@ -85,7 +85,7 @@
                                 <tr>
                                     <th width="20%">Alamat</th>
                                     <td>
-                                        {{ $user->jalan, $user->kelurahan, $user->kecamatan, $user->kabupaten, $user->kodepos }}
+                                        {{ $user->jalan }}, {{$user->kelurahan}}, {{$user->kecamatan}}, {{$user->kabupaten}}, {{$user->kodepos }}
                                     </td>
                                 </tr>
                                 <tr>
