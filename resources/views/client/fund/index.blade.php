@@ -52,7 +52,7 @@
                                     <b>ROI</b>
                                 </div>
                                 <div class="col-6">
-                                    {{ $product->return }}%
+                                    {{ $product->return_per_periode }}%
                                 </div>
                             </div>
                             <div class="d-flex flex-row w-100" style="font-size: .8rem">

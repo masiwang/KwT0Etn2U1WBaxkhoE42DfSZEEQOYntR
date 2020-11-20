@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\FundProduct as FundProductResources;
 use App\Models\FundProduct;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -20,10 +21,24 @@ class FundController extends Controller
         return response()->json($product_res, 200);
     }
 
+    protected function _resourceProduct($product){
+        $started_at = new Carbon($product->started_at);
+        $ended_at = new Carbon($product->ended_at);
+        $response = [
+            'category_slug' => $product->category->slug,
+            'product_slug' => $product->slug,
+            'name' => $product->name,
+            'price' => $product->price,
+            'return_per_periode' => $product->return_per_periode,
+            'periode' => $started_at->diffInDays($ended_at)
+        ];
+        return $response;
+    }
+
     public function detail($category, $product){
-        $product = FundProduct::where('slug', $product)->first();
+        $product = $this->_resourceProduct( FundProduct::where('slug', $product)->first() );
         $user = Auth::user();
-        $saldo = $this->saldo(); 
+        $saldo = $this->saldo();
         return view('client.fund.detail', ['user' => $user,'product' => $product, 'saldo' => $saldo]);
     }
 

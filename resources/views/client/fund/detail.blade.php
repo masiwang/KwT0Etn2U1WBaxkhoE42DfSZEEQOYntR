@@ -31,7 +31,7 @@
                                         <tr>
                                             <th>Periode</th>
                                             <td>
-                                                {{ $product->started_at }}-{{ $product->ended_at }} hari
+                                                {{ (new \Carbon($product->started_at))->diffForHumans(new \Carbon($product->ended_at))}} hari 
                                             </td>
                                         </tr>
                                     </table>
