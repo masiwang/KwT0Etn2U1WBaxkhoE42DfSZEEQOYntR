@@ -2,24 +2,21 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
+
 use App\Http\Controllers\ErrorController;
 
 
-Route::get( 'login', [AuthController::class, 'login'])->name('login'); //done
-Route::post('login', [AuthController::class, 'login_do']);
+// Route::get( 'login', [AuthController::class, 'login'])->name('login'); //done
+// Route::post('login', [AuthController::class, 'login_do']);
 
-Route::get( '/register', [AuthController::class, 'register']);
-Route::post('/register', [AuthController::class, 'register_do']);
+// Route::get( '/register', [AuthController::class, 'register']);
+// Route::post('/register', [AuthController::class, 'register_do']);
 
 // ! Getting started
-use App\Http\Controllers\GettingStartedController;
+
 Route::group(['middleware' => ['auth']], function () {
     Route::post('/v1/getting-started/2', [GettingStartedController::class, '_2']);
 });
-
-Route::get( '/getting-started', [GettingStartedController::class, 'getting_started']);
-Route::post('/getting-started', [GettingStartedController::class, 'getting_started_save']);
 
 Route::get('/404', [ErrorController::class, 'not_found']);
 
@@ -102,7 +99,7 @@ use App\Http\Controllers\Api\WishlistController as Wishlist;
 
 // ! Client homepage
 use App\Http\Controllers\Client\HomeController as ClientHome;
-Route::get( '/', [ClientHome::class, 'index']);
+// Route::get( '/', [ClientHome::class, 'index']);
 
 // ! FUND
 use App\Http\Controllers\Client\Fund\ProductController as ClientFundProduct;
@@ -184,11 +181,11 @@ Route::group(['middleware' => ['auth', 'profileiscomplete']], function () {
 // ! TRANSACTION
 use App\Http\Controllers\Client\TransactionController as ClientTransaction;
 Route::group(['middleware' => ['auth', 'profileiscomplete']], function(){
-    Route::get('/transaction', [ClientTransaction::class, 'index']);
-    Route::get('/transaction/topup', [ClientTransaction::class, 'topup']);
-    Route::post('/transaction/topup', [ClientTransaction::class, 'topup_save']);
-    Route::get('/transaction/withdraw', [ClientTransaction::class, 'withdraw']);
-    Route::post('/transaction/withdraw', [ClientTransaction::class, 'withdraw_save']);
+    // Route::get('/transaction', [ClientTransaction::class, 'index']);
+    // Route::get('/transaction/topup', [ClientTransaction::class, 'topup']);
+    // Route::post('/transaction/topup', [ClientTransaction::class, 'topup_save']);
+    // Route::get('/transaction/withdraw', [ClientTransaction::class, 'withdraw']);
+    // Route::post('/transaction/withdraw', [ClientTransaction::class, 'withdraw_save']);
     // api
     Route::get('/v1/transaction', [ClientTransaction::class, '_index']);
     Route::post('/v1/transaction/topup', [ClientTransaction::class, '_topup']);
@@ -221,3 +218,43 @@ Route::get('/logout', function(){
     Session::flush();
     return redirect('/');
 })->middleware('auth');
+
+// Route fix
+use App\Http\Controllers\AddressController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FundCheckoutController;
+use App\Http\Controllers\FundProductController;
+use App\Http\Controllers\GettingStartedController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\TransactionController;
+
+Route::get('/', [HomeController::class, 'index']);
+
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('login', [AuthController::class, 'login_save']);
+Route::get('/getting-started', [GettingStartedController::class, 'index'])->middleware('auth');
+Route::post('/getting-started', [GettingStartedController::class, 'save'])->middleware('auth');
+
+Route::get('/funding', [FundProductController::class, 'index'])->middleware('auth', 'profileiscomplete');
+Route::get('/funding/{category}', [FundProductController::class, 'category'])->middleware('auth', 'profileiscomplete');
+Route::get('/funding/{category}/{product}', [FundProductController::class, 'detail'])->middleware('auth', 'profileiscomplete');
+Route::post('/funding/{category}/{product}', [FundProductController::class, 'newPortofolio'])->middleware('auth', 'profileiscomplete');
+
+Route::get('/notification', [NotificationController::class, 'index']);
+Route::get('/notification/{id}', [NotificationController::class, 'detail']);
+
+Route::get('/transaction', [TransactionController::class, 'index'])->middleware('auth', 'profileiscomplete');
+Route::get('/transaction/topup', [TransactionController::class, 'topup'])->middleware('auth', 'profileiscomplete');
+Route::post('/transaction/topup', [TransactionController::class, 'topupSave'])->middleware('auth', 'profileiscomplete');
+Route::get('/transaction/withdraw', [TransactionController::class, 'withdraw'])->middleware('auth', 'profileiscomplete');
+Route::post('/transaction/withdraw', [TransactionController::class, 'withdrawSave'])->middleware('auth', 'profileiscomplete');
+
+Route::get('/portofolio', [FundCheckoutController::class, 'index'])->middleware('auth', 'profileiscomplete');
+Route::get('/portofolio/{invoice}', [FundCheckoutController::class, 'detail'])->middleware('auth', 'profileiscomplete');
+
+Route::get('/api/address', [AddressController::class, 'getProvinsi']);
+Route::get('/api/address/{provinsi}', [AddressController::class, 'getKabupaten']);
+Route::get('/api/address/{provinsi}/{kabupaten}', [AddressController::class, 'getKecamatan']);
+Route::get('/api/address/{provinsi}/{kabupaten}/{kecamatan}', [AddressController::class, 'getKelurahan']);
+Route::get('/api/address/{provinsi}/{kabupaten}/{kecamatan}/{kelurahan}', [AddressController::class, 'getKodepos']);

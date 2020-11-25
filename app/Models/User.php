@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use DB;
+use App\Models\Transaction;
 
 class User extends Authenticatable
 {
@@ -48,4 +49,14 @@ class User extends Authenticatable
     public function saldo(){
         return $this->hasMany('App\Models\Transaction', 'user_id')->select(DB::raw('sum(transactions.amount) as amount'));
     }
+
+    public function getSaldoAttribute()
+    {
+        return $this->attributes['saldo'] = Transaction::where('user_id', $this->id)->whereNotNull('approved_at')->sum('nominal');
+    }
+    public function getNotificationAttribute(){
+      return $this->attributes['notification'] = Notification::where('user_id', $this->id)->where('status', 'unread')->count();
+    }
+    public $appends = ['saldo', 'notification'];
+
 }

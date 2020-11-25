@@ -13,25 +13,23 @@ use Mail;
 
 class AuthController extends Controller
 {
-    public function login(){
-        return view('auth/login');
-    }
+  public function login(){
+    $user = $this->getUser();
+    return $user ? redirect('/') : view('pages.login');
+  }
 
-    public function login_do(Request $request){
-        $credential = $request->only('email', 'password');
-
-        if( Auth::attempt($credential) ){
-            $user = Auth::user();
-            if( $user->role == 'admin' ){
-                return redirect('/basecamp');
-            }
-            if( $user->profile_is_complete ){
-                return redirect('/getting-started');
-            }
-            return redirect('/');
-        }
-        return back()->withError('Email atau password salah.')->withInput();
+  public function login_save(Request $request){
+    $credential = $request->only('email', 'password');
+    
+    if( Auth::attempt($credential) ){
+      $user = Auth::user();
+      $user_level = $user->level;
+      // jika level = 5 maka redirect ke /, jika tidak maka redirect ke getting-started
+      return ($user_level == 5) ? redirect('/') : redirect('/getting-started');
     }
+    // jika credential salah, maka kembali dengan error
+    return back()->with('error', 'Email atau password salah.')->withInput();
+  }
 
     public function register(){
         return view('auth/register');
